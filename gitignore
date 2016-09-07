@@ -1,9 +1,0 @@
-# Unity3D .gitignore file.
-# Store this file at the root of your local repository.
-.DS_Store
-Playtherapy/Library/*
-Playtherapy/Temp/*
-Playtherapy/Build/*
-*.csproj
-*.pidb
-*.sln 
