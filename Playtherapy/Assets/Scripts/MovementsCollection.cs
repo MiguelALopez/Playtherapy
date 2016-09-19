@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using System.Collections.Generic;
 
 namespace MovementDetectionLibrary
@@ -25,7 +26,7 @@ namespace MovementDetectionLibrary
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.Head].getCurrentPosition();
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
         }
 
         public double headFrontalExtAngle()
@@ -38,7 +39,7 @@ namespace MovementDetectionLibrary
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.Head].getCurrentPosition();
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
         }
 
 
@@ -52,14 +53,12 @@ namespace MovementDetectionLibrary
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.Head].getCurrentPosition();
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
         }
 
     
         public double shoulderAbdRigthMovements()
-        {
-
-            
+        {                      
             BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ShoulderRight].getCurrentPosition();
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.ElbowRight].getCurrentPosition();
             BodyPointPosition pointOne = pointCenter;
@@ -146,7 +145,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -159,7 +158,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return Math.Abs(90-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -172,7 +171,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return Math.Abs(90-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -185,7 +184,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -198,7 +197,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -245,7 +244,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
         }
 
 
@@ -328,7 +327,7 @@ namespace MovementDetectionLibrary
 
         }
 
-        public double elbowFleExtMovement()
+        public double elbowFleExtLeftMovement()
         {
 
             // Flexion
@@ -339,7 +338,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -352,7 +351,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return Math.Abs(90-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -365,7 +364,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return Math.Abs(90-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -378,7 +377,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -391,7 +390,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
@@ -432,10 +431,10 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
         }
 
-        public double spineLatovement()
+        public double spineLatMovement()
         {
             BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.SpineBase].getCurrentPosition();
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.SpineShoulder].getCurrentPosition();
@@ -445,11 +444,11 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return Math.Abs(90-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
-        public double spineIncovement()
+        public double spineIncMovement()
         {
             BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.SpineBase].getCurrentPosition();
             BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.SpineShoulder].getCurrentPosition();
@@ -459,7 +458,7 @@ namespace MovementDetectionLibrary
 
             Movement objMove = new Movement();
 
-            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+            return (180-objMove.getAngleJoints(pointOne, pointCenter, pointTwo));
 
         }
 
