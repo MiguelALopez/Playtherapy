@@ -135,7 +135,7 @@ namespace MovementDetectionLibrary
 
         }
 
-        public double elbowFleExtMovement()
+        public double elbowFleExtRigthMovement()
         {
 
             // Flexion
@@ -249,6 +249,192 @@ namespace MovementDetectionLibrary
         }
 
 
+        public double shoulderAbdLeftMovements()
+        {
+
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ShoulderLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double shoulderFlexLeftMovements()
+        {
+
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ShoulderLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double shoulderExtLeftMovements()
+        {
+
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ShoulderLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+
+        public double shoulderRotIntLeftMovements()
+        {
+
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.WristLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.z = pointOne.z - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+        public double shoulderRotExtLeftMovements()
+        {
+
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.WristLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.z = pointOne.z - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+        public double elbowFleExtMovement()
+        {
+
+            // Flexion
+
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.ElbowLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.WristLeft].getCurrentPosition();
+            BodyPointPosition pointOne = bodyPointsCollection[BodyParts.ShoulderLeft].getCurrentPosition();
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double hipLeftAbMovement()
+        {
+            BodyPointPosition pointOne = bodyPointsCollection[BodyParts.HipRight].getCurrentPosition();
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.HipLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double hipLeftAdMovement()
+        {
+            BodyPointPosition pointOne = bodyPointsCollection[BodyParts.HipRight].getCurrentPosition();
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.HipLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+        public double hipLeftFlexMovement()
+        {
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.HipLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y + 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+        public double hipLeftExtMovement()
+        {
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.HipLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y + 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double hipLeftRotIntMovement()
+        {
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.AnkleLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+
+        public double hipLeftRotExtMovement()
+        {
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.AnkleLeft].getCurrentPosition();
+            BodyPointPosition pointOne = pointCenter;
+            pointOne.y = pointOne.y - 0.2f;
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+
+        }
+
+        public double kneeLeftMovement()
+        {
+            //Flexion
+            BodyPointPosition pointOne = bodyPointsCollection[BodyParts.HipLeft].getCurrentPosition();
+            BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.KneeLeft].getCurrentPosition();
+            BodyPointPosition pointTwo = bodyPointsCollection[BodyParts.AnkleLeft].getCurrentPosition();
+
+            Movement objMove = new Movement();
+
+            return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
+        }
+
         public double spineLatovement()
         {
             BodyPointPosition pointCenter = bodyPointsCollection[BodyParts.SpineBase].getCurrentPosition();
@@ -276,12 +462,6 @@ namespace MovementDetectionLibrary
             return objMove.getAngleJoints(pointOne, pointCenter, pointTwo);
 
         }
-
-
-
-
-
-
 
     }
 }
