@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour
+public class GameManagerMainMenu : MonoBehaviour
 {
-    public static GameManager gm;
+    public static GameManagerMainMenu gm;
 
     public GameObject[] minigameBackgrounds;
     public GameObject currentBackground;
@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     {
         if (gm == null)
         {
-            gm = this.gameObject.GetComponent<GameManager>();
+            gm = this.gameObject.GetComponent<GameManagerMainMenu>();
         }
     }
 
