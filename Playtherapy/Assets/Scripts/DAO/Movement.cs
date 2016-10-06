@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Minigame
+public class Movement
 {
     private string id;
     private string name;
-    private string description;
 
-    public Minigame(string id, string name, string description)
+    public Movement(string id, string name)
     {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+        this.Id = id;
+        this.Name = name;
     }
 
     public string Id
@@ -37,19 +35,6 @@ public class Minigame
         set
         {
             name = value;
-        }
-    }
-
-    public string Description
-    {
-        get
-        {
-            return description;
-        }
-
-        set
-        {
-            description = value;
         }
     }
 }

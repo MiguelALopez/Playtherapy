@@ -22,10 +22,10 @@ public class ChangeBackground : MonoBehaviour
             canvasNew.SetActive(true);
         }
 
-        GameObject g = GameObject.Find("Bosque");
-        g.SetActive(false);
-        GameObject go = GameObject.FindGameObjectWithTag("Text");
-        go.GetComponentInChildren<TextMesh>().text = name;
-        go.SetActive(true);
+        GameManager.gm.currentBackground.SetActive(false);
+
+        GameObject go = GameManager.gm.findBackground(name);
+        GameManager.gm.currentBackground = go;
+        GameManager.gm.currentBackground.SetActive(true);
     }
 }

@@ -22,9 +22,19 @@ public class StartTherapySession : MonoBehaviour
         minigames.Add(new Minigame("2", "Tiki", "tirar puro tiki"));
         minigames.Add(new Minigame("3", "Sushi", "tirar pura katana"));
         minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        //minigames.Add(new Minigame("5", "Su Samu", "tirar pura katana"));
-        //minigames.Add(new Minigame("6", "Sush Samur", "tirar pura katana"));
-        //minigames.Add(new Minigame("7", "SushiS", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
     }
 
     public void LoadMinigames()
@@ -34,7 +44,7 @@ public class StartTherapySession : MonoBehaviour
             foreach (Minigame minigame in minigames)
             {
                 GameObject m = Instantiate(buttonPrefab, content.transform) as GameObject;
-                m.GetComponentInChildren<Text>().text = minigame.Nombre;
+                m.GetComponentInChildren<Text>().text = minigame.Name;
             }
 
             canvasOld.SetActive(false);

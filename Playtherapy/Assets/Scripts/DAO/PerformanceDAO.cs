@@ -2,9 +2,9 @@
 using System.Collections;
 using Npgsql;
 
-public class GameSessionDAO
+public class PerformanceDAO
 {
-    public static bool InsertGameSession(GameSession game)
+	public static bool InsertPerformance(Performance performance)
     {
         bool exito = false;
 
@@ -14,8 +14,8 @@ public class GameSessionDAO
 
             try
             {
-                string sql = string.Format("INSERT INTO start_gamesession VALUES ('{1}', {2}, {3}, {4}, '{5}', '{6}');",
-                    game.Date, game.Score, game.Repetitions, game.Time, game.Level, game.Minigame_id);
+                string sql = string.Format("INSERT INTO start_performance VALUES ('{1}', '{2}', '{3}');",
+                    performance.Angle, performance.Movement_id, performance.Game_session_id);
 
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();
