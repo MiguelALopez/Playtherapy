@@ -1,12 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MovementsCollection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sushi/GameManagerSushi.cs">
     <Files>
-      <File FileName="Assets\Scripts\Movement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FullBody.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BodyPoint.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\KinectTwoAdapter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MovementsCollection.cs" Line="20" Column="3" />
+      <File FileName="Assets/Scripts/Sushi/GameManagerSushi.cs" Line="77" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
