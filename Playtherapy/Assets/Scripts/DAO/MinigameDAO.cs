@@ -11,15 +11,15 @@ public class MinigameDAO : MonoBehaviour
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = string.Format("SELECT * FROM start_minigame WHERE id = {1};", id);
+            string sql = string.Format("SELECT * FROM start_minigame WHERE id = {0};", id);
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();
             if (reader.Read())
             {
                 //string id = (int)reader["id"];
-                string name = (string)reader["nombre"];
-                string description = (string)reader["descripcion"];
+                string name = (string)reader["name"];
+                string description = (string)reader["description"];
 
                 Minigame minigame = new Minigame(id, name, description);
 

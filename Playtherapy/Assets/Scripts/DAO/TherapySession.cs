@@ -13,7 +13,7 @@ public class TherapySession
 
     public TherapySession(string therapist_id, string patient_id)
     {
-        date = DateTime.Now.ToString("dd-MM-yyyy H:mm:ss");
+        date = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         this.therapist_id = therapist_id;
         this.patient_id = patient_id;
     }
