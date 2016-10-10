@@ -14,6 +14,15 @@ public class TargetBehavior : MonoBehaviour
 	// information when hit?
 	public GameObject informationPrefab;
 
+	private SpawnGameObjects spawner;
+	private GameManagerSushi gameM;
+
+	void Start()
+	{
+		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+	}
+
 	// when collided with another gameObject
 	void OnCollisionEnter (Collision newCollision)
 	{
@@ -41,8 +50,14 @@ public class TargetBehavior : MonoBehaviour
 			}
 				
 			// destroy the projectile
-			Destroy (newCollision.gameObject);
+			//Destroy (newCollision.gameObject);
 				
+			gameM.NewRepetition();
+			if (gameM.GetRepetitions() >= 0)
+			{
+				spawner.MakeThingToSpawn();
+			}
+
 			// destroy self
 			Destroy (gameObject);
 		}

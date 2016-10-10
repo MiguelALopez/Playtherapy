@@ -35,6 +35,7 @@ public class GameManagerSushi : MonoBehaviour {
 	public bool countdownStarted = false;
     public bool gameIsStarted = false;
 	public bool gameIsOver = false;
+	private bool lastSeconds = false;
 
 	public AudioSource countdownSound;
 
@@ -49,7 +50,7 @@ public class GameManagerSushi : MonoBehaviour {
 
 	private SpawnGameObjects spawner;
 
-    private bool withTime = false;
+    public bool withTime = false;
 
     public void StartGame(int levelToLoad, bool time, int value)
     {
@@ -77,6 +78,7 @@ public class GameManagerSushi : MonoBehaviour {
         mainScoreDisplay.text = "0";
 
 		countdownDisplayObject.active = true;
+		lastSeconds = false;
 
 
     }
@@ -127,6 +129,14 @@ public class GameManagerSushi : MonoBehaviour {
 						} else { // game playing state, so update the timer
 							currentTime -= Time.deltaTime;
 							mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
+						}
+						if (!lastSeconds && currentTime <= 3.0f) {
+							lastSeconds = true;
+							if (countdownSound) {
+								countdownSound.Play ();
+							}
+							mainTimerDisplay.fontStyle = FontStyle.Bold;
+							mainTimerDisplay.color = Color.red;
 						}
 					} else {
 						if (remainingReps < 0) { // check to see if timer has run out

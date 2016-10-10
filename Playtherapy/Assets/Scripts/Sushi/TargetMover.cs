@@ -56,11 +56,16 @@ public class TargetMover : MonoBehaviour {
 		} else if (aliveTime < upTime + floatingTime + 1.0f) {
 			motionState = status.Down;
 		} else {
-            gameM.NewRepetition();
-            if (gameM.GetRepetitions() >= 0)
-            {
-                spawner.MakeThingToSpawn();
-            }
+			if (gameM.withTime) {
+				if (gameM.currentTime > 0.0f) {
+					spawner.MakeThingToSpawn ();
+				}
+			} else {
+				gameM.NewRepetition ();
+				if (gameM.GetRepetitions () >= 0) {
+					spawner.MakeThingToSpawn ();
+				}
+			}
 			
 			Destroy (gameObject);
 		}
