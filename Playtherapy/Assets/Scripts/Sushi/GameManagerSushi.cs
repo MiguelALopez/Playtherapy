@@ -22,7 +22,9 @@ public class GameManagerSushi : MonoBehaviour {
     public int remainingReps = 0;
 	
 	public Text mainScoreDisplay;
+	public GameObject mainScoreDisplayObj;
 	public Text mainTimerDisplay;
+	public GameObject mainTimerDisplayObj;
 	public GameObject countdownDisplayObject;
 	private Text countdownDisplay;
 
@@ -124,7 +126,7 @@ public class GameManagerSushi : MonoBehaviour {
 							EndGame ();
 						} else { // game playing state, so update the timer
 							currentTime -= Time.deltaTime;
-							mainTimerDisplay.text = (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
+							mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
 						}
 					} else {
 						if (remainingReps < 0) { // check to see if timer has run out
@@ -139,17 +141,19 @@ public class GameManagerSushi : MonoBehaviour {
 		} else if (countdownStarted) {
 			if (3.0f - countdownTime > 2.0f) {
 				countdownDisplay.text = "3";
-				countdownDisplay.fontSize = 10 + (int)(44.0f * countdownTime); 
+				countdownDisplay.fontSize = 10 + (int)(90.0f * countdownTime); 
 			} else if (3.0f - countdownTime > 1.0f) {
 				countdownDisplay.text = "2";
-				countdownDisplay.fontSize = 10 + (int)(44.0f * (countdownTime - 1.0f)); 
+				countdownDisplay.fontSize = 10 + (int)(90.0f * (countdownTime - 1.0f)); 
 			} else if (3.0f - countdownTime > 0.0f) {
 				countdownDisplay.text = "1";
-				countdownDisplay.fontSize = 10 + (int)(44.0f * (countdownTime - 2.0f)); 
+				countdownDisplay.fontSize = 10 + (int)(90.0f * (countdownTime - 2.0f)); 
 			} else if (3.0f - countdownTime > -1.0f) {
 				countdownDisplay.text = "¡ADELANTE!";
-				countdownDisplay.fontSize = 30 + (int)(24.0f * (countdownTime - 3.0f)); 
+				countdownDisplay.fontSize = 30 + (int)(70.0f * (countdownTime - 3.0f)); 
 			} else {
+				mainScoreDisplayObj.active = true;
+				mainTimerDisplayObj.active = true;
 				countdownDisplay.text = "";
 				gameIsStarted = true;
 				countdownDisplayObject.active = false;
