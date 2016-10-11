@@ -77,7 +77,7 @@ public class GameManagerSushi : MonoBehaviour {
         //gameIsStarted = true;
         mainScoreDisplay.text = "0";
 
-		countdownDisplayObject.active = true;
+		countdownDisplayObject.SetActive(true);
 		lastSeconds = false;
 
 
@@ -162,11 +162,11 @@ public class GameManagerSushi : MonoBehaviour {
 				countdownDisplay.text = "¡ADELANTE!";
 				countdownDisplay.fontSize = 30 + (int)(70.0f * (countdownTime - 3.0f)); 
 			} else {
-				mainScoreDisplayObj.active = true;
-				mainTimerDisplayObj.active = true;
+				mainScoreDisplayObj.SetActive(true);
+				mainTimerDisplayObj.SetActive(true);
 				countdownDisplay.text = "";
 				gameIsStarted = true;
-				countdownDisplayObject.active = false;
+				countdownDisplayObject.SetActive(false);
 				spawner.MakeThingToSpawn ();
 
 			}
