@@ -23,14 +23,14 @@ public class SushiSpawner : MonoBehaviour {
             return;
         Vector3 posParent = GameObject.Find("SushiContainer").transform.position;
         int multZ = 0;
-        if (sushiCount % 6 < 3)
+        if (sushiCount % 8 < 4)
         {
             multZ = 0;
         } else
         {
             multZ = 1;
         }
-        Instantiate(roll, new Vector3(-0.48f + (0.51f * (sushiCount % 3)) + posParent.x, 0.2345f + (((sushiCount) / 6) * 0.38f) + posParent.y, 0.27f - (0.51f * multZ) + posParent.z), roll.transform.rotation, GameObject.Find("SushiContainer").transform);
+        Instantiate(roll, new Vector3(-0.50f + (0.40f * (sushiCount % 4)) + posParent.x, 0.15f + (((sushiCount) / 8) * 0.29f) + posParent.y, 0.14f - (0.40f * multZ) + posParent.z), roll.transform.rotation, GameObject.Find("SushiContainer").transform);
         sushiCount++;
     }
 }
