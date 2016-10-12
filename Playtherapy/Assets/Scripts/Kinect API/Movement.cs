@@ -35,7 +35,7 @@ namespace MovementDetectionLibrary
 		// bool to indicate if the movement start
 		private bool initial;
 
-
+        //Get angle of two vectors
 		public double getAngleJoints(BodyPointPosition pointOne, BodyPointPosition pointCenter, BodyPointPosition pointTwo)
 		{
 
@@ -64,5 +64,41 @@ namespace MovementDetectionLibrary
 
 
 
-	}
+        // Get the poit of max vector 
+        public Vector3 getVector(Vector3 pointOne, Vector3 pointTwo, double angle)
+        {
+            Vector3 maxPosition = new Vector3();
+
+            Vector3 positionIni = pointTwo - pointOne;
+
+            double[] arrayOne = new double[] { Math.Cos(angle), 0, Math.Sin(angle)};
+            double[] arrayTwo = new double[] { 0, 1, 0 };
+            double[] arrayThree = new double[] { -1 * Math.Sin(angle), 0, Math.Cos(angle) };
+
+            maxPosition.x = (float)(positionIni.x * arrayOne[0] + positionIni.y * arrayOne[1] + positionIni.z * arrayOne[2]);
+            maxPosition.y = (float)(positionIni.x * arrayTwo[0] + positionIni.y * arrayTwo[1] + positionIni.z * arrayTwo[2]);
+            maxPosition.z = (float)(positionIni.x * arrayThree[0] + positionIni.y * arrayThree[1] + positionIni.z * arrayThree[2]);
+
+            Debug.Log("position trans " + maxPosition.x + " " + maxPosition.y + " " + maxPosition.z);
+
+
+            return maxPosition +pointOne;
+
+        }
+
+
+
+        //Calculate the point two
+        public Vector3 calculateVectorPosition(Vector3 pointOne, Vector3 pointTwo)
+        {
+
+            Vector3 pointResult = pointTwo - pointOne;
+
+            pointResult.y = pointOne.y - pointResult.magnitude;
+
+            return pointResult;
+
+        }
+
+    }
 }
