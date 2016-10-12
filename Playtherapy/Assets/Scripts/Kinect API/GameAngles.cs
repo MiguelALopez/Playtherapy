@@ -7,14 +7,14 @@ namespace MovementDetectionLibrary
     {
 
         // Use this for initialization
-        public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo)
+        public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo, float angle)
         {
 
             Vector3 pointFin = pointTwo - pointOne;
             Vector3 pointOneD = pointTwo - pointOne;
 
-            pointFin.x = Mathf.Cos(Mathf.PI * 0) * (pointTwo - pointOne).magnitude * 2;
-            pointFin.y = Mathf.Sin(Mathf.PI * 0) * (pointTwo - pointOne).magnitude * 2;
+            pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude ;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude ;
 
             pointFin = pointFin + pointOne;
 
@@ -32,6 +32,15 @@ namespace MovementDetectionLibrary
 
             return pointTwo;
         }
+
+        //Return an random angle between 0 and the angle in randians, angle is a degree
+        public float setRamdomAngle(float angle)
+        {
+
+            float angleRad = Mathf.Deg2Rad * Random.Range(0, angle);
+            return angleRad;
+        }
+
 
     }
 }

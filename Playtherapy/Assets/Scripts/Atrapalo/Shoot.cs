@@ -9,6 +9,7 @@ namespace MovementDetectionLibrary
 
 
         int uno = 0;
+        float angle;
         GameAngles calc;
 
 
@@ -16,6 +17,7 @@ namespace MovementDetectionLibrary
         void Start()
         {
             calc = new GameAngles();
+            angle = 90f;
         }
 
         // Update is called once per frame
@@ -24,13 +26,14 @@ namespace MovementDetectionLibrary
 
             if (uno == 0)
             {
-                float t = 1f;
+                float t = 2f;
+                float angleRad = calc.setRamdomAngle(angle);
 
 
                 Vector3 pointOne = GameObject.FindGameObjectWithTag("ShoulderRigth").transform.position;
                 Vector3 pointTwo = GameObject.FindGameObjectWithTag("WristRigth").transform.position;
 
-                Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo));
+                Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
 
                 //this.transform.position = pointFin;
                 this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
