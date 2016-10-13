@@ -69,7 +69,7 @@ public class TargetMover : MonoBehaviour {
 				}
 			}
 
-            sSpawner.SpawnRoll();
+            
 			Destroy (gameObject);
 		}
 
