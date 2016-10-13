@@ -70,7 +70,7 @@ public class TargetBehavior : MonoBehaviour
 				}
 			}
 
-			sSpawner.SpawnRoll();
+			sSpawner.MakeSpawn();
 			// destroy self
 			Destroy (gameObject);
 		}
