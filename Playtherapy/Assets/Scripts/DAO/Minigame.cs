@@ -4,14 +4,14 @@ using System.Collections;
 public class Minigame
 {
     private string id;
-    private string nombre;
-    private string descripcion;
+    private string name;
+    private string description;
 
-    public Minigame(string id, string nombre, string descripcion)
+    public Minigame(string id, string name, string description)
     {
         this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+        this.name = name;
+        this.description = description;
     }
 
     public string Id
@@ -27,29 +27,29 @@ public class Minigame
         }
     }
 
-    public string Nombre
+    public string Name
     {
         get
         {
-            return nombre;
+            return name;
         }
 
         set
         {
-            nombre = value;
+            name = value;
         }
     }
 
-    public string Descripcion
+    public string Description
     {
         get
         {
-            return descripcion;
+            return description;
         }
 
         set
         {
-            descripcion = value;
+            description = value;
         }
     }
 }

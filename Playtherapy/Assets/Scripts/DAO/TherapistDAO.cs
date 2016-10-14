@@ -5,26 +5,26 @@ using Npgsql;
 public class TherapistDAO
 {
     // returns null if error
-    public static Therapist ConsultTherapist(string numero_doc)
+    public static Therapist ConsultTherapist(string id_num)
     {
         if (DBConnection.dbconn != null)
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = string.Format("SELECT * FROM therapist WHERE numero_doc = '{1}';", numero_doc);
+            string sql = string.Format("SELECT * FROM therapist_therapist WHERE id_num = '{0}';", id_num);
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();
             if (reader.Read())
             {
-                //string numero_doc = (int)reader["numero_doc"];
-                string tipo_doc = (string)reader["tipo_doc"];
-                string nombre = (string)reader["nombre"];
-                string apellido = (string)reader["apellido"];
-                string genero = (string)reader["genero"];
+                //string numero_doc = (int)reader["id_num"];
+                string id_type = (string)reader["id_type"];
+                string name = (string)reader["name"];
+                string lastname = (string)reader["lastname"];
+                string genre = (string)reader["genre"];
                 string password = (string)reader["password"];
 
-                Therapist therapist = new Therapist(numero_doc, tipo_doc, nombre, apellido, genero, password);
+                Therapist therapist = new Therapist(id_num, id_type, name, lastname, genre, password);
 
                 // clean up
                 reader.Close();
@@ -32,7 +32,7 @@ public class TherapistDAO
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Name: " + nombre + " " + apellido);
+                Debug.Log("Name: " + name + " " + lastname);
                 return therapist;
             }
             else

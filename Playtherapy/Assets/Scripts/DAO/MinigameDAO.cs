@@ -11,17 +11,17 @@ public class MinigameDAO : MonoBehaviour
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = string.Format("SELECT * FROM minigame WHERE id = {1};", id);
+            string sql = string.Format("SELECT * FROM start_minigame WHERE id = {0};", id);
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();
             if (reader.Read())
             {
                 //string id = (int)reader["id"];
-                string nombre = (string)reader["nombre"];
-                string descripcion = (string)reader["descripcion"];
+                string name = (string)reader["name"];
+                string description = (string)reader["description"];
 
-                Minigame minigame = new Minigame(id, nombre, descripcion);
+                Minigame minigame = new Minigame(id, name, description);
 
                 // clean up
                 reader.Close();
@@ -29,7 +29,7 @@ public class MinigameDAO : MonoBehaviour
                 dbcmd.Dispose();
                 dbcmd = null;
 
-                Debug.Log("Minigame: " + nombre);
+                Debug.Log("Minigame: " + name);
                 return minigame;
             }
             else
@@ -60,7 +60,7 @@ public class MinigameDAO : MonoBehaviour
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = "SELECT * FROM minigame;";
+            string sql = "SELECT * FROM start_minigame;";
             dbcmd.CommandText = sql;
 
             minigames = new List<Minigame>();
@@ -69,13 +69,13 @@ public class MinigameDAO : MonoBehaviour
             while (reader.Read())
             {
                 string id = (string)reader["id"];
-                string nombre = (string)reader["nombre"];
-                string descripcion = (string)reader["descripcion"];
+                string name = (string)reader["nombre"];
+                string description = (string)reader["descripcion"];
 
-                Minigame minigame = new Minigame(id, nombre, descripcion);
+                Minigame minigame = new Minigame(id, name, description);
                 minigames.Add(minigame);
 
-                Debug.Log("Minigame: " + nombre);
+                Debug.Log("Minigame: " + name);
             }
 
             // clean up

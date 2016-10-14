@@ -4,94 +4,94 @@ using System;
 
 public class GameSession
 {
-    private string fecha;
-    private int puntaje;
-    private int repeticiones;
-    private int tiempo;
-    private string nivel;
-    private string id_minigame;
+    private string date;
+    private int score;
+    private int repetitions;
+    private int time;
+    private string level;
+    private string minigame_id;
 
-    public GameSession(string id_minigame)
+    public GameSession(string minigame_id)
     {
-        fecha = DateTime.Now.ToString("dd-MM-yyyy H:mm:ss");
-        this.id_minigame = id_minigame;
+        date = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
+        this.minigame_id = minigame_id;
     }
 
-    public string Fecha
+    public string Date
     {
         get
         {
-            return fecha;
+            return date;
         }
 
         set
         {
-            fecha = value;
+            date = value;
         }
     }
 
-    public int Puntaje
+    public int Score
     {
         get
         {
-            return puntaje;
+            return score;
         }
 
         set
         {
-            puntaje = value;
+            score = value;
         }
     }
 
-    public int Repeticiones
+    public int Repetitions
     {
         get
         {
-            return repeticiones;
+            return repetitions;
         }
 
         set
         {
-            repeticiones = value;
+            repetitions = value;
         }
     }
 
-    public int Tiempo
+    public int Time
     {
         get
         {
-            return tiempo;
+            return time;
         }
 
         set
         {
-            tiempo = value;
+            time = value;
         }
     }
 
-    public string Nivel
+    public string Level
     {
         get
         {
-            return nivel;
+            return level;
         }
 
         set
         {
-            nivel = value;
+            level = value;
         }
     }
 
-    public string Id_minigame
+    public string Minigame_id
     {
         get
         {
-            return id_minigame;
+            return minigame_id;
         }
 
         set
         {
-            id_minigame = value;
+            minigame_id = value;
         }
     }
 }
