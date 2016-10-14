@@ -14,8 +14,8 @@ public class GameSessionDAO
 
             try
             {
-                string sql = string.Format("INSERT INTO game_session VALUES ('{1}', {2}, {3}, {4}, '{5}', '{6}');",
-                    game.Fecha, game.Puntaje, game.Repeticiones, game.Tiempo, game.Nivel, game.Id_minigame);
+                string sql = string.Format("INSERT INTO start_gamesession VALUES ('{0}', {1}, {2}, {3}, '{4}', '{5}');",
+                    game.Date, game.Score, game.Repetitions, game.Time, game.Level, game.Minigame_id);
 
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();

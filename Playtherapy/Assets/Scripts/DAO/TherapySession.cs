@@ -5,81 +5,81 @@ using System;
 public class TherapySession
 {
     //private string id;
-    private string fecha;
-    private string objetivos;
-    private string observaciones;
-    private string numero_doc_Therapist;
-    private string numero_doc_Patient;
+    private string date;
+    private string objective;
+    private string description;
+    private string therapist_id;
+    private string patient_id;
 
-    public TherapySession(string numero_doc_Therapist, string numero_doc_Patient)
+    public TherapySession(string therapist_id, string patient_id)
     {
-        fecha = DateTime.Now.ToString("dd-MM-yyyy H:mm:ss");
-        this.numero_doc_Therapist = numero_doc_Therapist;
-        this.numero_doc_Patient = numero_doc_Patient;
+        date = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
+        this.therapist_id = therapist_id;
+        this.patient_id = patient_id;
     }
 
-    public string Fecha
+    public string Date
     {
         get
         {
-            return fecha;
+            return date;
         }
 
         set
         {
-            fecha = value;
+            date = value;
         }
     }
 
-    public string Objetivos
+    public string Objective
     {
         get
         {
-            return objetivos;
+            return objective;
         }
 
         set
         {
-            objetivos = value;
+            objective = value;
         }
     }
 
-    public string Observaciones
+    public string Description
     {
         get
         {
-            return observaciones;
+            return description;
         }
 
         set
         {
-            observaciones = value;
+            description = value;
         }
     }
 
-    public string Numero_doc_Therapist
+    public string Therapist_id
     {
         get
         {
-            return numero_doc_Therapist;
+            return therapist_id;
         }
 
         set
         {
-            numero_doc_Therapist = value;
+            therapist_id = value;
         }
     }
 
-    public string Numero_doc_Patient
+    public string Patient_id
     {
         get
         {
-            return numero_doc_Patient;
+            return patient_id;
         }
 
         set
         {
-            numero_doc_Patient = value;
+            patient_id = value;
         }
     }
 }

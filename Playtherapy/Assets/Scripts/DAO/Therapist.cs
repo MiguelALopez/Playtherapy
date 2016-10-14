@@ -3,85 +3,85 @@ using System.Collections;
 
 public class Therapist
 {
-    private string numero_doc;
-    private string tipo_doc;
-    private string nombre;
-    private string apellido;
-    private string genero;
+    private string id_num;
+    private string id_type;
+    private string name;
+    private string lastname;
+    private string genre;
     private string password;
 
-    public Therapist(string numero_doc, string tipo_doc, string nombre, string apellido, string genero, string password)
+    public Therapist(string id_num, string id_type, string name, string lastname, string genre, string password)
     {
-        this.numero_doc = numero_doc;
-        this.tipo_doc = tipo_doc;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.genero = genero;
+        this.id_num = id_num;
+        this.id_type = id_type;
+        this.name = name;
+        this.lastname = lastname;
+        this.genre = genre;
         this.password = password;
     }
 
-    public string Numero_doc
+    public string Id_num
     {
         get
         {
-            return numero_doc;
+            return id_num;
         }
 
         set
         {
-            numero_doc = value;
+            id_num = value;
         }
     }
 
-    public string Tipo_doc
+    public string Id_type
     {
         get
         {
-            return tipo_doc;
+            return id_type;
         }
 
         set
         {
-            tipo_doc = value;
+            id_type = value;
         }
     }
 
-    public string Nombre
+    public string Name
     {
         get
         {
-            return nombre;
+            return name;
         }
 
         set
         {
-            nombre = value;
+            name = value;
         }
     }
 
-    public string Apellido
+    public string Lastname
     {
         get
         {
-            return apellido;
+            return lastname;
         }
 
         set
         {
-            apellido = value;
+            lastname = value;
         }
     }
 
-    public string Genero
+    public string Genre
     {
         get
         {
-            return genero;
+            return genre;
         }
 
         set
         {
-            genero = value;
+            genre = value;
         }
     }
 
