@@ -24,22 +24,9 @@ public class StartTherapySession : MonoBehaviour
         minigames = new List<Minigame>();
 
         minigames.Add(new Minigame("1", "Sushi Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("2", "Tiki", "tirar puro tiki"));
-        minigames.Add(new Minigame("3", "Sushi", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("2", "Atrapalo", "tirar puro tiki"));
+        minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
+        minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
     }
 
     public void StartTherapy()
