@@ -8,39 +8,38 @@ namespace MovementDetectionLibrary
     {
 
 
-        int uno = 0;
+        bool flag = true;
         float angle;
         GameAngles calc;
+        bool flagSide = true;
 
 
         // Use this for initialization
         void Start()
         {
             calc = new GameAngles();
-            angle = 90f;
+            angle = 180f;
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            if (uno == 0)
+            if (flag)
             {
-                float t = 2f;
-                float angleRad = calc.setRamdomAngle(angle);
 
+                int side = Mathf.RoundToInt(Random.Range(1,3));
+                if (side==1)
+                {
+                    this.shoot("ShoulderRigth", "HandRigth");
 
-                Vector3 pointOne = GameObject.FindGameObjectWithTag("ShoulderRigth").transform.position;
-                Vector3 pointTwo = GameObject.FindGameObjectWithTag("WristRigth").transform.position;
+                }else
+                {
+                    Debug.Log("izq");
+                    this.shoot("ShoulderLeft", "HandLeft");
+                }
 
-                Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
-
-                //this.transform.position = pointFin;
-                this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
-
-
-
-                uno = 1;
+                flag = false;
             }
 
         }
@@ -71,6 +70,23 @@ namespace MovementDetectionLibrary
             initSpeed.z = Vz;
 
             return initSpeed;
+        }
+
+
+        public void shoot(string jointOneName, string jointTwoName)
+        {
+
+            float t = 2f;
+            float angleRad = calc.setRamdomAngle(angle);
+
+            Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
+            Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
+
+            Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
+
+            this.transform.position = pointFin;
+            //this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
+
         }
 
     }

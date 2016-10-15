@@ -13,8 +13,8 @@ namespace MovementDetectionLibrary
             Vector3 pointFin = pointTwo - pointOne;
             Vector3 pointOneD = pointTwo - pointOne;
 
-            pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude ;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude ;
+            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.5f ;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.5f;
 
             pointFin = pointFin + pointOne;
 
