@@ -22,14 +22,22 @@ public class GameManagerSushi : MonoBehaviour {
     public int remainingReps = 0;
 	
 	public Text mainScoreDisplay;
+	public GameObject mainScoreDisplayObj;
 	public Text mainTimerDisplay;
+	public GameObject mainTimerDisplayObj;
+	public GameObject countdownDisplayObject;
+	private Text countdownDisplay;
 
 	public GameObject gameOverScoreOutline;
 
 	public AudioSource musicAudioSource;
 
+	public bool countdownStarted = false;
     public bool gameIsStarted = false;
 	public bool gameIsOver = false;
+	private bool lastSeconds = false;
+
+	public AudioSource countdownSound;
 
 	public GameObject playAgainButtons;
 	public string playAgainLevelToLoad;
@@ -38,10 +46,11 @@ public class GameManagerSushi : MonoBehaviour {
 	public string nextLevelToLoad;
 
 	public float currentTime;
+	private float countdownTime = 0.0f;
 
 	private SpawnGameObjects spawner;
 
-    private bool withTime = false;
+    public bool withTime = false;
 
     public void StartGame(int levelToLoad, bool time, int value)
     {
@@ -61,10 +70,17 @@ public class GameManagerSushi : MonoBehaviour {
         
         level = levelToLoad;
 
-        gameIsStarted = true;
+		countdownStarted = true;
+		if (countdownSound) {
+			countdownSound.Play ();
+		}
+        //gameIsStarted = true;
         mainScoreDisplay.text = "0";
 
-		spawner.MakeThingToSpawn ();
+		countdownDisplayObject.SetActive(true);
+		lastSeconds = false;
+
+
     }
 
 	// setup the game
@@ -92,48 +108,71 @@ public class GameManagerSushi : MonoBehaviour {
 		if (nextLevelButtons)
 			nextLevelButtons.SetActive (false);
 
+		if (countdownDisplayObject)
+			countdownDisplay = countdownDisplayObject.GetComponent<Text>();
+
 		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
 	}
 
 	// this is the main game event loop
 	void Update () {
 
-        if (gameIsStarted)
-        {
-            if (!gameIsOver)
-            {
-                if (canBeatLevel && (score >= beatLevelScore))
-                {  // check to see if beat game
-                    BeatLevel();
-                }
-                else
-                {
-                    if (withTime)
-                    {
-                        if (currentTime < 0)
-                        { // check to see if timer has run out
-                            EndGame();
-                        }
-                        else
-                        { // game playing state, so update the timer
-                            currentTime -= Time.deltaTime;
-                            mainTimerDisplay.text = (((int)currentTime) / 60).ToString() + ":" + (((int)currentTime) % 60).ToString("00");
-                        }
-                    } else
-                    {
-                        if (remainingReps < 0)
-                        { // check to see if timer has run out
-                            EndGame();
-                        }
-                        else
-                        { // game playing state, so update the timer
-                            currentTime -= Time.deltaTime;
-                            mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString();
-                        }
-                    }
-                }
-            }
-        }
+
+		if (gameIsStarted) {
+			if (!gameIsOver) {
+				if (canBeatLevel && (score >= beatLevelScore)) {  // check to see if beat game
+					BeatLevel ();
+				} else {
+					if (withTime) {
+						if (currentTime < 0) { // check to see if timer has run out
+							EndGame ();
+						} else { // game playing state, so update the timer
+							currentTime -= Time.deltaTime;
+							mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
+						}
+						if (!lastSeconds && currentTime <= 3.0f) {
+							lastSeconds = true;
+							if (countdownSound) {
+								countdownSound.Play ();
+							}
+							mainTimerDisplay.fontStyle = FontStyle.Bold;
+							mainTimerDisplay.color = Color.red;
+						}
+					} else {
+						if (remainingReps < 0) { // check to see if timer has run out
+							EndGame ();
+						} else { // game playing state, so update the timer
+							currentTime -= Time.deltaTime;
+							mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
+						}
+					}
+				}
+			}
+		} else if (countdownStarted) {
+			if (3.0f - countdownTime > 2.0f) {
+				countdownDisplay.text = "3";
+				countdownDisplay.fontSize = 10 + (int)(90.0f * countdownTime); 
+			} else if (3.0f - countdownTime > 1.0f) {
+				countdownDisplay.text = "2";
+				countdownDisplay.fontSize = 10 + (int)(90.0f * (countdownTime - 1.0f)); 
+			} else if (3.0f - countdownTime > 0.0f) {
+				countdownDisplay.text = "1";
+				countdownDisplay.fontSize = 10 + (int)(90.0f * (countdownTime - 2.0f)); 
+			} else if (3.0f - countdownTime > -1.0f) {
+				countdownDisplay.text = "¡ADELANTE!";
+				countdownDisplay.fontSize = 30 + (int)(70.0f * (countdownTime - 3.0f)); 
+			} else {
+				mainScoreDisplayObj.SetActive(true);
+				mainTimerDisplayObj.SetActive(true);
+				countdownDisplay.text = "";
+				gameIsStarted = true;
+				countdownDisplayObject.SetActive(false);
+				spawner.MakeThingToSpawn ();
+
+			}
+			countdownTime += Time.deltaTime;
+
+		}
 		
 	}
 

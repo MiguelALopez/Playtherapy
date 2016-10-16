@@ -18,6 +18,7 @@ public class TargetMover : MonoBehaviour {
 	private float aliveTime = 0.0f;
 
 	private SpawnGameObjects spawner;
+    private SushiSpawner sSpawner;
 
     private GameManagerSushi gameM;
     
@@ -25,6 +26,7 @@ public class TargetMover : MonoBehaviour {
     {
         initialHeight = transform.position.y;
 		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+        sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
         gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
     }
 
@@ -56,12 +58,18 @@ public class TargetMover : MonoBehaviour {
 		} else if (aliveTime < upTime + floatingTime + 1.0f) {
 			motionState = status.Down;
 		} else {
-            gameM.NewRepetition();
-            if (gameM.GetRepetitions() >= 0)
-            {
-                spawner.MakeThingToSpawn();
-            }
-			
+			if (gameM.withTime) {
+				if (gameM.currentTime > 0.0f) {
+					spawner.MakeThingToSpawn ();
+				}
+			} else {
+				gameM.NewRepetition ();
+				if (gameM.GetRepetitions () >= 0) {
+					spawner.MakeThingToSpawn ();
+				}
+			}
+
+            
 			Destroy (gameObject);
 		}
 
