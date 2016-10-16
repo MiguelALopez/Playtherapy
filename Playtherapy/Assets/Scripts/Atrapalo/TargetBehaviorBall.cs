@@ -24,7 +24,7 @@ public class TargetBehaviorBall : MonoBehaviour
 		}*/
 
 		// only do stuff if hit by a projectile
-		if (newCollision.gameObject.tag == "HandRigth") {
+		if (newCollision.gameObject.tag == "HandRigth"||newCollision.gameObject.tag == "HandLeft") {
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
@@ -36,9 +36,9 @@ public class TargetBehaviorBall : MonoBehaviour
 			}*/
 
 			// if game manager exists, make adjustments based on target properties
-			/*if (GameManagerSushi.gms) {
-				GameManagerSushi.gms.targetHit (scoreAmount);
-			}*/
+			if (GameManagerAtrapalo.gms) {
+				GameManagerAtrapalo.gms.targetHit (scoreAmount);
+			}
 				
 			// destroy the projectile
 			//Destroy (newCollision.gameObject);

@@ -18,7 +18,7 @@ namespace MovementDetectionLibrary
         void Start()
         {
             calc = new GameAngles();
-            angle = 180f;
+            angle = 90f;
         }
 
         // Update is called once per frame
@@ -31,12 +31,13 @@ namespace MovementDetectionLibrary
                 int side = Mathf.RoundToInt(Random.Range(1,3));
                 if (side==1)
                 {
-                    this.shoot("ShoulderRigth", "HandRigth");
+					Debug.Log ("der");
+                    this.shoot("ShoulderRigth", "HandRigth", "left");
 
                 }else
                 {
-                    Debug.Log("izq");
-                    this.shoot("ShoulderLeft", "HandLeft");
+					Debug.Log ("izq");
+                    this.shoot("ShoulderLeft", "HandLeft", "rigth");
                 }
 
                 flag = false;
@@ -73,19 +74,19 @@ namespace MovementDetectionLibrary
         }
 
 
-        public void shoot(string jointOneName, string jointTwoName)
+		public void shoot(string jointOneName, string jointTwoName, string side)
         {
 
             float t = 2f;
-            float angleRad = calc.setRamdomAngle(angle);
+            float angleRad = calc.setRamdomAngle(angle, side);
 
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
             Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
 
-            this.transform.position = pointFin;
-            //this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
+            //this.transform.position = pointFin;
+            this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
 
         }
 
