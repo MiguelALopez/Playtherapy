@@ -17,14 +17,18 @@ public class TargetBehaviorBall : MonoBehaviour
 	// when collided with another gameObject
 	void OnCollisionEnter (Collision newCollision)
 	{
+		Debug.Log ("colision");
+
 		// exit if there is a game manager and the game is over
 		if (GameManagerSushi.gms) {
 			if (GameManagerSushi.gms.gameIsOver)
+				Debug.Log ("game over");
 				return;
 		}
-
+		Debug.Log (newCollision.gameObject.tag);
 		// only do stuff if hit by a projectile
-		if (newCollision.gameObject.tag == "HandRigth"||newCollision.gameObject.tag == "HandLeft") {
+		if (newCollision.gameObject.tag == "Player") {
+			Debug.Log ("colision pla");
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
