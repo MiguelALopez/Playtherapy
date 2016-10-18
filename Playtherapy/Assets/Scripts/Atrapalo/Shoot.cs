@@ -12,18 +12,28 @@ namespace MovementDetectionLibrary
         float angle;
         GameAngles calc;
         bool flagSide = true;
+		private GameManagerAtrapalo gameM;
+		private float timeLaunch;
+		public int type;
 
 
         // Use this for initialization
         void Start()
         {
             calc = new GameAngles();
-            angle = 90f;
+			gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
+			gameM.ballsAlive++;
+			angle = (180*gameM.level)/6;
+			timeLaunch = gameM.launchTime;
         }
 
         // Update is called once per frame
         void Update()
         {
+
+			if (type == 3) {
+				timeLaunch = timeLaunch / 2;
+			}
 
             if (flag)
             {
@@ -31,12 +41,10 @@ namespace MovementDetectionLibrary
                 int side = Mathf.RoundToInt(Random.Range(1,3));
                 if (side==1)
                 {
-					Debug.Log ("der");
                     this.shoot("ShoulderRigth", "HandRigth", "left");
 
                 }else
                 {
-					Debug.Log ("izq");
                     this.shoot("ShoulderLeft", "HandLeft", "rigth");
                 }
 
@@ -77,7 +85,7 @@ namespace MovementDetectionLibrary
 		public void shoot(string jointOneName, string jointTwoName, string side)
         {
 
-            float t = 2f;
+
             float angleRad = calc.setRamdomAngle(angle, side);
 
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
@@ -86,9 +94,14 @@ namespace MovementDetectionLibrary
             Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
 
             //this.transform.position = pointFin;
-            this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(t, pointFin), ForceMode.VelocityChange);
+            this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(timeLaunch, pointFin), ForceMode.VelocityChange);
+			gameM.NewRepetition ();
+
 
         }
 
+		void OnDestroy(){
+			gameM.ballsAlive--;
+		}
     }
 }

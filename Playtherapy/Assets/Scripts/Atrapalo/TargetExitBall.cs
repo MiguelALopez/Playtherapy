@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TargetExit : MonoBehaviour
+public class TargetExitBall : MonoBehaviour
 {
-	public float exitAfterSeconds = 10f; // how long to exist in the world
+	
 	public float exitAnimationSeconds = 1f; // should be >= time of the exit animation
 
 	private bool startDestroy = false;
 	private float targetTime;
 
+	private GameManagerAtrapalo gameM;
+
+
 	// Use this for initialization
 	void Start ()
 	{
 		// set the targetTime to be the current time + exitAfterSeconds seconds
+		gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
+		float exitAfterSeconds = gameM.launchTime + 3;
 		targetTime = Time.time + exitAfterSeconds;
 	}
 	
@@ -30,6 +35,7 @@ public class TargetExit : MonoBehaviour
 
 				// trigger the Animator to make the "Exit" transition
 				this.GetComponent<Animator> ().SetTrigger ("Exit");
+				float exitAfterSeconds = gameM.launchTime + 3;
 
 				// Call KillTarget function after exitAnimationSeconds to give time for animation to play
 				Invoke ("KillTarget", exitAnimationSeconds);

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TargetExitBall : MonoBehaviour
+public class TargetExit : MonoBehaviour
 {
 	public float exitAfterSeconds = 10f; // how long to exist in the world
 	public float exitAnimationSeconds = 1f; // should be >= time of the exit animation

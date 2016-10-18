@@ -5,7 +5,7 @@ public class TargetBehaviorBall : MonoBehaviour
 {
 
 	// target impact on game
-	public int scoreAmount = 0;
+	public int scoreAmount = 10;
 	public float timeAmount = 0.0f;
 
 	// explosion when hit?
@@ -18,10 +18,10 @@ public class TargetBehaviorBall : MonoBehaviour
 	void OnCollisionEnter (Collision newCollision)
 	{
 		// exit if there is a game manager and the game is over
-		/*if (GameManagerSushi.gms) {
+		if (GameManagerSushi.gms) {
 			if (GameManagerSushi.gms.gameIsOver)
 				return;
-		}*/
+		}
 
 		// only do stuff if hit by a projectile
 		if (newCollision.gameObject.tag == "HandRigth"||newCollision.gameObject.tag == "HandLeft") {

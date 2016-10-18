@@ -19,6 +19,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public int repetitions = 0;
     public int currentReps = 0;
     public int remainingReps = 0;
+	public float launchTime = 0;
 
     public Text mainScoreDisplay;
     public GameObject mainScoreDisplayObj;
@@ -46,13 +47,15 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
     public float currentTime;
     private float countdownTime = 0.0f;
+	public int ballsAlive;
 
-    private SpawnGameObjects spawner;
+    private SpawnGameObjectsBall spawner;
 
     public bool withTime = false;
 
-    public void StartGame(int levelToLoad, bool time, int value)
+	public void StartGame(int levelToLoad, bool time, int value, int launchTime)
     {
+		Debug.Log ("start");
         withTime = time;
 
         if (time)
@@ -64,11 +67,12 @@ public class GameManagerAtrapalo : MonoBehaviour {
         else
         {
             repetitions = value;
-            remainingReps = repetitions - 1;
+            remainingReps = repetitions;
             mainTimerDisplay.text = "Repeticiones: " + repetitions.ToString();
         }
 
         level = levelToLoad;
+		this.launchTime = launchTime/2f; 
 
         countdownStarted = true;
         if (countdownSound)
@@ -77,7 +81,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
         }
         //gameIsStarted = true;
         mainScoreDisplay.text = "0";
-
+		Debug.Log ("empieza");
         countdownDisplayObject.SetActive(true);
         lastSeconds = false;
 
@@ -87,7 +91,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     // setup the game
     void Start()
     {
-
+		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjectsBall>();
+		spawner.enabled = false;
         // set the current time to the startTime specified
         currentTime = startTime;
 
@@ -97,6 +102,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
         // init scoreboard to 0
         mainScoreDisplay.text = "";
+		spawner.enabled = false;
 
         // inactivate the gameOverScoreOutline gameObject, if it is set
         if (gameOverScoreOutline)
@@ -113,7 +119,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
         if (countdownDisplayObject)
             countdownDisplay = countdownDisplayObject.GetComponent<Text>();
 
-        spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+        
     }
 
     // this is the main game event loop
@@ -133,9 +139,11 @@ public class GameManagerAtrapalo : MonoBehaviour {
                 {
                     if (withTime)
                     {
-                        if (currentTime < 0)
+                        if (currentTime <= 0)
                         { // check to see if timer has run out
-                            EndGame();
+							if (ballsAlive == 0) {
+								EndGame();
+							}
                         }
                         else
                         { // game playing state, so update the timer
@@ -155,14 +163,16 @@ public class GameManagerAtrapalo : MonoBehaviour {
                     }
                     else
                     {
-                        if (remainingReps < 0)
+                        if (remainingReps <= 0)
                         { // check to see if timer has run out
-                            EndGame();
+							if (ballsAlive == 0) {
+								EndGame();
+							}
+                            
                         }
                         else
                         { // game playing state, so update the timer
                             currentTime -= Time.deltaTime;
-                            mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString();
                         }
                     }
                 }
@@ -197,7 +207,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
                 countdownDisplay.text = "";
                 gameIsStarted = true;
                 countdownDisplayObject.SetActive(false);
-                spawner.MakeThingToSpawn();
+				spawner.enabled = true;
 
             }
             countdownTime += Time.deltaTime;
@@ -210,6 +220,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     {
         currentReps++;
         remainingReps--;
+		mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString();
+
     }
 
     public int GetRepetitions()
@@ -221,9 +233,10 @@ public class GameManagerAtrapalo : MonoBehaviour {
     {
         // game is over
         gameIsOver = true;
-
+		StartCoroutine(waitBall ());
         // repurpose the timer to display a message to the player
         mainTimerDisplay.text = "GAME OVER";
+
 
         // activate the gameOverScoreOutline gameObject, if it is set 
         if (gameOverScoreOutline)
@@ -271,7 +284,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
             currentTime = 0.0f;
 
         // update the text UI
-        mainTimerDisplay.text = currentTime.ToString("0.00");
+        //mainTimerDisplay.text = currentTime.ToString("0.00");
     }
 
     // public function that can be called to restart the game
@@ -288,5 +301,10 @@ public class GameManagerAtrapalo : MonoBehaviour {
         // we are just loading the specified next level (scene)
         //Application.LoadLevel (nextLevelToLoad);
     }
+
+
+	IEnumerator waitBall() {
+		yield return new WaitForSeconds(10);
+	}
 
 }
