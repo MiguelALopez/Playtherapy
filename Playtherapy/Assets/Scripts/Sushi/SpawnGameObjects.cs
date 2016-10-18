@@ -13,7 +13,7 @@ public class SpawnGameObjects : MonoBehaviour
 	public float zMaxRange = 25.0f;
 	public GameObject[] spawnObjects; // what prefabs to spawn
 
-	private float nextSpawnTime;
+	//private float nextSpawnTime;
 
 	// Use this for initialization
 	void Start ()
