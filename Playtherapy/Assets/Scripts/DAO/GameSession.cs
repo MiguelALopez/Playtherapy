@@ -13,7 +13,7 @@ public class GameSession
 
     public GameSession(string minigame_id)
     {
-        date = DateTime.Now.ToString("dd-MM-yyyy H:mm:ss");
+        date = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         this.minigame_id = minigame_id;
     }
 

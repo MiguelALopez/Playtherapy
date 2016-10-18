@@ -14,7 +14,7 @@ public class TherapySessionDAO
 
             try
             {
-                string sql = string.Format("INSERT INTO therapy_session VALUES ('{1}', '{2}', '{3}', '{4}', '{5}');",
+                string sql = string.Format("INSERT INTO start_therapysession VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');",
                     therapy.Date, therapy.Objective, therapy.Description, therapy.Therapist_id, therapy.Patient_id);
 
                 dbcmd.CommandText = sql;

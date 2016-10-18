@@ -165,7 +165,7 @@ namespace MovementDetectionLibrary
                 UnityEngine.Vector4 coord = new UnityEngine.Vector4(sourceJoint.Position.X, sourceJoint.Position.Y, sourceJoint.Position.Z, 1.0f);
                 UnityEngine.Vector4 newCoord = rotMatrix.inverse * coord;
 
-                if (joint == BodyParts.FootRight)
+                if (joint == BodyParts.ElbowLeft)
                 {
                     oldText.text = ("Posicion Old " + joint + ": " + sourceJoint.Position.X + " " + sourceJoint.Position.Y + " " + sourceJoint.Position.Z + " ");
 
