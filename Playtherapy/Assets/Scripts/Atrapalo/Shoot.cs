@@ -91,6 +91,7 @@ namespace MovementDetectionLibrary
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
+
             Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
 
             //this.transform.position = pointFin;

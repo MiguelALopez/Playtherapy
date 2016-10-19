@@ -25,6 +25,7 @@ public class TargetBehaviorBall : MonoBehaviour
 		}
 		// only do stuff if hit by a projectile
 		if (newCollision.gameObject.tag == "HandRigth"||newCollision.gameObject.tag == "HandLeft") {
+			Debug.Log ("hol");
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);

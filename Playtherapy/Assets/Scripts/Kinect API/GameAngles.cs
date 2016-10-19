@@ -13,8 +13,10 @@ namespace MovementDetectionLibrary
             Vector3 pointFin = pointTwo - pointOne;
             Vector3 pointOneD = pointTwo - pointOne;
 
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.2f ;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.2f;
+			//Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
+
+            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.5f ;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.5f;
 
             pointFin = pointFin + pointOne;
 
@@ -37,7 +39,7 @@ namespace MovementDetectionLibrary
 		public float setRamdomAngle(float angle, string side)
         {
 
-			if (side =="rigth") {
+			if (side =="left") {
 				float angleRad = Mathf.Deg2Rad * Random.Range (270-angle, 270);
 				return angleRad;
 			} else {
