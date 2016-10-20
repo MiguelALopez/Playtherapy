@@ -22,9 +22,9 @@ public class TherapistDAO
                 string name = (string)reader["name"];
                 string lastname = (string)reader["lastname"];
                 string genre = (string)reader["genre"];
-                string password = (string)reader["password"];
+                //string password = (string)reader["password"];
 
-                Therapist therapist = new Therapist(id_num, id_type, name, lastname, genre, password);
+                Therapist therapist = new Therapist(id_num, id_type, name, lastname, genre);
 
                 // clean up
                 reader.Close();

@@ -11,12 +11,13 @@ public class StartTherapySession : MonoBehaviour
     public Text patient_id;
     public Text therapist_name;
 
+    public TherapySessionObject tso;
+
     // used for transition between menus
     public GameObject canvasOld;
     public GameObject canvasNew;
 
     private List<Minigame> minigames = null;
-    private Patient patient;
 
 	// Use this for initialization
 	void Start ()
@@ -31,26 +32,37 @@ public class StartTherapySession : MonoBehaviour
 
     public void StartTherapy()
     {
-        Login();
-        therapist_name.text = "Random Therapist Name";
-        LoadMinigames();
+        if (tso != null)
+        {
+            tso.Login();
+            DisplayPatientInfo();
+            DisplayTherapistInfo();            
+            LoadMinigames();
+        }
     }
 
-    public void Login()
+    public void DisplayPatientInfo()
     {
-        GameObject input = GameObject.Find("Input ID Text");
-        string id = input.GetComponent<Text>().text;
-
-        patient = PatientDAO.ConsultPatient(id);
-
-        if (patient != null)
+        if (tso.Patient != null)
         {
-            patient_name.text = patient.Name + " " + patient.Lastname;
-            patient_id.text = patient.Id_num;
+            patient_name.text = tso.Patient.Name + " " + tso.Patient.Lastname;
+            patient_id.text = tso.Patient.Id_num;
         }
         else
         {
             Debug.Log("Patient not loaded");
+        }
+    }
+
+    public void DisplayTherapistInfo()
+    {
+        if (tso.Therapist != null)
+        {
+            therapist_name.text = tso.Therapist.Name + " " + tso.Therapist.Lastname;
+        }
+        else
+        {
+            Debug.Log("Therapist not loaded");
         }
     }
 
