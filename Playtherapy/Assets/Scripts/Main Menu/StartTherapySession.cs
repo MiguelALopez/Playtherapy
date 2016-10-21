@@ -74,6 +74,7 @@ public class StartTherapySession : MonoBehaviour
             {
                 GameObject m = Instantiate(buttonPrefab, content.transform) as GameObject;
                 m.GetComponentInChildren<Text>().text = minigame.Name;
+                m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 
             canvasOld.SetActive(false);

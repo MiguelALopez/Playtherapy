@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TherapySessionObject : MonoBehaviour
 {
     private Patient patient;
     private Therapist therapist;
-    private TherapySession ts;
+    private TherapySession therapySession;
+    private List<GameSession> gameSessionList;
 
     public void Login()
     {
@@ -15,7 +17,19 @@ public class TherapySessionObject : MonoBehaviour
 
         patient = PatientDAO.ConsultPatient(id);
         therapist = TherapistDAO.ConsultTherapist("123");
-        ts = new TherapySession(therapist.Id_num, patient.Id_num);      
+        therapySession = new TherapySession(therapist.Id_num, patient.Id_num);      
+    }
+
+    public void addGameSession(GameSession gs)
+    {
+        if (gs != null)
+        {
+            gameSessionList.Add(gs);
+        }
+        else
+        {
+            Debug.Log("Null Game Session");
+        }
     }
 
     public Patient Patient
@@ -41,6 +55,32 @@ public class TherapySessionObject : MonoBehaviour
         set
         {
             therapist = value;
+        }
+    }
+
+    public TherapySession TherapySession
+    {
+        get
+        {
+            return therapySession;
+        }
+
+        set
+        {
+            therapySession = value;
+        }
+    }
+
+    public List<GameSession> GameSessionList
+    {
+        get
+        {
+            return gameSessionList;
+        }
+
+        set
+        {
+            gameSessionList = value;
         }
     }
 }
