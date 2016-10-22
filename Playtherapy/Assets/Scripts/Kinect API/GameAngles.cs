@@ -5,6 +5,14 @@ namespace MovementDetectionLibrary
 {
     public class GameAngles
     {
+        private float angleDegree ;
+        private ArrayList arrayAngles;
+        public GameAngles(float angle)
+        {
+            this.angleDegree = angle;
+            arrayAngles = new ArrayList();
+
+        }
 
         // Use this for initialization
         public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo, float angle)
@@ -36,18 +44,46 @@ namespace MovementDetectionLibrary
         }
 
         //Return an random angle between 0 and the angle in randians, angle is a degree
-		public float setRamdomAngle(float angle, string side)
+		public float setRamdomAngle(string side)
         {
+            if (arrayAngles.Count == 0)
+            {
+                setArrayAngles(this.angleDegree);
+            }
 
-			if (side =="left") {
-				float angleRad = Mathf.Deg2Rad * Random.Range (270-angle, 270);
-				return angleRad;
+            if (side =="left") {
+                int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
+                float angle = (float)(arrayAngles[position]);
+                arrayAngles.RemoveAt(position);
+                Debug.Log("angulo deg" + angle);
+
+                float angleRad = Mathf.Deg2Rad * Random.Range (-angle, 0);
+                Debug.Log("angulo rad" + angleRad);
+                return Mathf.PI;
 			} else {
 
-				float angleRad = Mathf.Deg2Rad * Random.Range (270, 270+angle);
-				return angleRad;
+                int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
+                float angle = (float)(arrayAngles[position]);
+
+                arrayAngles.RemoveAt(position);
+                Debug.Log("angulo deg" + angle);
+
+                float angleRad = Mathf.Deg2Rad * Random.Range (0, angle);
+                Debug.Log("angulo rad" + angleRad);
+
+                return Mathf.PI ;
 			}
 
+        }
+
+        //Function to return a array with angles 
+        private void setArrayAngles(float angle)
+        {
+
+            for (int i = 0; i < 6; i++)
+            {
+                this.arrayAngles.Add(angle - 5 * i);
+            }
         }
 
 

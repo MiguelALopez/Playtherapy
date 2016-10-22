@@ -12,45 +12,70 @@ namespace MovementDetectionLibrary
         float angle;
         GameAngles calc;
         bool flagSide = true;
-		private GameManagerAtrapalo gameM;
+        float  timeArrive ;
+        private GameManagerAtrapalo gameM;
+        private Vector3 pointFin;
 		private float timeLaunch;
+        private float vel;
+        private bool side;
 		public int type;
 
 
         // Use this for initialization
         void Start()
         {
-            calc = new GameAngles();
+            
 			gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
 			gameM.ballsAlive++;
 			angle = (180*gameM.level)/6;
-			timeLaunch = gameM.launchTime;
+            calc = new GameAngles(angle);
+            timeLaunch = gameM.launchTime;
+            side = true;
+
+            if (type == 3)
+            {
+                timeLaunch = timeLaunch / 2;
+            }
+            timeArrive = Time.time + timeLaunch;
+
+
+
         }
 
         // Update is called once per frame
         void Update()
         {
 
-			if (type == 3) {
-				timeLaunch = timeLaunch / 2;
-			}
-
             if (flag)
-            {
-
-                int side = Mathf.RoundToInt(Random.Range(1,3));
-                if (side==1)
+            {               
+                if (gameM.side)
                 {
-                    this.shoot("ShoulderRigth", "HandRigth", "left");
-
-                }else
-                {
-                    this.shoot("ShoulderLeft", "HandLeft", "rigth");
+                    Debug.Log("lado der");
+                    this.shootPosition("ShoulderRigth", "HandRigth", "left");
+                    gameM.side = false;
                 }
-
+                else
+                {
+                    Debug.Log("lado izq");
+                    this.shootPosition("ShoulderLeft", "HandLeft", "rigth");
+                    gameM.side = true;
+                }
+                this.vel = (pointFin - gameObject.transform.position).magnitude / timeLaunch;
+                this.vel = vel * Time.deltaTime;
                 flag = false;
             }
+            else {
+                if (gameObject.transform.position != pointFin && Time.time<=timeArrive) {
+                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                }
+                else
+                {           
+                    pointFin.x = -90;
+                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                }
+            }
 
+                         
         }
 
 
@@ -62,8 +87,9 @@ namespace MovementDetectionLibrary
             float Vx = 0;
             float Vy = 0;
             float Vz = 0;
-            float X0 = this.transform.position.x;
-            float Z0 = this.transform.position.z;
+            float X0 = gameObject.transform.position.x;
+            float Z0 = gameObject.transform.position.z;
+            float Y0 = gameObject.transform.position.y;
             float Y1 = point.y;
             float X1 = point.x;
             float Z1 = point.z;
@@ -71,7 +97,7 @@ namespace MovementDetectionLibrary
             Vx = (X1 - X0) / t;
             Vz = (Z1 - Z0) / t;
 
-            Vy = ((9.8f * t) / 2) + Y1/t;
+            Vy = (Y1-Y0)/t;
 
 
             initSpeed.x = Vx;
@@ -82,21 +108,20 @@ namespace MovementDetectionLibrary
         }
 
 
-		public void shoot(string jointOneName, string jointTwoName, string side)
+		public void shootPosition(string jointOneName, string jointTwoName, string side)
         {
 
 
-            float angleRad = calc.setRamdomAngle(angle, side);
-
+            float angleRad = calc.setRamdomAngle(side);
+                
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
 
-            Vector3 pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
-
-            //this.transform.position = pointFin;
-            this.GetComponent<Rigidbody>().AddForce(calculateSpeedVector(timeLaunch, pointFin), ForceMode.VelocityChange);
-			gameM.NewRepetition ();
+            this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
+            gameObject.transform.position = pointFin;
+            gameM.NewRepetition();      
+			
 
 
         }

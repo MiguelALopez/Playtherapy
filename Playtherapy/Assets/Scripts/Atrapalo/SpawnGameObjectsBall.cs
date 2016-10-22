@@ -33,7 +33,7 @@ public class SpawnGameObjectsBall : MonoBehaviour
 		}
 		
 		// if time to spawn a new game object
-		if ((Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.remainingReps>0&&!GameManagerAtrapalo.gms.withTime)||(Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.currentTime>0&&GameManagerAtrapalo.gms.withTime)) {
+		if (((Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.remainingReps>0&&!GameManagerAtrapalo.gms.withTime)||(Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.currentTime>0&&GameManagerAtrapalo.gms.withTime))&&(Time.time >= nextSpawnTime && GameManagerAtrapalo.gms.ballsAlive == 0)) {
 			// Spawn the game object through function below
 			MakeThingToSpawn ();
 			// determine the next time to spawn the object

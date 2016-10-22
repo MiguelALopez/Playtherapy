@@ -37,6 +37,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public bool gameIsOver = false;
     private bool lastSeconds = false;
 
+    public bool side; 
+
     public AudioSource countdownSound;
 
     public GameObject playAgainButtons;
@@ -91,6 +93,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
     // setup the game
     void Start()
     {
+        side = true;
 		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjectsBall>();
 		spawner.enabled = false;
         // set the current time to the startTime specified
