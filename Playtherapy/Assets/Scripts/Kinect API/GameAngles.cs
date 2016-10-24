@@ -23,8 +23,9 @@ namespace MovementDetectionLibrary
 
 			//Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
 
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.5f ;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.5f;
+			Debug.Log ("angulo cos sin "+angle);
+            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude ;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude;
 
             pointFin = pointFin + pointOne;
 
@@ -59,7 +60,7 @@ namespace MovementDetectionLibrary
 
                 float angleRad = Mathf.Deg2Rad * Random.Range (-angle, 0);
                 Debug.Log("angulo rad" + angleRad);
-                return Mathf.PI;
+				return -Mathf.PI/6;
 			} else {
 
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
@@ -71,7 +72,7 @@ namespace MovementDetectionLibrary
                 float angleRad = Mathf.Deg2Rad * Random.Range (0, angle);
                 Debug.Log("angulo rad" + angleRad);
 
-                return Mathf.PI ;
+                return Mathf.PI/6;
 			}
 
         }
