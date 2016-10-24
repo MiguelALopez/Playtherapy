@@ -38,6 +38,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
     private bool lastSeconds = false;
 
     public bool side; 
+    public bool planeShoot ;
 
     public AudioSource countdownSound;
 
@@ -50,6 +51,9 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public float currentTime;
     private float countdownTime = 0.0f;
 	public int ballsAlive;
+
+    public Toggle toggleFronPla;
+    public Toggle toggleLatPlan;
 
     private SpawnGameObjectsBall spawner;
 
@@ -83,7 +87,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
         }
         //gameIsStarted = true;
         mainScoreDisplay.text = "0";
-		Debug.Log ("empieza");
         countdownDisplayObject.SetActive(true);
         lastSeconds = false;
 

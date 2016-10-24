@@ -7,7 +7,8 @@ namespace MovementDetectionLibrary
     {
         private float angleDegree ;
         private ArrayList arrayAngles;
-        public GameAngles(float angle)
+        private string side;
+        public GameAngles(float angle, bool front, bool lat)
         {
             this.angleDegree = angle;
             arrayAngles = new ArrayList();
@@ -23,8 +24,19 @@ namespace MovementDetectionLibrary
 
 			//Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
 
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.5f ;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.5f;
+
+
+            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.2f;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.2f;
+
+            if (side == "left")
+            {
+                pointFin.z += 1.5f;
+            }
+            else
+            {
+                pointFin.z -= 1.5f;
+            }
 
             pointFin = pointFin + pointOne;
 
@@ -46,32 +58,30 @@ namespace MovementDetectionLibrary
         //Return an random angle between 0 and the angle in randians, angle is a degree
 		public float setRamdomAngle(string side)
         {
+            this.side = side;
             if (arrayAngles.Count == 0)
             {
                 setArrayAngles(this.angleDegree);
             }
 
-            if (side =="left") {
+            if (side == "left") {
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
                 float angle = (float)(arrayAngles[position]);
                 arrayAngles.RemoveAt(position);
-                Debug.Log("angulo deg" + angle);
 
-                float angleRad = Mathf.Deg2Rad * Random.Range (-angle, 0);
-                Debug.Log("angulo rad" + angleRad);
-                return Mathf.PI;
+                float angleRad = Mathf.Deg2Rad * angle;
+
+                return angleRad-Mathf.PI/2;
 			} else {
 
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
                 float angle = (float)(arrayAngles[position]);
 
                 arrayAngles.RemoveAt(position);
-                Debug.Log("angulo deg" + angle);
 
-                float angleRad = Mathf.Deg2Rad * Random.Range (0, angle);
-                Debug.Log("angulo rad" + angleRad);
+                float angleRad = Mathf.Deg2Rad * angle;
 
-                return Mathf.PI ;
+                return 3 * Mathf.PI / 2 - angleRad;
 			}
 
         }

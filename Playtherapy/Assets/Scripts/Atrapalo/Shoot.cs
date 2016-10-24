@@ -28,7 +28,7 @@ namespace MovementDetectionLibrary
 			gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
 			gameM.ballsAlive++;
 			angle = (180*gameM.level)/6;
-            calc = new GameAngles(angle);
+            calc = new GameAngles(angle, gameM.toggleFronPla.isOn, gameM.toggleLatPlan.isOn);
             timeLaunch = gameM.launchTime;
             side = true;
 
@@ -66,12 +66,12 @@ namespace MovementDetectionLibrary
             }
             else {
                 if (gameObject.transform.position != pointFin && Time.time<=timeArrive) {
-                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
                 }
                 else
                 {           
                     pointFin.x = -90;
-                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
                 }
             }
 
@@ -119,7 +119,7 @@ namespace MovementDetectionLibrary
 
 
             this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
-            gameObject.transform.position = pointFin;
+            //gameObject.transform.position = pointFin;
             gameM.NewRepetition();      
 			
 
