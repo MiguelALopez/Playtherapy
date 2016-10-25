@@ -5,12 +5,12 @@ namespace MovementDetectionLibrary
 {
     public class GameAngles
     {
-<<<<<<< HEAD
-        private float angleDegree ;
+
+        private float angleDegree;
         private ArrayList arrayAngles;
         private string side;
-        private bool frontPos ;
-        private bool latPos; 
+        private bool frontPos;
+        private bool latPos;
 
         public GameAngles(float angle, bool front, bool lat)
         {
@@ -19,8 +19,6 @@ namespace MovementDetectionLibrary
 
 
         }
-=======
->>>>>>> SushiII
 
         // Use this for initialization
         public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo, float angle)
@@ -29,22 +27,23 @@ namespace MovementDetectionLibrary
             Vector3 pointFin = pointTwo - pointOne;
             Vector3 pointOneD = pointTwo - pointOne;
 
-<<<<<<< HEAD
+
             //Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
 
             int plane = sideShootChoose();
-            
-            if(plane == 1)
+
+            if (plane == 1)
             {
                 pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
 
-            }else
+            }
+            else
             {
                 pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
 
             }
 
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.2f;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.2f;
 
             if (plane == 2)
             {
@@ -71,12 +70,6 @@ namespace MovementDetectionLibrary
 
             }
 
-
-=======
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.2f;
->>>>>>> SushiII
-
             pointFin = pointFin + pointOne;
 
             return pointFin;
@@ -86,11 +79,7 @@ namespace MovementDetectionLibrary
         // Return the second vector for the angle
         public Vector3 createPointTwoShoulderAF(Vector3 pointOne, Vector3 pointTwo)
         {
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> SushiII
             pointTwo.y = pointOne.y - (pointTwo - pointOne).magnitude;
             pointTwo.x = pointOne.x;
             pointTwo.z = pointOne.z;
@@ -99,8 +88,8 @@ namespace MovementDetectionLibrary
         }
 
         //Return an random angle between 0 and the angle in randians, angle is a degree
-<<<<<<< HEAD
-		public float setRamdomAngle(string side)
+
+        public float setRamdomAngle(string side)
         {
             this.side = side;
             if (arrayAngles.Count == 0)
@@ -108,7 +97,8 @@ namespace MovementDetectionLibrary
                 setArrayAngles(this.angleDegree);
             }
 
-            if (side == "left") {
+            if (side == "left")
+            {
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
                 float angle = (float)(arrayAngles[position]);
                 arrayAngles.RemoveAt(position);
@@ -117,7 +107,9 @@ namespace MovementDetectionLibrary
 
                 return angleRad - Mathf.PI / 2;
 
-			} else {
+            }
+            else
+            {
 
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
                 float angle = (float)(arrayAngles[position]);
@@ -129,7 +121,7 @@ namespace MovementDetectionLibrary
 
                 return 3 * Mathf.PI / 2 - angleRad;
 
-			}
+            }
 
         }
 
@@ -143,21 +135,26 @@ namespace MovementDetectionLibrary
             }
         }
 
-       
-    
+
+
         private int sideShootChoose()
         {
-            if(frontPos && latPos)
+            if (frontPos && latPos)
             {
                 return Mathf.RoundToInt(Random.Range(1, 3));
             }
             if (frontPos)
             {
                 return 1;
-            }else
+            }
+            else
             {
                 return 2;
-=======
+            }
+        }
+
+
+
         public float setRamdomAngle(float angle, string side)
         {
 
@@ -171,15 +168,10 @@ namespace MovementDetectionLibrary
 
                 float angleRad = Mathf.Deg2Rad * Random.Range(270, 270 + angle);
                 return angleRad;
->>>>>>> SushiII
+
             }
 
         }
-
-
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> SushiII
+
