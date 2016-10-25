@@ -11,6 +11,8 @@ public class TargetBehavior : MonoBehaviour
 	// explosion when hit?
 	public GameObject explosionPrefab;
 
+    private AudioSource explosionSound;
+
 	// information when hit?
 	public GameObject informationPrefab;
 
@@ -19,11 +21,12 @@ public class TargetBehavior : MonoBehaviour
 
 	private SushiSpawner sSpawner;
 
-	void Start()
-	{
-		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
-		sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
-		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+    void Start()
+    {
+        spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+        sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
+        gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+        explosionSound = GameObject.Find("cutFish").GetComponent<AudioSource>();
 	}
 
 	// when collided with another gameObject
@@ -53,11 +56,15 @@ public class TargetBehavior : MonoBehaviour
 			if (GameManagerSushi.gms) {
 				GameManagerSushi.gms.targetHit (scoreAmount);
 			}
-				
-			// destroy the projectile
-			//Destroy (newCollision.gameObject);
-				
-			gameM.NewRepetition();
+            
+            // if explosion sound exists, make adjustments based on target properties
+            if (explosionSound)
+                explosionSound.Play();
+
+            // destroy the projectile
+            //Destroy (newCollision.gameObject);
+
+            gameM.NewRepetition();
 
 			if (gameM.withTime) {
 				if (gameM.currentTime > 0.0f) {
