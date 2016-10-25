@@ -38,7 +38,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     private bool lastSeconds = false;
 
     public bool side; 
-    public bool planeShoot ;
+    public bool planeShootLat ;
+    public bool planeShootFront;
 
     public AudioSource countdownSound;
 
@@ -89,7 +90,13 @@ public class GameManagerAtrapalo : MonoBehaviour {
         mainScoreDisplay.text = "0";
         countdownDisplayObject.SetActive(true);
         lastSeconds = false;
+        planeShootFront = toggleFronPla.isOn;
+        planeShootLat = toggleLatPlan.isOn;
 
+        if (!planeShootFront && !planeShootLat)
+        {
+            planeShootLat = true;
+        }
 
     }
 

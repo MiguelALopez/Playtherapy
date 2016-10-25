@@ -8,10 +8,14 @@ namespace MovementDetectionLibrary
         private float angleDegree ;
         private ArrayList arrayAngles;
         private string side;
+        private bool frontPos ;
+        private bool latPos; 
+
         public GameAngles(float angle, bool front, bool lat)
         {
             this.angleDegree = angle;
             arrayAngles = new ArrayList();
+
 
         }
 
@@ -22,22 +26,47 @@ namespace MovementDetectionLibrary
             Vector3 pointFin = pointTwo - pointOne;
             Vector3 pointOneD = pointTwo - pointOne;
 
-			//Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
+            //Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
 
+            int plane = sideShootChoose();
+            
+            if(plane == 1)
+            {
+                pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
 
+            }else
+            {
+                pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
 
+            }
 
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude*1.2f;
             pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude*1.2f;
 
-            if (side == "left")
+            if (plane == 2)
             {
-                pointFin.z += 1.5f;
+                if (side == "left")
+                {
+                    pointFin.z += 1.5f;
+                }
+                else
+                {
+                    pointFin.z -= 1.5f;
+                }
+
             }
             else
             {
-                pointFin.z -= 1.5f;
+                if (side == "left")
+                {
+                    pointFin.x += 1.5f;
+                }
+                else
+                {
+                    pointFin.x -= 1.5f;
+                }
+
             }
+
 
 
             pointFin = pointFin + pointOne;
@@ -73,7 +102,7 @@ namespace MovementDetectionLibrary
 
                 float angleRad = Mathf.Deg2Rad * angle;
 
-                return angleRad-Mathf.PI/2;
+                return angleRad - Mathf.PI / 2;
 
 			} else {
 
@@ -99,6 +128,24 @@ namespace MovementDetectionLibrary
             {
                 this.arrayAngles.Add(angle - 5 * i);
             }
+        }
+
+       
+    
+        private int sideShootChoose()
+        {
+            if(frontPos && latPos)
+            {
+                return Mathf.RoundToInt(Random.Range(1, 3));
+            }
+            if (frontPos)
+            {
+                return 1;
+            }else
+            {
+                return 2;
+            }
+
         }
 
 

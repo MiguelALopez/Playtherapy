@@ -5,12 +5,12 @@ public class SpawnGameObjectsBall : MonoBehaviour
 {
 	// public variables
 	public float secondsBetweenSpawning = 0.1f;
-	public float xMinRange = -25.0f;
-	public float xMaxRange = 25.0f;
-	public float yMinRange = 8.0f;
-	public float yMaxRange = 25.0f;
-	public float zMinRange = -25.0f;
-	public float zMaxRange = 25.0f;
+	public float xMinRange = -9.0f;
+	public float xMaxRange = -8.0f;
+	public float yMinRange = 0.0f;
+	public float yMaxRange = 0.0f;
+	public float zMinRange = -51.0f;
+	public float zMaxRange = -51.0f;
 	int n = 0;
 	public GameObject[] spawnObjects; // what prefabs to spawn
 

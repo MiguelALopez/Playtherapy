@@ -28,7 +28,7 @@ namespace MovementDetectionLibrary
 			gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
 			gameM.ballsAlive++;
 			angle = (180*gameM.level)/6;
-            calc = new GameAngles(angle, gameM.toggleFronPla.isOn, gameM.toggleLatPlan.isOn);
+            calc = new GameAngles(angle, gameM.planeShootFront, gameM.planeShootLat);
             timeLaunch = gameM.launchTime;
             side = true;
 
