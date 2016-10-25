@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e05ecc92f6e8901428fafa3b21393143
 timeCreated: 1476798274
+=======
+guid: 634dc1acfb13e564abf054d72aeedef2
+timeCreated: 1476796042
+>>>>>>> SushiII
 licenseType: Free
 NativeFormatImporter:
   userData: 
