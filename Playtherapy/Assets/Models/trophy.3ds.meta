@@ -1,27 +1,44 @@
 fileFormatVersion: 2
-guid: 7cf0366b2823b0841a6a8709c0883c38
-timeCreated: 1477263818
+guid: 835ac1908964dc9468681beef82998b7
+timeCreated: 1477348968
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: sub01
-    100004: sub02
-    100006: sub03
-    400000: //RootNode
-    400002: sub01
-    400004: sub02
-    400006: sub03
-    2300000: sub01
-    2300002: sub02
-    2300004: sub03
-    3300000: sub01
-    3300002: sub02
-    3300004: sub03
-    4300000: sub01
-    4300002: sub02
-    4300004: sub03
+    100000: base
+    100002: base1
+    100004: Cylinder
+    100006: Light
+    100008: Null_Objec
+    100010: troph
+    100012: //RootNode
+    100014: trophy
+    400000: base
+    400002: base1
+    400004: Cylinder
+    400006: Light
+    400008: Null_Objec
+    400010: troph
+    400012: //RootNode
+    400014: trophy
+    2300000: base
+    2300002: base1
+    2300004: Cylinder
+    2300006: Null_Objec
+    2300008: troph
+    2300010: trophy
+    3300000: base
+    3300002: base1
+    3300004: Cylinder
+    3300006: Null_Objec
+    3300008: troph
+    3300010: trophy
+    4300000: Null_Objec
+    4300002: trophy
+    4300004: troph
+    4300006: base
+    4300008: base1
+    4300010: Cylinder
   materials:
     importMaterials: 1
     materialName: 0
@@ -46,7 +63,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.01
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
