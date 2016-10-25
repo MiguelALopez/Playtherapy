@@ -44,12 +44,35 @@ public class RUISCharacterAnimationController : MonoBehaviour
 		forwardSpeed = Mathf.Lerp(forwardSpeed, locomotionControl.desiredVelocity.z, Time.deltaTime * animationBlendStrength);
 		strafeSpeed = Mathf.Lerp(strafeSpeed, locomotionControl.desiredVelocity.x, Time.deltaTime * animationBlendStrength);
 
-		// Pass parameters to animator
-        animator.SetBool("Grounded", characterController.grounded);
-        animator.SetFloat("ForwardSpeed", forwardSpeed);
-        animator.SetFloat("StrafeSpeed", strafeSpeed);
-        animator.SetFloat("Direction", locomotionControl.direction);
-        animator.SetBool("Jump", locomotionControl.jump);
+        // Pass parameters to animator
+        if (HasParameter("Grounded", animator))
+        {
+            animator.SetBool("Grounded", characterController.grounded);
+        }
+
+        if (HasParameter("ForwardSpeed", animator))
+        {
+            animator.SetFloat("ForwardSpeed", forwardSpeed);
+        }
+
+        if (HasParameter("StrafeSpeed", animator))
+        {
+            animator.SetFloat("StrafeSpeed", strafeSpeed);
+        }
+
+        if (HasParameter("Direction", animator))
+        {
+            animator.SetFloat("Direction", locomotionControl.direction);
+        }
+
+        if (HasParameter("Jump", animator))
+        {
+            animator.SetBool("Jump", locomotionControl.jump);
+        }
+        
+        
+        
+        
 
         if (characterController.grounded) // The character is supported from below
         {
@@ -64,4 +87,13 @@ public class RUISCharacterAnimationController : MonoBehaviour
 //            animationCombiner.rightLegBlendWeight = 1;
         }
 	}
+
+    public static bool HasParameter(string paramName, Animator animator)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName) return true;
+        }
+        return false;
+    }
 }

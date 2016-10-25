@@ -14,14 +14,14 @@ public class TargetBehavior : MonoBehaviour
 	// information when hit?
 	public GameObject informationPrefab;
 
-	private SpawnGameObjects spawner;
+	private MovementDetectionLibrary.SpawnGameObjects spawner;
 	private GameManagerSushi gameM;
 
 	private SushiSpawner sSpawner;
 
 	void Start()
 	{
-		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
 		sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
 		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
 	}

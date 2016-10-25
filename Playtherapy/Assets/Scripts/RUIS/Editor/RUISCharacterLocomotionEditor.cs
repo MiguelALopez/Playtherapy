@@ -128,16 +128,16 @@ public class RUISCharacterLocomotionEditor : Editor {
 
         EditorGUILayout.PropertyField(useRazerHydra, new GUIContent("Use Razer Hydra", "Enable locomotion controls with a Razer Hydra controller"));
 		
-		if(useRazerHydra.boolValue)
-		{
-	        EditorGUI.indentLevel += 2;
+		//if(useRazerHydra.boolValue)
+		//{
+	 //       EditorGUI.indentLevel += 2;
 			
-	        EditorGUILayout.PropertyField(razerHydraID, new GUIContent("Controller ID", "LEFT or RIGHT"));
-			EditorGUILayout.PropertyField(strafeInsteadTurning, new GUIContent(  "Strafe, Don't Turn", "If enabled, then the analog stick's horizontal axis makes "
-			                                                                   + "the character strafe (sidestep) instead of turning."));
+	 //       EditorGUILayout.PropertyField(razerHydraID, new GUIContent("Controller ID", "LEFT or RIGHT"));
+		//	EditorGUILayout.PropertyField(strafeInsteadTurning, new GUIContent(  "Strafe, Don't Turn", "If enabled, then the analog stick's horizontal axis makes "
+		//	                                                                   + "the character strafe (sidestep) instead of turning."));
 	        
-	        EditorGUI.indentLevel -= 2;
-		}
+	 //       EditorGUI.indentLevel -= 2;
+		//}
 		
 		EditorGUILayout.PropertyField(usePSNavigationController, new GUIContent("Use PS Navi Controller", "Enable locomotion controls with a PS Navigation controller"));
 		

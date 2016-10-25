@@ -48,7 +48,7 @@ public class GameManagerSushi : MonoBehaviour {
 	public float currentTime;
 	private float countdownTime = 0.0f;
 
-	private SpawnGameObjects spawner;
+	private MovementDetectionLibrary.SpawnGameObjects spawner;
 
     public bool withTime = false;
 
@@ -111,7 +111,7 @@ public class GameManagerSushi : MonoBehaviour {
 		if (countdownDisplayObject)
 			countdownDisplay = countdownDisplayObject.GetComponent<Text>();
 
-		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
 	}
 
 	// this is the main game event loop

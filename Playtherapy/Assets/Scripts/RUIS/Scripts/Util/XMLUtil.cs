@@ -75,7 +75,7 @@ public class XMLUtil {
             XmlDocument result = new XmlDocument();
             result.Load(validatingReader);
 
-            Debug.Log("XML validation finished for " + xmlFilename + "!");
+            //Debug.Log("XML validation finished for " + xmlFilename + "!");
 
             fs.Close();
             validatingReader.Close();
