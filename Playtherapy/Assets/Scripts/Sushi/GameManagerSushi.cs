@@ -48,11 +48,14 @@ public class GameManagerSushi : MonoBehaviour {
 	public float currentTime;
 	private float countdownTime = 0.0f;
 
-	private SpawnGameObjects spawner;
+	private MovementDetectionLibrary.SpawnGameObjects spawner;
 
     public bool withTime = false;
 
-    public void StartGame(int levelToLoad, bool time, int value)
+    float floatTime = 0.0f;
+    float upwardsTime = 0.0f;
+
+    public void StartGame(int levelToLoad, bool time, int value, float flTime, float uTime)
     {
         withTime = time; 
 
@@ -80,6 +83,8 @@ public class GameManagerSushi : MonoBehaviour {
 		countdownDisplayObject.SetActive(true);
 		lastSeconds = false;
 
+        floatTime = flTime;
+        upwardsTime = uTime;
 
     }
 
@@ -111,6 +116,10 @@ public class GameManagerSushi : MonoBehaviour {
 		if (countdownDisplayObject)
 			countdownDisplay = countdownDisplayObject.GetComponent<Text>();
 
+<<<<<<< HEAD
+=======
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+>>>>>>> SushiII
 	}
 
 	// this is the main game event loop
@@ -166,7 +175,12 @@ public class GameManagerSushi : MonoBehaviour {
 				countdownDisplay.text = "";
 				gameIsStarted = true;
 				countdownDisplayObject.SetActive(false);
+<<<<<<< HEAD
 				spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjects>();
+=======
+                spawner.SetTimes(floatTime, upwardsTime);
+				spawner.MakeThingToSpawn ();
+>>>>>>> SushiII
 
 			}
 			countdownTime += Time.deltaTime;

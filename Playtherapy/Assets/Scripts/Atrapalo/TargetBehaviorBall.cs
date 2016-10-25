@@ -14,6 +14,21 @@ public class TargetBehaviorBall : MonoBehaviour
 	// information when hit?
 	public GameObject informationPrefab;
 
+<<<<<<< HEAD:Playtherapy/Assets/Scripts/Atrapalo/TargetBehaviorBall.cs
+=======
+	private MovementDetectionLibrary.SpawnGameObjects spawner;
+	private GameManagerSushi gameM;
+
+	private SushiSpawner sSpawner;
+
+	void Start()
+	{
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+		sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
+		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+	}
+
+>>>>>>> SushiII:Playtherapy/Assets/Scripts/Sushi/TargetBehavior.cs
 	// when collided with another gameObject
 	void OnTriggerEnter  (Collider newCollision)
 	{
