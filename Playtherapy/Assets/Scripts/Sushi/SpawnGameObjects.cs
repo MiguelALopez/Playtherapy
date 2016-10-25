@@ -19,7 +19,6 @@ namespace MovementDetectionLibrary
 
         float angle;
         public GameAngles calc;
-        bool flagSide = true;
         private Vector3 pointFin;
         private bool side;
         GameManagerSushi gameM;
