@@ -12,6 +12,7 @@ namespace MovementDetectionLibrary
         {
 
             this.angleDegree = angle;
+			Debug.Log ("angleDegree " + angleDegree);
             arrayAngles = new ArrayList();
 
         }
@@ -28,16 +29,16 @@ namespace MovementDetectionLibrary
 
 
 
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.2f;
+            pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.0f;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.0f;
 
             if (side == "left")
             {
-                pointFin.z += 1.5f;
+                pointFin.x += 0.3f;
             }
             else
             {
-                pointFin.z -= 1.5f;
+                pointFin.x -= 0.3f;
             }
 
 
@@ -77,7 +78,9 @@ namespace MovementDetectionLibrary
                 float angleRad = Mathf.Deg2Rad * angle;
 
                 Debug.Log("entra a tiki1");
-                return angleRad - Mathf.PI / 2;
+				Debug.Log ("angulo" + (angleRad - Mathf.PI / 2));
+				//return 0.0f;
+				return angleRad - Mathf.PI / 2;
 
             }
             else
@@ -91,7 +94,9 @@ namespace MovementDetectionLibrary
                 float angleRad = Mathf.Deg2Rad * angle;
 
                 Debug.Log("entra a tiki2");
-                return 3 * Mathf.PI / 2 - angleRad;
+				//return Mathf.PI;
+				Debug.Log("angulo" + (3 * Mathf.PI / 2 - angleRad));
+				return 3 * Mathf.PI / 2 - angleRad;
 
             }
 

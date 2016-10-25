@@ -37,8 +37,7 @@ namespace MovementDetectionLibrary
             if (gameM)
             {
                 Debug.Log("Entra a mirar gms");
-                angle = (180 * gameM.level) / 6;
-                calc = new GameAngles(angle, true, true);
+                
             }
         }
 
@@ -70,8 +69,11 @@ namespace MovementDetectionLibrary
 
         public void MakeThingToSpawn()
         {
+			angle = (180 * gameM.level) / 6;
+			calc = new GameAngles(angle, true, true);
             Vector3 spawnPosition;
 
+			/*
             System.Random rnd = new System.Random();
             int sideNumber = rnd.Next(1);
             if (sideNumber == 0)
@@ -81,17 +83,19 @@ namespace MovementDetectionLibrary
             else
             {
                 side = false;
-            }
+            }*/
 
             if (side)
             {
                 Debug.Log("lado der");
                 shootPosition("ShoulderRight", "HandRight", "left");
+				side = false;
             }
             else
             {
                 Debug.Log("lado izq");
                 shootPosition("ShoulderLeft", "HandLeft", "right");
+				side = true;
             }
 
             // get a random position between the specified ranges
@@ -115,6 +119,7 @@ namespace MovementDetectionLibrary
 
         public void shootPosition(string jointOneName, string jointTwoName, string side)
         {
+			
             float angleRad = 0.0f;
             if (calc != null)
             {
