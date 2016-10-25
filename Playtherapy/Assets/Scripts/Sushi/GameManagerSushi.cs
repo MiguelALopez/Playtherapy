@@ -52,7 +52,10 @@ public class GameManagerSushi : MonoBehaviour {
 
     public bool withTime = false;
 
-    public void StartGame(int levelToLoad, bool time, int value)
+    float floatTime = 0.0f;
+    float upwardsTime = 0.0f;
+
+    public void StartGame(int levelToLoad, bool time, int value, float flTime, float uTime)
     {
         withTime = time; 
 
@@ -80,6 +83,8 @@ public class GameManagerSushi : MonoBehaviour {
 		countdownDisplayObject.SetActive(true);
 		lastSeconds = false;
 
+        floatTime = flTime;
+        upwardsTime = uTime;
 
     }
 
@@ -167,6 +172,7 @@ public class GameManagerSushi : MonoBehaviour {
 				countdownDisplay.text = "";
 				gameIsStarted = true;
 				countdownDisplayObject.SetActive(false);
+                spawner.SetTimes(floatTime, upwardsTime);
 				spawner.MakeThingToSpawn ();
 
 			}

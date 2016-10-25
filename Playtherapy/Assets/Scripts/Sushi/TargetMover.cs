@@ -33,10 +33,12 @@ public class TargetMover : MonoBehaviour
         gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
     }
 
-    public void StartMoving(Vector3 objective)
+    public void StartMoving(Vector3 objective, float fTime, float uTime)
     {
         objectiveHeight = objective.y;
         gameObject.transform.position = new Vector3(objective.x, 0.0f, objective.z + 2.0f);
+        floatingTime = fTime;
+        upTime = uTime;
         moving = true;
     }
 

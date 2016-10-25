@@ -10,6 +10,8 @@ public class OnStartSelected : MonoBehaviour {
     public Slider sliderRep;
     public Slider sliderTime;
     public Slider sliderLevel;
+    public Slider sliderArrive;
+    public Slider sliderFloat;
 
 	private GameObject menu;
 
@@ -40,7 +42,7 @@ public class OnStartSelected : MonoBehaviour {
         }
         if (GameManagerSushi.gms)
         {
-            GameManagerSushi.gms.StartGame(level, time, timeRepValue);
+            GameManagerSushi.gms.StartGame(level, time, timeRepValue, sliderFloat.value, sliderArrive.value);
         }
 		menu.SetActive (false);
         

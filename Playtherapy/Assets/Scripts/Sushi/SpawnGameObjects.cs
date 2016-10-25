@@ -24,6 +24,9 @@ namespace MovementDetectionLibrary
         private bool side;
         GameManagerSushi gameM;
 
+        private float upTime = 0.0f;
+        private float flTime = 0.0f;
+
 
         // Use this for initialization
         void Start()
@@ -57,6 +60,12 @@ namespace MovementDetectionLibrary
                 // determine the next time to spawn the object
                 nextSpawnTime = Time.time+secondsBetweenSpawning;
             }*/
+        }
+
+        public void SetTimes(float fTime, float uTime)
+        {
+            flTime = fTime;
+            upTime = uTime;
         }
 
         public void MakeThingToSpawn()
@@ -100,7 +109,7 @@ namespace MovementDetectionLibrary
             spawnedObject.transform.parent = gameObject.transform;
 
             Debug.Log("Spawner: " + pointFin.ToString());
-            spawnedObject.GetComponent<TargetMover>().StartMoving(pointFin);
+            spawnedObject.GetComponent<TargetMover>().StartMoving(pointFin, flTime, upTime);
 
         }
 
