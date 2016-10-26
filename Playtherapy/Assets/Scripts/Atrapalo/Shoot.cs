@@ -51,13 +51,13 @@ namespace MovementDetectionLibrary
                 if (gameM.side)
                 {
                     Debug.Log("lado der");
-                    this.shootPosition("ShoulderRigth", "HandRigth", "left");
+                    this.shootPosition("ShoulderRight", "HandRight", "left");
                     gameM.side = false;
                 }
                 else
                 {
                     Debug.Log("lado izq");
-                    this.shootPosition("ShoulderLeft", "HandLeft", "rigth");
+                    this.shootPosition("ShoulderLeft", "HandLeft", "right");
                     gameM.side = true;
                 }
                 this.vel = (pointFin - gameObject.transform.position).magnitude / timeLaunch;
@@ -70,7 +70,7 @@ namespace MovementDetectionLibrary
                 }
                 else
                 {           
-                    pointFin.x = -90;
+                    pointFin = pointFin * 3;
                     this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
                 }
             }

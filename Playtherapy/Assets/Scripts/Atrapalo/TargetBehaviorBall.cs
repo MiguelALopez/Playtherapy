@@ -14,8 +14,7 @@ public class TargetBehaviorBall : MonoBehaviour
 	// information when hit?
 	public GameObject informationPrefab;
 
-<<<<<<< HEAD:Playtherapy/Assets/Scripts/Atrapalo/TargetBehaviorBall.cs
-=======
+
 	private MovementDetectionLibrary.SpawnGameObjects spawner;
 	private GameManagerSushi gameM;
 
@@ -28,7 +27,6 @@ public class TargetBehaviorBall : MonoBehaviour
 		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
 	}
 
->>>>>>> SushiII:Playtherapy/Assets/Scripts/Sushi/TargetBehavior.cs
 	// when collided with another gameObject
 	void OnTriggerEnter  (Collider newCollision)
 	{
@@ -39,7 +37,7 @@ public class TargetBehaviorBall : MonoBehaviour
 				return;
 		}
 		// only do stuff if hit by a projectile
-		if (newCollision.gameObject.tag == "HandRigth"||newCollision.gameObject.tag == "HandLeft") {
+		if (newCollision.gameObject.tag == "HandRight"||newCollision.gameObject.tag == "HandLeft") {
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
