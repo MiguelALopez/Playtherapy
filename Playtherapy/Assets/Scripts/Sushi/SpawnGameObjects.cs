@@ -7,15 +7,18 @@ namespace MovementDetectionLibrary
     {
         // public variables
         //public float secondsBetweenSpawning = 0.1f;
-        public float xMinRange = -25.0f;
-        public float xMaxRange = 25.0f;
-        public float yMinRange = 8.0f;
-        public float yMaxRange = 25.0f;
-        public float zMinRange = -25.0f;
-        public float zMaxRange = 25.0f;
+        //public float xMinRange = -25.0f;
+        //public float xMaxRange = 25.0f;
+        //public float yMinRange = 8.0f;
+        //public float yMaxRange = 25.0f;
+        //public float zMinRange = -25.0f;
+        //public float zMaxRange = 25.0f;
         public GameObject[] spawnObjects; // what prefabs to spawn
 
         //private float nextSpawnTime;
+
+        public GameObject panelIzq;
+        public GameObject panelDer;
 
         float angle;
         public GameAngles calc;
@@ -70,7 +73,7 @@ namespace MovementDetectionLibrary
         {
 			angle = (180 * gameM.level) / 6;
 			calc = new GameAngles(angle, true, true);
-            Vector3 spawnPosition;
+            //Vector3 spawnPosition;
 
 			/*
             System.Random rnd = new System.Random();
@@ -104,6 +107,16 @@ namespace MovementDetectionLibrary
 
             // determine which object to spawn
             int objectToSpawn = Random.Range(0, spawnObjects.Length);
+
+            if (objectToSpawn == 0)
+            {
+                panelIzq.SetActive(true);
+                panelDer.SetActive(false);
+            } else
+            {
+                panelIzq.SetActive(false);
+                panelDer.SetActive(true);
+            }
 
             // actually spawn the game object
             GameObject spawnedObject = Instantiate(spawnObjects[objectToSpawn], pointFin, spawnObjects[objectToSpawn].transform.rotation) as GameObject;
