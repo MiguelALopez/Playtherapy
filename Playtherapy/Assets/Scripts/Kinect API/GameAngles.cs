@@ -18,7 +18,7 @@ namespace MovementDetectionLibrary
         }
 
         // Use this for initialization
-        public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo, float angle)
+        public Vector3 getPosition(Vector3 pointOne, Vector3 pointTwo, float angle, float correction, string plane)
         {
 
             Vector3 pointFin = pointTwo - pointOne;
@@ -27,19 +27,22 @@ namespace MovementDetectionLibrary
             //Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
 
 
-
-
-            pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1f;
-            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1f;
-
-            if (side == "left")
+            if (plane == "z")
             {
-                pointFin.z += 1.3f;
+
+                pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1f;
+
             }
             else
             {
-                pointFin.z -= 1.3f;
+                pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1f;
             }
+
+
+            //pointFin.z = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.2f;
+            pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.2f;
+
+            pointFin = correctionPosition(pointFin, plane, correction);
 
 
             pointFin = pointFin + pointOne;
@@ -60,16 +63,48 @@ namespace MovementDetectionLibrary
         }
 
         //Return an random angle between 0 and the angle in randians, angle is a degree
-        public float setRamdomAngle(string side)
+        public float setRamdomAngle(string side, string plane)
         {
-            Debug.Log("entra a tiki");
             this.side = side;
             if (arrayAngles.Count == 0)
             {
                 setArrayAngles(this.angleDegree);
             }
 
-            if (side == "left")
+            if (plane == "z")
+            {
+                if (side == "left")
+                {
+                    int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
+                    float angle = (float)(arrayAngles[position]);
+                    arrayAngles.RemoveAt(position);
+
+                    float angleRad = Mathf.Deg2Rad * angle;
+
+                    Debug.Log("disp izq");
+                    //Debug.Log ("angulo" + (angleRad - Mathf.PI / 2));
+                    //return -Mathf.PI / 4;
+                    return angleRad- Mathf.PI / 2;
+
+                }
+                else
+                {
+
+                    int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
+                    float angle = (float)(arrayAngles[position]);
+
+                    arrayAngles.RemoveAt(position);
+
+                    float angleRad = Mathf.Deg2Rad * angle;
+
+                    Debug.Log("disp der ");
+                    //return -Mathf.PI / 4;
+                    //Debug.Log("angulo" + (3 * Mathf.PI / 2 - angleRad));
+                    return 3 * Mathf.PI / 2 - angleRad;
+
+                }
+
+            }else
             {
                 int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
                 float angle = (float)(arrayAngles[position]);
@@ -77,28 +112,11 @@ namespace MovementDetectionLibrary
 
                 float angleRad = Mathf.Deg2Rad * angle;
 
-                Debug.Log("entra a tiki1");
-				Debug.Log ("angulo" + (angleRad - Mathf.PI / 2));
-				//return 0.0f;
-				return angleRad - Mathf.PI / 2;
-
+                Debug.Log("disp izq");
+                //Debug.Log ("angulo" + (angleRad - Mathf.PI / 2));
+                return angleRad - Mathf.PI/2;
             }
-            else
-            {
 
-                int position = Mathf.RoundToInt(Random.Range(0, arrayAngles.Count));
-                float angle = (float)(arrayAngles[position]);
-
-                arrayAngles.RemoveAt(position);
-
-                float angleRad = Mathf.Deg2Rad * angle;
-
-                Debug.Log("entra a tiki2");
-				//return Mathf.PI;
-				Debug.Log("angulo" + (3 * Mathf.PI / 2 - angleRad));
-				return 3 * Mathf.PI / 2 - angleRad;
-
-            }
 
         }
 
@@ -110,6 +128,29 @@ namespace MovementDetectionLibrary
             {
                 this.arrayAngles.Add(angle - 5 * i);
             }
+        }
+
+        private Vector3 correctionPosition(Vector3 point, string plane, float correction)
+        {
+            if(plane == "z")
+            {
+                if (side == "left")
+                {
+                    point.z +=  correction;
+
+                }else
+                {
+                    point.z -= correction;
+                }
+            }
+            else
+            {
+                Debug.Log("Correccion x");
+                point.x += correction;
+            }
+
+            return point;
+
         }
 
 

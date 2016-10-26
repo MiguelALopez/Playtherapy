@@ -36,10 +36,13 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public bool gameIsStarted = false;
     public bool gameIsOver = false;
     private bool lastSeconds = false;
+    public int countBallPlane;
+
 
     public bool side; 
     public bool planeShootLat ;
     public bool planeShootFront;
+    public int shootOpt;
 
     public AudioSource countdownSound;
 
@@ -53,6 +56,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     private float countdownTime = 0.0f;
 	public int ballsAlive;
 
+    public string plane;
+
     public Toggle toggleFronPla;
     public Toggle toggleLatPlan;
 
@@ -62,7 +67,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
 	public void StartGame(int levelToLoad, bool time, int value, int launchTime)
     {
-		Debug.Log ("start");
         withTime = time;
 
         if (time)
@@ -92,9 +96,13 @@ public class GameManagerAtrapalo : MonoBehaviour {
         lastSeconds = false;
         planeShootFront = toggleFronPla.isOn;
         planeShootLat = toggleLatPlan.isOn;
+        countBallPlane = 0;
 
+        calculateOptionShoot();
+        setPlane();
         if (!planeShootFront && !planeShootLat)
         {
+            toggleLatPlan.isOn = true;
             planeShootLat = true;
         }
 
@@ -313,6 +321,47 @@ public class GameManagerAtrapalo : MonoBehaviour {
     {
         // we are just loading the specified next level (scene)
         //Application.LoadLevel (nextLevelToLoad);
+    }
+
+    // set the option to shoot the ball, only lat 1, only front 2, both 3
+    public void calculateOptionShoot()
+    {
+        if (toggleLatPlan.isOn)
+        {
+            shootOpt = 1;
+        }
+        if (toggleFronPla.isOn)
+        {
+            shootOpt = 2;
+        }
+        if (toggleFronPla.isOn && toggleLatPlan)
+        {
+            shootOpt = 3;
+        }
+    }
+
+    // Change the plane from x to z or from z to x
+    public void changePlane()
+    {
+        if (plane == "x")
+        {
+            plane = "z";
+        }else
+        {
+            plane = "x";
+        }
+    }
+
+    //set the plane to shoot, according to the toggle select
+    public void setPlane()
+    {
+        if (toggleFronPla.isOn)
+        {
+            plane = "x";
+        }else
+        {
+            plane  = "z";
+        }
     }
 
 

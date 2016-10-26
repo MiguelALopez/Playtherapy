@@ -19,6 +19,9 @@ namespace MovementDetectionLibrary
         private float vel;
         private bool side;
 		public int type;
+        private bool flagArrive;
+        private Vector3 pointIni;
+        private Rigidbody posNew; 
 
 
         // Use this for initialization
@@ -37,6 +40,9 @@ namespace MovementDetectionLibrary
                 timeLaunch = timeLaunch / 2;
             }
             timeArrive = Time.time + timeLaunch;
+            Vector3 pointIni = transform.position;
+            flagArrive = false;
+            //posNew = this.GetComponent<Rigidbody>();
 
 
 
@@ -51,13 +57,13 @@ namespace MovementDetectionLibrary
                 if (gameM.side)
                 {
                     Debug.Log("lado der");
-                    this.shootPosition("ShoulderRight", "HandRight", "left");
+                    this.shootPosition("ShoulderRight", "HandRight", "right");
                     gameM.side = false;
                 }
                 else
                 {
                     Debug.Log("lado izq");
-                    this.shootPosition("ShoulderLeft", "HandLeft", "right");
+                    this.shootPosition("ShoulderLeft", "HandLeft", "left");
                     gameM.side = true;
                 }
                 this.vel = (pointFin - gameObject.transform.position).magnitude / timeLaunch;
@@ -65,12 +71,18 @@ namespace MovementDetectionLibrary
                 flag = false;
             }
             else {
-                if (gameObject.transform.position != pointFin && Time.time<=timeArrive) {
+                if (gameObject.transform.position != pointFin) {
+                    
+                    //posNew.MovePosition(pointIni+pointFin*Time.deltaTime);
                     this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
                 }
                 else
-                {           
-                    pointFin = pointFin * 3;
+                {
+                    if (!flagArrive)
+                    {
+                        pointFin = pointFin * 2;
+                        flagArrive = true;
+                    }
                     this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
                 }
             }
@@ -110,15 +122,18 @@ namespace MovementDetectionLibrary
 
 		public void shootPosition(string jointOneName, string jointTwoName, string side)
         {
+            if (gameM.shootOpt==3)
+            {
+                counterPlane();
+            }
 
-
-            float angleRad = calc.setRamdomAngle(side);
+            float angleRad = calc.setRamdomAngle(side, gameM.plane);
                 
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
 
-            this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
+            this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad, 1.3f, gameM.plane);
             //gameObject.transform.position = pointFin;
             gameM.NewRepetition();      
 			
@@ -126,8 +141,21 @@ namespace MovementDetectionLibrary
 
         }
 
-		void OnDestroy(){
+        void OnDestroy(){
 			gameM.ballsAlive--;
 		}
+
+        // Function to count the balls shoot to a plane
+        public void counterPlane()
+        {
+            if(gameM.countBallPlane != 2)
+            {
+                gameM.countBallPlane++;
+            }else
+            {
+                gameM.countBallPlane = 1;
+                gameM.changePlane();
+            }
+        }
     }
 }

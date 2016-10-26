@@ -5,12 +5,9 @@ public class SpawnGameObjectsBall : MonoBehaviour
 {
 	// public variables
 	public float secondsBetweenSpawning = 0.1f;
-	public float xMinRange = -9.0f;
-	public float xMaxRange = -8.0f;
-	public float yMinRange = 0.0f;
-	public float yMaxRange = 0.0f;
-	public float zMinRange = -51.0f;
-	public float zMaxRange = -51.0f;
+	public float xBallPos= -20.0f;
+	public float yBallPos = 0.0f;
+	public float zBallPos = 15.0f;
 	int n = 0;
 	public GameObject[] spawnObjects; // what prefabs to spawn
 
@@ -64,12 +61,20 @@ public class SpawnGameObjectsBall : MonoBehaviour
 		Vector3 spawnPosition;
 
 		// get a random position between the specified ranges
-		spawnPosition.x = Random.Range (xMinRange, xMaxRange);
-		spawnPosition.y = Random.Range (yMinRange, yMaxRange);
-		spawnPosition.z = Random.Range (zMinRange, zMaxRange);
+		spawnPosition.x = xBallPos;
+		spawnPosition.y = yBallPos;
+        if (GameManagerAtrapalo.gms.side)
+        {
+            spawnPosition.z = zBallPos;
+        }else
+        {
+            spawnPosition.z = -1*zBallPos;
 
-		// determine which object to spawn
-		int objectToSpawn = this.chooseBall(Random.Range (0, 100));
+        }
+
+
+        // determine which object to spawn
+        int objectToSpawn = this.chooseBall(Random.Range (0, 100));
 
 		// actually spawn the game object
 		GameObject spawnedObject = Instantiate (spawnObjects [objectToSpawn], spawnPosition, spawnObjects[objectToSpawn].transform.rotation) as GameObject;

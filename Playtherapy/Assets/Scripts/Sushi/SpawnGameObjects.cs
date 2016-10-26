@@ -7,12 +7,9 @@ namespace MovementDetectionLibrary
     {
         // public variables
         //public float secondsBetweenSpawning = 0.1f;
-        public float xMinRange = -25.0f;
-        public float xMaxRange = 25.0f;
-        public float yMinRange = 8.0f;
-        public float yMaxRange = 25.0f;
-        public float zMinRange = -25.0f;
-        public float zMaxRange = 25.0f;
+        private float xBallPos= -20.0f;
+        private float yBallPos = 0.0f;
+        public float zBallPos = 15.0f;
         public GameObject[] spawnObjects; // what prefabs to spawn
 
         //private float nextSpawnTime;
@@ -123,7 +120,7 @@ namespace MovementDetectionLibrary
             float angleRad = 0.0f;
             if (calc != null)
             {
-                angleRad = calc.setRamdomAngle(side);
+                angleRad = calc.setRamdomAngle(side, "x");
             }
             else
             {
@@ -137,7 +134,7 @@ namespace MovementDetectionLibrary
             Debug.Log("PointTwo: " + pointTwo);
 
 
-            pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
+            pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad, 1.3f, "z");
             Debug.Log("PointFin: " + pointFin);
 
 
