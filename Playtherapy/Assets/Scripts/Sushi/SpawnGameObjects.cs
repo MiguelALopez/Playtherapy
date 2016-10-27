@@ -156,7 +156,7 @@ namespace MovementDetectionLibrary
             Debug.Log("PointTwo: " + pointTwo);
 
 
-            pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
+            pointFin = calc.getPositionWithCross(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
             Debug.Log("PointFin: " + pointFin);
 
 
