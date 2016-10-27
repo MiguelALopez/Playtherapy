@@ -86,18 +86,24 @@ namespace MovementDetectionLibrary
             {
                 side = false;
             }*/
+			int objectToSpawn = 0;
+			string hand = "";
 
             if (side)
             {
                 Debug.Log("lado der");
                 shootPosition("ShoulderRight", "HandRight", "left");
 				side = false;
+				objectToSpawn = 1;
+				hand = "right";
             }
             else
             {
                 Debug.Log("lado izq");
                 shootPosition("ShoulderLeft", "HandLeft", "right");
 				side = true;
+				objectToSpawn = 0;
+				hand = "left";
             }
 
             // get a random position between the specified ranges
@@ -106,7 +112,7 @@ namespace MovementDetectionLibrary
             //spawnPosition.z = Random.Range (zMinRange, zMaxRange);
 
             // determine which object to spawn
-            int objectToSpawn = Random.Range(0, spawnObjects.Length);
+            //int objectToSpawn = Random.Range(0, spawnObjects.Length);
 
             if (objectToSpawn == 0)
             {
@@ -126,6 +132,7 @@ namespace MovementDetectionLibrary
 
             Debug.Log("Spawner: " + pointFin.ToString());
             spawnedObject.GetComponent<TargetMover>().StartMoving(pointFin, flTime, upTime);
+			spawnedObject.GetComponent<TargetBehavior>().SetHand(hand);
 
         }
 

@@ -78,7 +78,7 @@ public class GameManagerSushi : MonoBehaviour {
 			countdownSound.Play ();
 		}
         //gameIsStarted = true;
-        mainScoreDisplay.text = "0";
+        mainScoreDisplay.text = "0 Aciertos";
 
 		countdownDisplayObject.SetActive(true);
 		lastSeconds = false;
@@ -238,7 +238,11 @@ public class GameManagerSushi : MonoBehaviour {
 	{
 		// increase the score by the scoreAmount and update the text UI
 		score += scoreAmount;
-		mainScoreDisplay.text = score.ToString ();
+		mainScoreDisplay.text = score.ToString () + " Acierto";
+		if (score != 1) {
+			mainScoreDisplay.text += "s";
+		}
+
 		
 		// don't let it go negative
 		if (currentTime < 0)
