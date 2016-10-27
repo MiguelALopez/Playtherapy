@@ -127,6 +127,8 @@ namespace MovementDetectionLibrary
                 counterPlane();
             }
 
+            Debug.Log("plano"+gameM.plane);
+
             float angleRad = calc.setRamdomAngle(side, gameM.plane);
                 
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;

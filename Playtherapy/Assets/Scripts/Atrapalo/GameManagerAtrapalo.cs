@@ -334,7 +334,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
         {
             shootOpt = 2;
         }
-        if (toggleFronPla.isOn && toggleLatPlan)
+        if (toggleFronPla.isOn && toggleLatPlan.isOn)
         {
             shootOpt = 3;
         }
