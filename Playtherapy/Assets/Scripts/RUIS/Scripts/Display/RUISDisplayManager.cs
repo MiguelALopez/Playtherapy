@@ -500,6 +500,7 @@ public class RUISDisplayManager : MonoBehaviour
 		return false;
 	}
 
+
 	#if !UNITY_EDITOR
 	private static bool isSteamVrAccessible = false;
 	private static bool failedToAccessSteamVr = false;
@@ -515,6 +516,7 @@ public class RUISDisplayManager : MonoBehaviour
 		// Lets ask OpenVR if Unity does not recognice the HMD name
 		if(hmdModel == null || hmdModel == "")
 		{
+            /*
 			#if UNITY_EDITOR
 			//if(SteamVR.instance != null)
 			//	return SteamVR.instance.hmd_ModelNumber;
@@ -541,7 +543,7 @@ public class RUISDisplayManager : MonoBehaviour
 				}
 			}
 			#endif
-
+            */
 		}
 		else
 			return hmdModel;

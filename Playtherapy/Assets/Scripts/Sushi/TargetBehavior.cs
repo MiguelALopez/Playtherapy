@@ -77,7 +77,6 @@ public class TargetBehavior : MonoBehaviour
 					spawner.MakeThingToSpawn ();
 				}
 			} else {
-				gameM.NewRepetition ();
 				if (gameM.GetRepetitions () >= 0) {
 					spawner.MakeThingToSpawn ();
 				}

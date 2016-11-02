@@ -28,6 +28,8 @@ public class GameManagerSushi : MonoBehaviour {
 	public GameObject countdownDisplayObject;
 	private Text countdownDisplay;
 
+    public GameObject canvasRestart;
+
 	public GameObject gameOverScoreOutline;
 
 	public AudioSource musicAudioSource;
@@ -211,6 +213,8 @@ public class GameManagerSushi : MonoBehaviour {
 		// reduce the pitch of the background music, if it is set 
 		if (musicAudioSource)
 			musicAudioSource.pitch = 0.5f; // slow down the music
+
+        canvasRestart.SetActive(true);
 	}
 	
 	void BeatLevel() {
