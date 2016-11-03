@@ -14,4 +14,9 @@ public class LoadLevel : MonoBehaviour {
 			//Application.LoadLevel (levelToLoad);
 		}
 	}
+
+    public void LoadLevelSelected()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(levelToLoad);
+    }
 }

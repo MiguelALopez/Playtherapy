@@ -28,6 +28,8 @@ public class GameManagerSushi : MonoBehaviour {
 	public GameObject countdownDisplayObject;
 	private Text countdownDisplay;
 
+    public GameObject canvasRestart;
+
 	public GameObject gameOverScoreOutline;
 
 	public AudioSource musicAudioSource;
@@ -78,7 +80,7 @@ public class GameManagerSushi : MonoBehaviour {
 			countdownSound.Play ();
 		}
         //gameIsStarted = true;
-        mainScoreDisplay.text = "0";
+        mainScoreDisplay.text = "0 Aciertos";
 
 		countdownDisplayObject.SetActive(true);
 		lastSeconds = false;
@@ -215,6 +217,8 @@ public class GameManagerSushi : MonoBehaviour {
 		// reduce the pitch of the background music, if it is set 
 		if (musicAudioSource)
 			musicAudioSource.pitch = 0.5f; // slow down the music
+
+        canvasRestart.SetActive(true);
 	}
 	
 	void BeatLevel() {
@@ -242,7 +246,11 @@ public class GameManagerSushi : MonoBehaviour {
 	{
 		// increase the score by the scoreAmount and update the text UI
 		score += scoreAmount;
-		mainScoreDisplay.text = score.ToString ();
+		mainScoreDisplay.text = score.ToString () + " Acierto";
+		if (score != 1) {
+			mainScoreDisplay.text += "s";
+		}
+
 		
 		// don't let it go negative
 		if (currentTime < 0)

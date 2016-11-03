@@ -51,6 +51,46 @@ namespace MovementDetectionLibrary
 
         }
 
+		// Use this for initialization
+		public Vector3 getPositionWithCross(Vector3 pointOne, Vector3 pointTwo, float angle)
+		{
+
+			Vector3 pointFin = pointTwo - pointOne;
+			Vector3 pointOneD = pointTwo - pointOne;
+
+			//Debug.Log ("magnitude" + (pointTwo - pointOne).magnitude);
+
+
+			pointFin.x = Mathf.Cos(angle) * (pointTwo - pointOne).magnitude * 1.0f;
+			pointFin.y = Mathf.Sin(angle) * (pointTwo - pointOne).magnitude * 1.0f;
+
+			System.Random rnd = new System.Random();
+			int crossNumber = rnd.Next(5);
+
+			if (side == "left")
+			{
+				if (crossNumber <= 1) {
+					pointFin.x -= 0.75f;
+				}
+				pointFin.x += 0.3f;
+			}
+			else
+			{
+				if (crossNumber <= 1) {
+					pointFin.x += 0.75f;
+				}
+				pointFin.x -= 0.3f;
+			}
+
+
+
+
+			pointFin = pointFin + pointOne;
+
+			return pointFin;
+
+		}
+
         // Return the second vector for the angle
         public Vector3 createPointTwoShoulderAF(Vector3 pointOne, Vector3 pointTwo)
         {

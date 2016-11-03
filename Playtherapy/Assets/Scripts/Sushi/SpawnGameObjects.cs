@@ -7,16 +7,21 @@ namespace MovementDetectionLibrary
     {
         // public variables
         //public float secondsBetweenSpawning = 0.1f;
-        private float xBallPos= -20.0f;
-        private float yBallPos = 0.0f;
-        public float zBallPos = 15.0f;
+        //public float xMinRange = -25.0f;
+        //public float xMaxRange = 25.0f;
+        //public float yMinRange = 8.0f;
+        //public float yMaxRange = 25.0f;
+        //public float zMinRange = -25.0f;
+        //public float zMaxRange = 25.0f;
         public GameObject[] spawnObjects; // what prefabs to spawn
 
         //private float nextSpawnTime;
 
+        public GameObject panelIzq;
+        public GameObject panelDer;
+
         float angle;
         public GameAngles calc;
-        bool flagSide = true;
         private Vector3 pointFin;
         private bool side;
         GameManagerSushi gameM;
@@ -68,7 +73,7 @@ namespace MovementDetectionLibrary
         {
 			angle = (180 * gameM.level) / 6;
 			calc = new GameAngles(angle, true, true);
-            Vector3 spawnPosition;
+            //Vector3 spawnPosition;
 
 			/*
             System.Random rnd = new System.Random();
@@ -81,18 +86,24 @@ namespace MovementDetectionLibrary
             {
                 side = false;
             }*/
+			int objectToSpawn = 0;
+			string hand = "";
 
             if (side)
             {
                 Debug.Log("lado der");
                 shootPosition("ShoulderRight", "HandRight", "left");
 				side = false;
+				objectToSpawn = 1;
+				hand = "right";
             }
             else
             {
                 Debug.Log("lado izq");
                 shootPosition("ShoulderLeft", "HandLeft", "right");
 				side = true;
+				objectToSpawn = 0;
+				hand = "left";
             }
 
             // get a random position between the specified ranges
@@ -101,7 +112,17 @@ namespace MovementDetectionLibrary
             //spawnPosition.z = Random.Range (zMinRange, zMaxRange);
 
             // determine which object to spawn
-            int objectToSpawn = Random.Range(0, spawnObjects.Length);
+            //int objectToSpawn = Random.Range(0, spawnObjects.Length);
+
+            if (objectToSpawn == 0)
+            {
+                panelIzq.SetActive(true);
+                panelDer.SetActive(false);
+            } else
+            {
+                panelIzq.SetActive(false);
+                panelDer.SetActive(true);
+            }
 
             // actually spawn the game object
             GameObject spawnedObject = Instantiate(spawnObjects[objectToSpawn], pointFin, spawnObjects[objectToSpawn].transform.rotation) as GameObject;
@@ -111,6 +132,7 @@ namespace MovementDetectionLibrary
 
             Debug.Log("Spawner: " + pointFin.ToString());
             spawnedObject.GetComponent<TargetMover>().StartMoving(pointFin, flTime, upTime);
+			spawnedObject.GetComponent<TargetBehavior>().SetHand(hand);
 
         }
 
@@ -120,7 +142,7 @@ namespace MovementDetectionLibrary
             float angleRad = 0.0f;
             if (calc != null)
             {
-                angleRad = calc.setRamdomAngle(side, "x");
+                angleRad = calc.setRamdomAngle(side);
             }
             else
             {
@@ -134,7 +156,7 @@ namespace MovementDetectionLibrary
             Debug.Log("PointTwo: " + pointTwo);
 
 
-            pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad, 1.3f, "z");
+            pointFin = calc.getPositionWithCross(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad);
             Debug.Log("PointFin: " + pointFin);
 
 

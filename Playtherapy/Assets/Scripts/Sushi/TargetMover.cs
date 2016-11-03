@@ -19,7 +19,6 @@ public class TargetMover : MonoBehaviour
     private float aliveTime = 0.0f;
 
     private MovementDetectionLibrary.SpawnGameObjects spawner;
-    private SushiSpawner sSpawner;
 
     private GameManagerSushi gameM;
 
@@ -29,7 +28,6 @@ public class TargetMover : MonoBehaviour
     {
         initialHeight = transform.position.y;
         spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
-        sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
         gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
     }
 
