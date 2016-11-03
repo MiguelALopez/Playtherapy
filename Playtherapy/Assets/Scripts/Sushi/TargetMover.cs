@@ -90,6 +90,7 @@ public class TargetMover : MonoBehaviour
             {
                 if (gameM.currentTime > 0.0f)
                 {
+                    Debug.Log("Makethingtospawn");
                     spawner.MakeThingToSpawn();
                 }
             }
@@ -98,6 +99,7 @@ public class TargetMover : MonoBehaviour
                 gameM.NewRepetition();
                 if (gameM.GetRepetitions() >= 0)
                 {
+                    Debug.Log("Makethingtospawn2");
                     spawner.MakeThingToSpawn();
                 }
             }

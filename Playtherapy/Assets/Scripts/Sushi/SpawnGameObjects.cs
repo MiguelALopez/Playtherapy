@@ -142,7 +142,7 @@ namespace MovementDetectionLibrary
             float angleRad = 0.0f;
             if (calc != null)
             {
-                angleRad = calc.setRamdomAngle(side);
+                angleRad = calc.setRamdomAngle(side, "z");
             }
             else
             {
