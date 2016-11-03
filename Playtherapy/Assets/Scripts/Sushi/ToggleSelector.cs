@@ -7,6 +7,7 @@ public class ToggleSelector : MonoBehaviour {
     public Toggle toggleRep;
     public Toggle toggleTime;
 
+
     public Slider sliderRep;
     public Slider sliderTime;
 

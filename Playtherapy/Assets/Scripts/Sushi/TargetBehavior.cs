@@ -11,12 +11,35 @@ public class TargetBehavior : MonoBehaviour
 	// explosion when hit?
 	public GameObject explosionPrefab;
 
+    private AudioSource explosionSound;
+
 	// information when hit?
 	public GameObject informationPrefab;
 
+	private MovementDetectionLibrary.SpawnGameObjects spawner;
+	private GameManagerSushi gameM;
+
+	private SushiSpawner sSpawner;
+
+	private string fishingHand;
+
+    void Start()
+    {
+        spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+        sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
+        gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+        explosionSound = GameObject.Find("cutFish").GetComponent<AudioSource>();
+	}
+
+	public void SetHand(string side){
+		fishingHand = side;
+	}
+
 	// when collided with another gameObject
-	void OnCollisionEnter (Collision newCollision)
+	//void OnCollisionEnter (Collision newCollision)
+	void OnTriggerEnter (Collider newCollision)
 	{
+		Debug.Log ("Colisiona");
 		// exit if there is a game manager and the game is over
 		if (GameManagerSushi.gms) {
 			if (GameManagerSushi.gms.gameIsOver)
@@ -24,7 +47,7 @@ public class TargetBehavior : MonoBehaviour
 		}
 
 		// only do stuff if hit by a projectile
-		if (newCollision.gameObject.tag == "Projectile") {
+		if ((newCollision.gameObject.tag == "KatanaLeft" && fishingHand == "left")|| (newCollision.gameObject.tag == "KatanaRight" && fishingHand == "right")) {
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
@@ -39,10 +62,27 @@ public class TargetBehavior : MonoBehaviour
 			if (GameManagerSushi.gms) {
 				GameManagerSushi.gms.targetHit (scoreAmount);
 			}
-				
-			// destroy the projectile
-			Destroy (newCollision.gameObject);
-				
+            
+            // if explosion sound exists, make adjustments based on target properties
+            if (explosionSound)
+                explosionSound.Play();
+
+            // destroy the projectile
+            //Destroy (newCollision.gameObject);
+
+            gameM.NewRepetition();
+
+			if (gameM.withTime) {
+				if (gameM.currentTime > 0.0f) {
+					spawner.MakeThingToSpawn ();
+				}
+			} else {
+				if (gameM.GetRepetitions () >= 0) {
+					spawner.MakeThingToSpawn ();
+				}
+			}
+
+			sSpawner.MakeSpawn();
 			// destroy self
 			Destroy (gameObject);
 		}
