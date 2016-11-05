@@ -17,7 +17,11 @@ public class TherapySessionObject : MonoBehaviour
 
         patient = PatientDAO.ConsultPatient(id);
         therapist = TherapistDAO.ConsultTherapist("123");
-        therapySession = new TherapySession(therapist.Id_num, patient.Id_num);      
+
+        if (patient != null && therapist != null)
+        {
+            therapySession = new TherapySession(therapist.Id_num, patient.Id_num);
+        }              
     }
 
     public void addGameSession(GameSession gs)

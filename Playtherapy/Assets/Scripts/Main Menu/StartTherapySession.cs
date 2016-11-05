@@ -39,6 +39,11 @@ public class StartTherapySession : MonoBehaviour
             DisplayTherapistInfo();            
             LoadMinigames();
         }
+        else
+        {
+            Debug.Log("No therapy session object found");
+            LoadMinigames();
+        }
     }
 
     public void DisplayPatientInfo()
