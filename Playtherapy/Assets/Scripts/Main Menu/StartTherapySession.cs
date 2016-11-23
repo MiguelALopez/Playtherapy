@@ -26,8 +26,8 @@ public class StartTherapySession : MonoBehaviour
 
         minigames.Add(new Minigame("1", "Sushi Samurai", "tirar pura katana"));
         minigames.Add(new Minigame("2", "Atrapalo", "tirar puro tiki"));
-        minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
+        //minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
+        //minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
     }
 
     public void StartTherapy()
@@ -79,6 +79,7 @@ public class StartTherapySession : MonoBehaviour
             {
                 GameObject m = Instantiate(buttonPrefab, content.transform) as GameObject;
                 m.GetComponentInChildren<Text>().text = minigame.Name;
+                m.GetComponent<Image>().sprite = GameObject.Find(minigame.Name + " Image").GetComponent<Image>().sprite;
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 

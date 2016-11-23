@@ -28,6 +28,13 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public GameObject countdownDisplayObject;
     private Text countdownDisplay;
 
+    public GameObject canvasScoreText;
+    public GameObject canvasBestScoreText;
+    public GameObject bronzeTrophy;
+    public GameObject silverTrophy;
+    public GameObject goldTrophy;
+    public GameObject canvasResults;
+
     public GameObject gameOverScoreOutline;
 
     public AudioSource musicAudioSource;
@@ -270,6 +277,31 @@ public class GameManagerAtrapalo : MonoBehaviour {
         // reduce the pitch of the background music, if it is set 
         if (musicAudioSource)
             musicAudioSource.pitch = 0.5f; // slow down the music
+
+        //GameObject.Find("CanvasInfoManos").SetActive(false);
+        GameObject.Find("Canvas").SetActive(false);
+
+        double finalScore = score / repetitions * 100;
+        finalScore = 61;
+
+        canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
+
+        if (finalScore <= 60)
+        {
+            bronzeTrophy.SetActive(true);
+        }
+        else if (finalScore <= 90)
+        {
+            bronzeTrophy.SetActive(false);
+            silverTrophy.SetActive(true);
+        }
+        else if (finalScore <= 100)
+        {
+            bronzeTrophy.SetActive(false);
+            goldTrophy.SetActive(true);
+        }
+
+        canvasResults.SetActive(true);
     }
 
     void BeatLevel()
