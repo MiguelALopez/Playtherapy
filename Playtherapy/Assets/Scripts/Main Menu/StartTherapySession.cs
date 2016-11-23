@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class StartTherapySession : MonoBehaviour
 {
+    public EventSystem eventSystem;
     public GameObject content; // grid container
     public GameObject buttonPrefab; // minigame frame
 
@@ -75,12 +77,20 @@ public class StartTherapySession : MonoBehaviour
     {
         if (minigames != null && content != null)
         {
+            bool firstMinigame = true;
+
             foreach (Minigame minigame in minigames)
             {
                 GameObject m = Instantiate(buttonPrefab, content.transform) as GameObject;
                 m.GetComponentInChildren<Text>().text = minigame.Name;
                 m.GetComponent<Image>().sprite = GameObject.Find(minigame.Name + " Image").GetComponent<Image>().sprite;
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
+
+                if (firstMinigame)
+                {
+                    eventSystem.SetSelectedGameObject(m);
+                    firstMinigame = false;
+                }
             }
 
             canvasOld.SetActive(false);
