@@ -25,9 +25,25 @@ public class DBConnection : MonoBehaviour
 
         try
         {
+
+
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
             Debug.Log("Succesfully connected to the database");
+
+			NpgsqlCommand dbcmd = dbconn.CreateCommand();
+			string sql = string.Format("SELECT * FROM patient_patient ;");
+			dbcmd.CommandText = sql;
+			NpgsqlDataReader reader = dbcmd.ExecuteReader();
+
+			if (reader.Read())
+			{
+
+
+			string id_num = (string)reader["id_num"];
+			Debug.Log("Name: " + id_num + " ");
+			}
+
         }
         catch (Exception ex)
         {
