@@ -10,6 +10,11 @@ public class TherapySessionObject : MonoBehaviour
     private TherapySession therapySession;
     private List<GameSession> gameSessionList;
 
+	void Start() {
+		gameSessionList = new List<GameSession>();
+
+	}
+
     public void Login()
     {
         GameObject input = GameObject.Find("Input ID Text");

@@ -1,10 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DAO/TherapistDAO.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/TherapySessionObject.cs">
     <Files>
-      <File FileName="Assets/Scripts/DAO/TherapistDAO.cs" Line="11" Column="10" />
-      <File FileName="Assets/Scripts/DAO/PatientDAO.cs" Line="16" Column="17" />
-      <File FileName="Assets/Scripts/DBConnection.cs" Line="44" Column="32" />
+      <File FileName="Assets/Scripts/DAO/TherapySessionDAO.cs" Line="49" Column="109" />
+      <File FileName="Assets/Scripts/DAO/PatientDAO.cs" Line="57" Column="10" />
+      <File FileName="Assets/Scripts/DAO/TherapySession.cs" Line="18" Column="38" />
+      <File FileName="Assets/Scripts/Main Menu/StartTherapySession.cs" Line="41" Column="10" />
+      <File FileName="Assets/Scripts/TherapySessionObject.cs" Line="13" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

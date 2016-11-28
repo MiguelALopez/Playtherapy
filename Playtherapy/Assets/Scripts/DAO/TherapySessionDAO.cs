@@ -39,4 +39,54 @@ public class TherapySessionDAO
 
         return exito;
     }
+
+	public int GetLastTherapyId()
+	{
+		if (DBConnection.dbconn != null)
+		{
+			NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+			string sql = ("SELECT id FROM start_therapysession WHERE id = (SELECT max(id) FROM start_therapysession);");
+			dbcmd.CommandText = sql;
+
+			NpgsqlDataReader reader = dbcmd.ExecuteReader();
+			if (reader.Read())
+			{
+				//string numero_doc = (int)reader["id_num"];
+				string id_type = (string)reader["id_type"];
+				string name = (string)reader["name"];
+				string lastname = (string)reader["lastname"];
+				string genre = (string)reader["genre"];
+				string occupation = (string)reader["occupation"];
+				string birthday = ((DateTime)reader["birthday"]).ToString();                
+
+				Patient patient = new Patient(id_num, id_type, name, lastname, genre, occupation, birthday);
+
+				// clean up
+				reader.Close();
+				reader = null;
+				dbcmd.Dispose();
+				dbcmd = null;
+
+				Debug.Log("Name: " + name + " " + lastname);
+				return patient;                
+			}
+			else
+			{
+				// clean up
+				reader.Close();
+				reader = null;
+				dbcmd.Dispose();
+				dbcmd = null;
+
+				Debug.Log("Error de consulta o elemento no encontrado");
+				return null;
+			}            
+		}
+		else
+		{
+			Debug.Log("Database connection not established");
+			return null;
+		}
+	}
 }
