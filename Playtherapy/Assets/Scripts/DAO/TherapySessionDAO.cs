@@ -12,10 +12,12 @@ public class TherapySessionDAO
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
+			Debug.Log ("Patient id:" + therapy.Patient_id);
+
             try
             {
-                string sql = string.Format("INSERT INTO start_therapysession VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');",
-                    therapy.Date, therapy.Objective, therapy.Description, therapy.Therapist_id, therapy.Patient_id);
+                string sql = string.Format("INSERT INTO start_therapysession (date, objective, description, patient_id, therapist_id) VALUES ('{0}', '{1}', '{2}', (SELECT id FROM patient_patient WHERE id_num = '{3}'), (SELECT user_ptr_id FROM therapist_therapist, auth_user WHERE therapist_therapist.user_ptr_id = auth_user.id and auth_user.username = '{4}'));",
+					therapy.Date, therapy.Objective, therapy.Description, therapy.Patient_id, therapy.Therapist_id);
 
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();
@@ -53,14 +55,7 @@ public class TherapySessionDAO
 			if (reader.Read())
 			{
 				//string numero_doc = (int)reader["id_num"];
-				string id_type = (string)reader["id_type"];
-				string name = (string)reader["name"];
-				string lastname = (string)reader["lastname"];
-				string genre = (string)reader["genre"];
-				string occupation = (string)reader["occupation"];
-				string birthday = ((DateTime)reader["birthday"]).ToString();                
-
-				Patient patient = new Patient(id_num, id_type, name, lastname, genre, occupation, birthday);
+				int id = (int)reader["id"];
 
 				// clean up
 				reader.Close();
@@ -68,8 +63,7 @@ public class TherapySessionDAO
 				dbcmd.Dispose();
 				dbcmd = null;
 
-				Debug.Log("Name: " + name + " " + lastname);
-				return patient;                
+				return id;                
 			}
 			else
 			{
@@ -80,13 +74,13 @@ public class TherapySessionDAO
 				dbcmd = null;
 
 				Debug.Log("Error de consulta o elemento no encontrado");
-				return null;
+				return 0;
 			}            
 		}
 		else
 		{
 			Debug.Log("Database connection not established");
-			return null;
+			return 0;
 		}
 	}
 }

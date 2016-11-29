@@ -26,6 +26,7 @@ public class TherapySessionObject : MonoBehaviour
         if (patient != null && therapist != null)
         {
             therapySession = new TherapySession(therapist.Id_num, patient.Id_num);
+			bool insertion = TherapySessionDAO.InsertTherapySession (therapySession);
         }              
     }
 
@@ -40,6 +41,19 @@ public class TherapySessionObject : MonoBehaviour
             Debug.Log("Null Game Session");
         }
     }
+
+	public void fillLastSession(int score, int repetitions, int time, string level) {
+		gameSessionList [gameSessionList.Count - 1].Score = score;
+		gameSessionList [gameSessionList.Count - 1].Repetitions = repetitions;
+		gameSessionList [gameSessionList.Count - 1].Time = time;
+		gameSessionList [gameSessionList.Count - 1].Level = level;
+	}
+
+	public void duplicateLastSession(){
+		GameSession gs = new GameSession(gameSessionList [gameSessionList.Count - 1].Minigame_id);
+		addGameSession(gs);
+		Debug.Log ("Duplica GameSession");
+	}
 
     public Patient Patient
     {

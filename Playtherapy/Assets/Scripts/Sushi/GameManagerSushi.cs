@@ -53,6 +53,7 @@ public class GameManagerSushi : MonoBehaviour {
 	public string nextLevelToLoad;
 
 	public float currentTime;
+	public float totalTime = 0.0f;
 	private float countdownTime = 0.0f;
 
 	private MovementDetectionLibrary.SpawnGameObjects spawner;
@@ -141,6 +142,7 @@ public class GameManagerSushi : MonoBehaviour {
 							EndGame ();
 						} else { // game playing state, so update the timer
 							currentTime -= Time.deltaTime;
+							totalTime += Time.deltaTime;
 							mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
 						}
 						if (!lastSeconds && currentTime <= 3.0f) {
@@ -156,6 +158,7 @@ public class GameManagerSushi : MonoBehaviour {
 							EndGame ();
 						} else { // game playing state, so update the timer
 							currentTime -= Time.deltaTime;
+							totalTime += Time.deltaTime;
 							mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
 						}
 					}
@@ -247,6 +250,8 @@ public class GameManagerSushi : MonoBehaviour {
         }        
 
         canvasResults.SetActive(true);        
+
+		GameObject.Find("TherapySession").GetComponent<TherapySessionObject>().fillLastSession(score, currentReps, (int)totalTime, level.ToString());
     }
 	
 	void BeatLevel() {
