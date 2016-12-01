@@ -11,17 +11,23 @@ public class DBConnection : MonoBehaviour
     public string database = "playtherapy";
 
     public Animator cameraAnimator;
+    public GameObject modalWindow;
 
     public static NpgsqlConnection dbconn = null;
 
     // Use this for initialization
     void Start()
     {
-        string connectionString =
-          "Host=" + host + ";" +
-          "Username=" + username + ";" +
-          "Password=" + password + ";" +
-          "Database=" + database;
+        Connect();
+    }
+
+    public void Connect()
+    {
+        string connectionString = 
+            "Host=" + host + ";" + 
+            "Username=" + username + ";" +
+            "Password=" + password + ";" +
+            "Database=" + database;
 
         try
         {
@@ -32,12 +38,17 @@ public class DBConnection : MonoBehaviour
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
+
+            if (modalWindow != null)
+            {
+                modalWindow.SetActive(true);
+            }
         }
-        
+
         if (cameraAnimator != null)
         {
             cameraAnimator.enabled = true;
-        }  
+        }
     }
 
     public void CloseConnection()
