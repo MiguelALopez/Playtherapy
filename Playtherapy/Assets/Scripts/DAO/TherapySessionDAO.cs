@@ -42,13 +42,13 @@ public class TherapySessionDAO
         return exito;
     }
 
-	public int GetLastTherapyId()
+	public static int GetLastTherapyId(string id_patient)
 	{
 		if (DBConnection.dbconn != null)
 		{
 			NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-			string sql = ("SELECT id FROM start_therapysession WHERE id = (SELECT max(id) FROM start_therapysession);");
+			string sql = ("SELECT id FROM start_therapysession WHERE id = (SELECT max(id) FROM start_therapysession WHERE patient_id = (SELECT id FROM patient_patient WHERE id_num = '" + id_patient + "'));");
 			dbcmd.CommandText = sql;
 
 			NpgsqlDataReader reader = dbcmd.ExecuteReader();

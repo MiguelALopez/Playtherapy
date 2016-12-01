@@ -43,13 +43,22 @@ public class TherapySessionObject : MonoBehaviour
     }
 
 	public void fillLastSession(int score, int repetitions, int time, string level) {
+		Debug.Log ("Entra FillLastSection");
+		Debug.Log ("Old score: " + gameSessionList [gameSessionList.Count - 1].Score + " reps " + gameSessionList [gameSessionList.Count - 1].Repetitions);
 		gameSessionList [gameSessionList.Count - 1].Score = score;
 		gameSessionList [gameSessionList.Count - 1].Repetitions = repetitions;
 		gameSessionList [gameSessionList.Count - 1].Time = time;
 		gameSessionList [gameSessionList.Count - 1].Level = level;
+		Debug.Log ("New score: " + gameSessionList [gameSessionList.Count - 1].Score + " reps " + gameSessionList [gameSessionList.Count - 1].Repetitions);
+
 	}
 
-	public void duplicateLastSession(){
+	public void saveLastGameSession() {
+		string therapyId = TherapySessionDAO.GetLastTherapyId (patient.Id_num).ToString();
+		GameSessionDAO.InsertGameSession (gameSessionList [gameSessionList.Count - 1], therapyId);
+	}
+
+	public void restartLastSession(){
 		GameSession gs = new GameSession(gameSessionList [gameSessionList.Count - 1].Minigame_id);
 		addGameSession(gs);
 		Debug.Log ("Duplica GameSession");

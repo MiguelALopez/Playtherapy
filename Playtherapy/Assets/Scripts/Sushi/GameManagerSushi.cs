@@ -229,7 +229,7 @@ public class GameManagerSushi : MonoBehaviour {
         GameObject.Find("CanvasInfoManos").SetActive(false);
         GameObject.Find("Canvas").SetActive(false);
 
-        double finalScore = score / repetitions * 100;
+		double finalScore = score / currentReps * 100;
         finalScore = 61;
 
         canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
@@ -251,7 +251,9 @@ public class GameManagerSushi : MonoBehaviour {
 
         canvasResults.SetActive(true);        
 
-		GameObject.Find("TherapySession").GetComponent<TherapySessionObject>().fillLastSession(score, currentReps, (int)totalTime, level.ToString());
+		TherapySessionObject objTherapy = GameObject.Find ("TherapySession").GetComponent<TherapySessionObject> ();
+		objTherapy.fillLastSession(score, currentReps, (int)totalTime, level.ToString());
+		objTherapy.saveLastGameSession ();
     }
 	
 	void BeatLevel() {
