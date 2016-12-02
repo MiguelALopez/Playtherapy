@@ -11,9 +11,22 @@ public class DBConnection : MonoBehaviour
     public string database = "playtherapy";
 
     public Animator cameraAnimator;
-    public GameObject modalWindow;
 
     public static NpgsqlConnection dbconn = null;
+
+    private static DBConnection dbConnectionObject;
+
+    public static DBConnection Instance()
+    {
+        if (!dbConnectionObject)
+        {
+            dbConnectionObject = FindObjectOfType(typeof(DBConnection)) as DBConnection;
+            if (!dbConnectionObject)
+                Debug.LogError("There needs to be one active DBConnection script on a GameObject in your scene.");
+        }
+
+        return dbConnectionObject;
+    }
 
     // Use this for initialization
     void Start()
@@ -34,20 +47,40 @@ public class DBConnection : MonoBehaviour
             dbconn = new NpgsqlConnection(connectionString);
             dbconn.Open();
             Debug.Log("Succesfully connected to the database");
+
+            if (cameraAnimator != null)
+                cameraAnimator.enabled = true;
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
 
-            if (modalWindow != null)
-            {
-                modalWindow.SetActive(true);
-            }
-        }
+            ModalWindowMaker.Instance().DBConnectionError(host, username, password, database);
+        }        
+    }
 
-        if (cameraAnimator != null)
+    public void Connect(string host, string username, string password, string database)
+    {
+        string connectionString =
+            "Host=" + host + ";" +
+            "Username=" + username + ";" +
+            "Password=" + password + ";" +
+            "Database=" + database;
+
+        try
         {
-            cameraAnimator.enabled = true;
+            dbconn = new NpgsqlConnection(connectionString);
+            dbconn.Open();
+            Debug.Log("Succesfully connected to the database");
+
+            if (cameraAnimator != null)
+                cameraAnimator.enabled = true;
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+
+            ModalWindowMaker.Instance().DBConnectionError(host, username, password, database);
         }
     }
 
