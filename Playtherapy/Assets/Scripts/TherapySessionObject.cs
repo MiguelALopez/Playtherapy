@@ -64,6 +64,10 @@ public class TherapySessionObject : MonoBehaviour
 		Debug.Log ("Duplica GameSession");
 	}
 
+	public float getGameRecord(){
+		return GameSessionDAO.GetRecord (gameSessionList [gameSessionList.Count - 1], patient.Id_num);
+	}
+
     public Patient Patient
     {
         get

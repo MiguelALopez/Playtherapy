@@ -229,10 +229,14 @@ public class GameManagerSushi : MonoBehaviour {
         GameObject.Find("CanvasInfoManos").SetActive(false);
         GameObject.Find("Canvas").SetActive(false);
 
-		double finalScore = score / currentReps * 100;
-        finalScore = 61;
+		TherapySessionObject objTherapy = GameObject.Find ("TherapySession").GetComponent<TherapySessionObject> ();
+		objTherapy.fillLastSession(score, currentReps, (int)totalTime, level.ToString());
+		objTherapy.saveLastGameSession ();
+
+		int finalScore = (int)(((double)score / currentReps) * 100.0f);
 
         canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
+		canvasBestScoreText.GetComponentInChildren<TextMesh> ().text = objTherapy.getGameRecord() + "%";
 
         if (finalScore <= 60)
         {
@@ -249,11 +253,8 @@ public class GameManagerSushi : MonoBehaviour {
             goldTrophy.SetActive(true);
         }        
 
-        canvasResults.SetActive(true);        
+        canvasResults.SetActive(true);     
 
-		TherapySessionObject objTherapy = GameObject.Find ("TherapySession").GetComponent<TherapySessionObject> ();
-		objTherapy.fillLastSession(score, currentReps, (int)totalTime, level.ToString());
-		objTherapy.saveLastGameSession ();
     }
 	
 	void BeatLevel() {

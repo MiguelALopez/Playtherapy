@@ -39,4 +39,52 @@ public class GameSessionDAO
 
         return exito;
     }
+
+
+	public static float GetRecord(GameSession game, string idPatient) {
+		if (DBConnection.dbconn != null)
+		{
+			NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+			string sql = ("SELECT ((score/repetitions::float) * 100)::int as record " +
+				"FROM start_gamesession, start_therapysession " +
+				"WHERE start_gamesession.therapy_id = start_therapysession.id " +
+				"and (score/repetitions) = (SELECT max (score/repetitions) FROM start_gamesession, start_therapysession " +
+				"WHERE level = " + game.Level + " and minigame_id = "+ game.Minigame_id + " and start_gamesession.therapy_id = start_therapysession.id " +
+				"and patient_id = (SELECT id FROM patient_patient WHERE id_num = '" + idPatient + "')) " +
+				"and level = " + game.Level + " and minigame_id = "+ game.Minigame_id +";");
+			dbcmd.CommandText = sql;
+
+			NpgsqlDataReader reader = dbcmd.ExecuteReader();
+			if (reader.Read())
+			{
+				var record = (int)reader["record"];
+
+				Debug.Log ("Record: " + record);
+				// clean up
+				reader.Close();
+				reader = null;
+				dbcmd.Dispose();
+				dbcmd = null;
+
+				return (float)record;
+			}
+			else
+			{
+				// clean up
+				reader.Close();
+				reader = null;
+				dbcmd.Dispose();
+				dbcmd = null;
+
+				Debug.Log("Error de consulta o elemento no encontrado");
+				return 0.0f;
+			}            
+		}
+		else
+		{
+			Debug.Log("Database connection not established");
+			return 0.0f;
+		}
+	}
 }
