@@ -62,6 +62,8 @@ namespace MovementDetectionLibrary
                 UpdateBodyPoint((BodyParts)i);
 				angleMovement ();
             }
+
+            
         }
 
         void UpdateBodyPoint(BodyParts joint)
@@ -90,185 +92,200 @@ namespace MovementDetectionLibrary
             //infoText.text = ("Angle " + bodyMovements.headFrontalFleAngle());
         }
 
+        public float getAngle(string mov)
+        {
+            float angle = 0.0f;
+
+            if (mov == "shoulderAbdLeft")
+            {
+                angle = (float)bodyMovements.shoulderAbdLeftMovements();
+            }
+
+            return angle;
+
+        }
+
         public void testCollectionMovement()
         {
 
+            if (infoText) {
+                if (Input.GetKey(KeyCode.A))
+                {
+                    infoText.text = ("Angle frontal flexion " + bodyMovements.headFrontalFleAngle());
 
-            if (Input.GetKey(KeyCode.A))
-            {
-                infoText.text = ("Angle frontal flexion " + bodyMovements.headFrontalFleAngle());
+                }
 
+                if (Input.GetKey(KeyCode.B))
+                {
+                    infoText.text = ("Angle frontal extension " + bodyMovements.headFrontalExtAngle());
+
+                }
+
+                if (Input.GetKey(KeyCode.C))
+                {
+                    infoText.text = ("Angle lateral extension " + bodyMovements.headLateralAngle());
+
+                }
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    infoText.text = ("Angle left shoulder abduccion " + bodyMovements.shoulderAbdLeftMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.E))
+                {
+                    infoText.text = ("Angle left shoulder extension " + bodyMovements.shoulderExtLeftMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.F))
+                {
+                    infoText.text = ("Angle left shoulder flexion " + bodyMovements.shoulderFlexLeftMovements());
+
+                }
+                if (Input.GetKey(KeyCode.G))
+                {
+                    infoText.text = ("Angle left shoulder extension " + bodyMovements.shoulderRotExtLeftMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.H))
+                {
+                    infoText.text = ("Angle left shoulder interior " + bodyMovements.shoulderRotIntLeftMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.I))
+                {
+                    infoText.text = ("Angle rigth shoulder abduccion " + bodyMovements.shoulderAbdRigthMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.J))
+                {
+                    infoText.text = ("Angle rigth shoulder extension " + bodyMovements.shoulderExtRigthMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.K))
+                {
+                    infoText.text = ("Angle rigth shoulder flexion " + bodyMovements.shoulderFlexRigthMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.L))
+                {
+                    infoText.text = ("Angle rigth shoulder rotation ext " + bodyMovements.shoulderRotExtRigthMovements());
+
+                }
+                if (Input.GetKey(KeyCode.M))
+                {
+                    infoText.text = ("Angle rigth shoulder rotation int " + bodyMovements.shoulderRotIntRigthMovements());
+
+                }
+
+                if (Input.GetKey(KeyCode.N))
+                {
+                    infoText.text = ("Angle flexion extension elbow left " + bodyMovements.elbowFleExtLeftMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.O))
+                {
+                    infoText.text = ("Angle flexion extension elbow rigth " + bodyMovements.elbowFleExtRigthMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.P))
+                {
+                    infoText.text = ("Angle hip left abduccion " + bodyMovements.hipLeftAbMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.Q))
+                {
+                    infoText.text = ("Angle hip left aduccion " + bodyMovements.hipLeftAdMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.R))
+                {
+                    infoText.text = ("Angle hip left extension " + bodyMovements.hipLeftExtMovement());
+
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    infoText.text = ("Angle hip left flexion " + bodyMovements.hipLeftFlexMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.T))
+                {
+                    infoText.text = ("Angle hip left rot ext " + bodyMovements.hipLeftRotExtMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.V))
+                {
+                    infoText.text = ("Angle hip left rot int " + bodyMovements.hipLeftRotIntMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.U))
+                {
+                    infoText.text = ("Angle hip rigth abduccion " + bodyMovements.hipRigthAbMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.W))
+                {
+                    infoText.text = ("Angle hip rigth aduccion " + bodyMovements.hipRigthAdMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.X))
+                {
+                    infoText.text = ("Angle hip rigth flex " + bodyMovements.hipRigthFlexMovement());
+
+                }
+                if (Input.GetKey(KeyCode.Y))
+                {
+                    infoText.text = ("Angle hip rigth rot ext " + bodyMovements.hipRigthRotExtMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.Z))
+                {
+                    infoText.text = ("Angle hip rigth rot int " + bodyMovements.hipRigthRotIntMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.Tab))
+                {
+                    infoText.text = ("Angle knee left " + bodyMovements.kneeLeftMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    infoText.text = ("Angle kneee rigth " + bodyMovements.kneeRigthMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    infoText.text = ("Angle spine lat " + bodyMovements.spineLatMovement());
+
+                }
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    infoText.text = ("Angle spine incli" + bodyMovements.spineIncMovement());
+
+                }
             }
-
-            if (Input.GetKey(KeyCode.B))
-            {
-                infoText.text = ("Angle frontal extension " + bodyMovements.headFrontalExtAngle());
-
-            }
-
-            if (Input.GetKey(KeyCode.C))
-            {
-                infoText.text = ("Angle lateral extension " + bodyMovements.headLateralAngle());
-
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                infoText.text = ("Angle left shoulder abduccion " + bodyMovements.shoulderAbdLeftMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.E))
-            {
-                infoText.text = ("Angle left shoulder extension " + bodyMovements.shoulderExtLeftMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.F))
-            {
-                infoText.text = ("Angle left shoulder flexion " + bodyMovements.shoulderFlexLeftMovements());
-
-            }
-            if (Input.GetKey(KeyCode.G))
-            {
-                infoText.text = ("Angle left shoulder extension " + bodyMovements.shoulderRotExtLeftMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.H))
-            {
-                infoText.text = ("Angle left shoulder interior " + bodyMovements.shoulderRotIntLeftMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.I))
-            {
-                infoText.text = ("Angle rigth shoulder abduccion " + bodyMovements.shoulderAbdRigthMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.J))
-            {
-                infoText.text = ("Angle rigth shoulder extension " + bodyMovements.shoulderExtRigthMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.K))
-            {
-                infoText.text = ("Angle rigth shoulder flexion " + bodyMovements.shoulderFlexRigthMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.L))
-            {
-                infoText.text = ("Angle rigth shoulder rotation ext " + bodyMovements.shoulderRotExtRigthMovements());
-
-            }
-            if (Input.GetKey(KeyCode.M))
-            { 
-                infoText.text = ("Angle rigth shoulder rotation int " + bodyMovements.shoulderRotIntRigthMovements());
-
-            }
-
-            if (Input.GetKey(KeyCode.N))
-            {
-                infoText.text = ("Angle flexion extension elbow left " + bodyMovements.elbowFleExtLeftMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.O))
-            {
-                infoText.text = ("Angle flexion extension elbow rigth " + bodyMovements.elbowFleExtRigthMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.P))
-            {
-                infoText.text = ("Angle hip left abduccion " + bodyMovements.hipLeftAbMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                infoText.text = ("Angle hip left aduccion " + bodyMovements.hipLeftAdMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.R))
-            {
-                infoText.text = ("Angle hip left extension " + bodyMovements.hipLeftExtMovement());
-
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                infoText.text = ("Angle hip left flexion " + bodyMovements.hipLeftFlexMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.T))    
-            {
-                infoText.text = ("Angle hip left rot ext " + bodyMovements.hipLeftRotExtMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.V))
-            {
-                infoText.text = ("Angle hip left rot int " + bodyMovements.hipLeftRotIntMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.U))
-            {
-                infoText.text = ("Angle hip rigth abduccion " + bodyMovements.hipRigthAbMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.W))
-            {
-                infoText.text = ("Angle hip rigth aduccion " + bodyMovements.hipRigthAdMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.X))
-            {
-                infoText.text = ("Angle hip rigth flex " + bodyMovements.hipRigthFlexMovement());
-
-            }
-            if (Input.GetKey(KeyCode.Y))
-            {
-                infoText.text = ("Angle hip rigth rot ext " + bodyMovements.hipRigthRotExtMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.Z))
-            {
-                infoText.text = ("Angle hip rigth rot int " + bodyMovements.hipRigthRotIntMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.Tab))
-            {
-                infoText.text = ("Angle knee left " + bodyMovements.kneeLeftMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                infoText.text = ("Angle kneee rigth " + bodyMovements.kneeRigthMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                infoText.text = ("Angle spine lat " + bodyMovements.spineLatMovement());
-
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                infoText.text = ("Angle spine incli" + bodyMovements.spineIncMovement());
-
-            }
+            
 
         }
     }
