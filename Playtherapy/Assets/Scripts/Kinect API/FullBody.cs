@@ -94,11 +94,17 @@ namespace MovementDetectionLibrary
 
         public float getAngle(string mov)
         {
+            double doubleAngle = 0.0;
             float angle = 0.0f;
 
             if (mov == "shoulderAbdLeft")
             {
-                angle = (float)bodyMovements.shoulderAbdLeftMovements();
+                doubleAngle = (float)bodyMovements.shoulderAbdLeftMovements();
+                if (double.IsNaN(doubleAngle))
+                {
+                    doubleAngle = 0.0;
+                }
+                angle = (float)doubleAngle;
             }
 
             return angle;

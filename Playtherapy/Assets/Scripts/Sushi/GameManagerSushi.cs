@@ -12,9 +12,6 @@ public class GameManagerSushi : MonoBehaviour {
 	public int score=0;
     public int level = 1;
 
-	public bool canBeatLevel = false;
-	public int beatLevelScore=0;
-
 	public float startTime=5.0f;
 
     public int repetitions = 0;
@@ -46,12 +43,6 @@ public class GameManagerSushi : MonoBehaviour {
 
 	public AudioSource countdownSound;
 
-	public GameObject playAgainButtons;
-	public string playAgainLevelToLoad;
-
-	public GameObject nextLevelButtons;
-	public string nextLevelToLoad;
-
 	public float currentTime;
 	public float totalTime = 0.0f;
 	private float countdownTime = 0.0f;
@@ -62,6 +53,15 @@ public class GameManagerSushi : MonoBehaviour {
 
     float floatTime = 0.0f;
     float upwardsTime = 0.0f;
+
+
+    //Necessary elements for capturing the best angle in a section
+    public GameObject FullBodyObject;
+    private MovementDetectionLibrary.FullBody fBodyObject;
+    public float bestPartialAngle;
+    public float bestTotalAngle;
+    public Text textPartialAngle;
+    public Text textTotalAngle;
 
     public void StartGame(int levelToLoad, bool time, int value, float flTime, float uTime)
     {
@@ -109,24 +109,19 @@ public class GameManagerSushi : MonoBehaviour {
 		// init scoreboard to 0
 		mainScoreDisplay.text = "";
 
-		// inactivate the gameOverScoreOutline gameObject, if it is set
-		if (gameOverScoreOutline)
-			gameOverScoreOutline.SetActive (false);
-
-		// inactivate the playAgainButtons gameObject, if it is set
-		if (playAgainButtons)
-			playAgainButtons.SetActive (false);
-
-		// inactivate the nextLevelButtons gameObject, if it is set
-		if (nextLevelButtons)
-			nextLevelButtons.SetActive (false);
-
 		if (countdownDisplayObject)
 			countdownDisplay = countdownDisplayObject.GetComponent<Text>();
 
 
 		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
-	}
+
+        if (FullBodyObject)
+            fBodyObject = FullBodyObject.GetComponent<MovementDetectionLibrary.FullBody>();
+
+        //Initialize angle values
+        bestPartialAngle = 0.0f;
+        bestTotalAngle = 0.0f;
+    }
 
 	// this is the main game event loop
 	void Update () {
@@ -134,36 +129,44 @@ public class GameManagerSushi : MonoBehaviour {
 
 		if (gameIsStarted) {
 			if (!gameIsOver) {
-				if (canBeatLevel && (score >= beatLevelScore)) {  // check to see if beat game
-					BeatLevel ();
+				if (withTime) {
+					if (currentTime < 0) { // check to see if timer has run out
+						EndGame ();
+					} else { // game playing state, so update the timer
+						currentTime -= Time.deltaTime;
+						totalTime += Time.deltaTime;
+						mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
+					}
+					if (!lastSeconds && currentTime <= 3.0f) {
+						lastSeconds = true;
+						if (countdownSound) {
+							countdownSound.Play ();
+						}
+						mainTimerDisplay.fontStyle = FontStyle.Bold;
+						mainTimerDisplay.color = Color.red;
+					}
 				} else {
-					if (withTime) {
-						if (currentTime < 0) { // check to see if timer has run out
-							EndGame ();
-						} else { // game playing state, so update the timer
-							currentTime -= Time.deltaTime;
-							totalTime += Time.deltaTime;
-							mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
-						}
-						if (!lastSeconds && currentTime <= 3.0f) {
-							lastSeconds = true;
-							if (countdownSound) {
-								countdownSound.Play ();
-							}
-							mainTimerDisplay.fontStyle = FontStyle.Bold;
-							mainTimerDisplay.color = Color.red;
-						}
-					} else {
-						if (remainingReps < 0) { // check to see if timer has run out
-							EndGame ();
-						} else { // game playing state, so update the timer
-							currentTime -= Time.deltaTime;
-							totalTime += Time.deltaTime;
-							mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
-						}
+					if (remainingReps < 0) { // check to see if timer has run out
+						EndGame ();
+					} else { // game playing state, so update the timer
+						currentTime -= Time.deltaTime;
+						totalTime += Time.deltaTime;
+						mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
 					}
 				}
-			}
+
+                float currentAngle = 0.0f;
+
+                if (fBodyObject)
+                {
+                    currentAngle = fBodyObject.getAngle("shoulderAbdLeft");
+                    if (currentAngle > bestPartialAngle)
+                        bestPartialAngle = currentAngle;
+                }
+
+
+
+				}
 		} else if (countdownStarted) {
 			if (3.0f - countdownTime > 2.0f) {
 				countdownDisplay.text = "3";
@@ -200,6 +203,14 @@ public class GameManagerSushi : MonoBehaviour {
     {
         currentReps++;
         remainingReps--;
+
+        if (bestPartialAngle > bestTotalAngle)
+        {
+            bestTotalAngle = bestPartialAngle;
+            textTotalAngle.text = "Total: " + bestTotalAngle.ToString("0.00");
+        }
+        textPartialAngle.text = "Partial: " + bestPartialAngle.ToString("0.00");
+        bestPartialAngle = 0.0f;
     }
 
     public int GetRepetitions()
@@ -214,13 +225,6 @@ public class GameManagerSushi : MonoBehaviour {
 		// repurpose the timer to display a message to the player
 		mainTimerDisplay.text = "GAME OVER";
 
-        // activate the gameOverScoreOutline gameObject, if it is set 
-        //if (gameOverScoreOutline)
-        //	gameOverScoreOutline.SetActive (true);
-
-        // activate the playAgainButtons gameObject, if it is set 
-        //if (playAgainButtons)
-        //	playAgainButtons.SetActive (true);
 
         // reduce the pitch of the background music, if it is set 
         //if (musicAudioSource)
@@ -257,25 +261,6 @@ public class GameManagerSushi : MonoBehaviour {
 
     }
 	
-	void BeatLevel() {
-		// game is over
-		gameIsOver = true;
-
-		// repurpose the timer to display a message to the player
-		mainTimerDisplay.text = "LEVEL COMPLETE";
-
-		// activate the gameOverScoreOutline gameObject, if it is set 
-		if (gameOverScoreOutline)
-			gameOverScoreOutline.SetActive (true);
-
-		// activate the nextLevelButtons gameObject, if it is set 
-		if (nextLevelButtons)
-			nextLevelButtons.SetActive (true);
-		
-		// reduce the pitch of the background music, if it is set 
-		if (musicAudioSource)
-			musicAudioSource.pitch = 0.5f; // slow down the music
-	}
 
 	// public function that can be called to update the score or time
 	public void targetHit (int scoreAmount)
@@ -302,13 +287,6 @@ public class GameManagerSushi : MonoBehaviour {
 		// we are just loading a scene (or reloading this scene)
 		// which is an easy way to restart the level
 		//Application.LoadLevel (playAgainLevelToLoad);
-	}
-
-	// public function that can be called to go to the next level of the game
-	public void NextLevel ()
-	{
-		// we are just loading the specified next level (scene)
-		//Application.LoadLevel (nextLevelToLoad);
 	}
 	
 
