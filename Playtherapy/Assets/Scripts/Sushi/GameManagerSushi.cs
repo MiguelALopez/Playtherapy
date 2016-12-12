@@ -58,10 +58,10 @@ public class GameManagerSushi : MonoBehaviour {
     //Necessary elements for capturing the best angle in a section
     public GameObject FullBodyObject;
     private MovementDetectionLibrary.FullBody fBodyObject;
-    public float bestPartialAngle;
-    public float bestTotalAngle;
-    public Text textPartialAngle;
-    public Text textTotalAngle;
+    private float bestPartialLeftShoulderAngle;
+    private float bestTotalLeftShoulderAngle;
+    private float bestPartialRightShoulderAngle;
+    private float bestTotalRightShoulderAngle;
 
     public void StartGame(int levelToLoad, bool time, int value, float flTime, float uTime)
     {
@@ -119,8 +119,10 @@ public class GameManagerSushi : MonoBehaviour {
             fBodyObject = FullBodyObject.GetComponent<MovementDetectionLibrary.FullBody>();
 
         //Initialize angle values
-        bestPartialAngle = 0.0f;
-        bestTotalAngle = 0.0f;
+        bestPartialLeftShoulderAngle = 0.0f;
+        bestTotalLeftShoulderAngle = 0.0f;
+        bestPartialRightShoulderAngle = 0.0f;
+        bestTotalRightShoulderAngle = 0.0f;
     }
 
 	// this is the main game event loop
@@ -155,13 +157,18 @@ public class GameManagerSushi : MonoBehaviour {
 					}
 				}
 
-                float currentAngle = 0.0f;
+                float currentLeftShoulderAngle = 0.0f;
+                float currentRightShoulderAngle = 0.0f;
 
                 if (fBodyObject)
                 {
-                    currentAngle = fBodyObject.getAngle("shoulderAbdLeft");
-                    if (currentAngle > bestPartialAngle)
-                        bestPartialAngle = currentAngle;
+                    currentLeftShoulderAngle = fBodyObject.getAngle("shoulderAbdLeft");
+                    if (currentLeftShoulderAngle > bestPartialLeftShoulderAngle)
+                        bestPartialLeftShoulderAngle = currentLeftShoulderAngle;
+
+                    currentRightShoulderAngle = fBodyObject.getAngle("shoulderAbdRight");
+                    if (currentRightShoulderAngle > bestPartialRightShoulderAngle)
+                        bestPartialRightShoulderAngle = currentRightShoulderAngle;
                 }
 
 
@@ -204,13 +211,17 @@ public class GameManagerSushi : MonoBehaviour {
         currentReps++;
         remainingReps--;
 
-        if (bestPartialAngle > bestTotalAngle)
+        if (bestPartialLeftShoulderAngle > bestTotalLeftShoulderAngle)
         {
-            bestTotalAngle = bestPartialAngle;
-            textTotalAngle.text = "Total: " + bestTotalAngle.ToString("0.00");
+            bestTotalLeftShoulderAngle = bestPartialLeftShoulderAngle;
         }
-        textPartialAngle.text = "Partial: " + bestPartialAngle.ToString("0.00");
-        bestPartialAngle = 0.0f;
+        bestPartialLeftShoulderAngle = 0.0f;
+
+        if (bestPartialRightShoulderAngle > bestTotalRightShoulderAngle)
+        {
+            bestTotalRightShoulderAngle = bestPartialRightShoulderAngle;
+        }
+        bestPartialRightShoulderAngle = 0.0f;
     }
 
     public int GetRepetitions()
@@ -237,10 +248,14 @@ public class GameManagerSushi : MonoBehaviour {
 		objTherapy.fillLastSession(score, currentReps, (int)totalTime, level.ToString());
 		objTherapy.saveLastGameSession ();
 
-		int finalScore = (int)(((double)score / currentReps) * 100.0f);
+        objTherapy.savePerformance((int)bestTotalLeftShoulderAngle, "4");
+        objTherapy.savePerformance((int)bestTotalRightShoulderAngle, "5");
+
+        int finalScore = (int)(((double)score / currentReps) * 100.0f);
 
         canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
 		canvasBestScoreText.GetComponentInChildren<TextMesh> ().text = objTherapy.getGameRecord() + "%";
+
 
         if (finalScore <= 60)
         {
@@ -257,7 +272,9 @@ public class GameManagerSushi : MonoBehaviour {
             goldTrophy.SetActive(true);
         }        
 
-        canvasResults.SetActive(true);     
+        canvasResults.SetActive(true);
+
+
 
     }
 	

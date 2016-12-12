@@ -14,8 +14,10 @@ public class PerformanceDAO
 
             try
             {
-                string sql = string.Format("INSERT INTO start_performance (angle, game_session_id, movement_id) VALUES ({0}, '{1}', '{2}');",
-                    performance.Angle, performance.Movement_id, performance.Game_session_id);
+                string sql = string.Format("INSERT INTO start_performance (angle, game_session_id, movement_id) VALUES ({0}, {1}, '{2}');",
+                    performance.Angle, performance.Game_session_id, performance.Movement_id);
+
+                Debug.Log(sql);
 
                 dbcmd.CommandText = sql;
                 dbcmd.ExecuteNonQuery();

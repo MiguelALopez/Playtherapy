@@ -10,6 +10,8 @@ public class TherapySessionObject : MonoBehaviour
     private TherapySession therapySession;
     private List<GameSession> gameSessionList;
     private string therapyId;
+    private int currentGameSessionId;
+
 
 	void Start() {
 		gameSessionList = new List<GameSession>();
@@ -59,7 +61,14 @@ public class TherapySessionObject : MonoBehaviour
         if (therapyId == "")
             therapyId = TherapySessionDAO.GetLastTherapyId (patient.Id_num).ToString();
 		GameSessionDAO.InsertGameSession (gameSessionList [gameSessionList.Count - 1], therapyId);
+        currentGameSessionId = GameSessionDAO.GetLastGameSessionId(therapyId);
 	}
+
+    public void savePerformance(int angle, string mov)
+    {
+        Performance pf = new Performance(angle, mov, currentGameSessionId.ToString());
+        PerformanceDAO.InsertPerformance(pf);
+    }
 
 	public void restartLastSession(){
 		GameSession gs = new GameSession(gameSessionList [gameSessionList.Count - 1].Minigame_id);

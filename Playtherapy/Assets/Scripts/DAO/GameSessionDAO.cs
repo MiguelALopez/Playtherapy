@@ -88,13 +88,13 @@ public class GameSessionDAO
 		}
 	}
 
-    public static int GetLastGameSessionId(string id_patient)
+    public static int GetLastGameSessionId(string id_therapy)
     {
         if (DBConnection.dbconn != null)
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = ("SELECT id FROM start_gamesession WHERE id = (SELECT max(id) FROM start_gamesession WHERE patient_id = (SELECT id FROM patient_patient WHERE id_num = '" + id_patient + "'));");
+            string sql = ("SELECT max(id) as id FROM start_gamesession WHERE therapy_id = "+ id_therapy +";");
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();

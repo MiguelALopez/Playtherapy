@@ -107,6 +107,17 @@ namespace MovementDetectionLibrary
                 angle = (float)doubleAngle;
             }
 
+            if (mov == "shoulderAbdRight")
+            {
+                doubleAngle = (float)bodyMovements.shoulderAbdRigthMovements();
+                if (double.IsNaN(doubleAngle))
+                {
+                    doubleAngle = 0.0;
+                }
+                angle = (float)doubleAngle;
+            }
+
+
             return angle;
 
         }
