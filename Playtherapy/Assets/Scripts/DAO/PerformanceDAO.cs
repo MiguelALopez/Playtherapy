@@ -14,7 +14,7 @@ public class PerformanceDAO
 
             try
             {
-                string sql = string.Format("INSERT INTO start_performance VALUES ({0}, '{1}', '{2}');",
+                string sql = string.Format("INSERT INTO start_performance (angle, game_session_id, movement_id) VALUES ({0}, '{1}', '{2}');",
                     performance.Angle, performance.Movement_id, performance.Game_session_id);
 
                 dbcmd.CommandText = sql;

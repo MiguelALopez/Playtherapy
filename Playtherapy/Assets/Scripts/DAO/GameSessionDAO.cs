@@ -87,4 +87,46 @@ public class GameSessionDAO
 			return 0.0f;
 		}
 	}
+
+    public static int GetLastGameSessionId(string id_patient)
+    {
+        if (DBConnection.dbconn != null)
+        {
+            NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+            string sql = ("SELECT id FROM start_gamesession WHERE id = (SELECT max(id) FROM start_gamesession WHERE patient_id = (SELECT id FROM patient_patient WHERE id_num = '" + id_patient + "'));");
+            dbcmd.CommandText = sql;
+
+            NpgsqlDataReader reader = dbcmd.ExecuteReader();
+            if (reader.Read())
+            {
+                //string numero_doc = (int)reader["id_num"];
+                int id = (int)reader["id"];
+
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                return id;
+            }
+            else
+            {
+                // clean up
+                reader.Close();
+                reader = null;
+                dbcmd.Dispose();
+                dbcmd = null;
+
+                Debug.Log("Error de consulta o elemento no encontrado");
+                return 0;
+            }
+        }
+        else
+        {
+            Debug.Log("Database connection not established");
+            return 0;
+        }
+    }
 }

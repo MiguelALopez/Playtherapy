@@ -9,9 +9,11 @@ public class TherapySessionObject : MonoBehaviour
     private Therapist therapist;
     private TherapySession therapySession;
     private List<GameSession> gameSessionList;
+    private string therapyId;
 
 	void Start() {
 		gameSessionList = new List<GameSession>();
+        therapyId = "";
 
 	}
 
@@ -54,7 +56,8 @@ public class TherapySessionObject : MonoBehaviour
 	}
 
 	public void saveLastGameSession() {
-		string therapyId = TherapySessionDAO.GetLastTherapyId (patient.Id_num).ToString();
+        if (therapyId == "")
+            therapyId = TherapySessionDAO.GetLastTherapyId (patient.Id_num).ToString();
 		GameSessionDAO.InsertGameSession (gameSessionList [gameSessionList.Count - 1], therapyId);
 	}
 
