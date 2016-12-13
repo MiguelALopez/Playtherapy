@@ -12,18 +12,23 @@ public class LoadGameScene : MonoBehaviour
         string sceneName = this.gameObject.GetComponentInChildren<Text>().text;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         Debug.Log("Scene loaded");
+		createGameSession ();
+
     }
 
     public void createGameSession()
     {
+		Debug.Log ("Entra a createGameSession");
         if (minigame != null)
         {
             GameObject tso = GameObject.Find("TherapySession");
+			Debug.Log ("Busca objeto TherapySession");
 
             if (tso != null)
             {
                 GameSession gs = new GameSession(minigame.Id);
                 tso.GetComponent<TherapySessionObject>().addGameSession(gs);
+				Debug.Log ("Crea nuevo GameSession");
             }
             else
             {

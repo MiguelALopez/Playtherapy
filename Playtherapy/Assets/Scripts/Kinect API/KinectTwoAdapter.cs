@@ -97,6 +97,7 @@ namespace MovementDetectionLibrary
                     zNew.Normalize();
                     xNew = Vector3.Cross(yNew, zNew);
 
+                    if (floorText)
                     floorText.text = ("Floor new: " + floor.x + ", " + floor.y + ", " + floor.z + ", " + floor.w + "\n" + xNew + "\n" + yNew + "\n" + zNew);
 
                     rotMatrix = new Matrix4x4();
@@ -167,6 +168,7 @@ namespace MovementDetectionLibrary
 
                 if (joint == BodyParts.ElbowLeft)
                 {
+                    if(oldText)
                     oldText.text = ("Posicion Old " + joint + ": " + sourceJoint.Position.X + " " + sourceJoint.Position.Y + " " + sourceJoint.Position.Z + " ");
 
                 }

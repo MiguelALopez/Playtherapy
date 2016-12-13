@@ -11,7 +11,7 @@ public class TherapistDAO
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = string.Format("SELECT * FROM therapist_therapist WHERE id_num = '{0}';", id_num);
+			string sql = string.Format("SELECT * FROM therapist_therapist, auth_user WHERE therapist_therapist.user_ptr_id = auth_user.id and auth_user.username = '{0}';", id_num);
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();

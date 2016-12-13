@@ -13,7 +13,7 @@ public class PatientDAO
         {
             NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
 
-            string sql = string.Format("SELECT * FROM patient_patient WHERE id_num = '{0}';", id_num);
+			string sql = ("SELECT * FROM patient_patient WHERE id_num = '" + id_num.ToString() + "';");
             dbcmd.CommandText = sql;
 
             NpgsqlDataReader reader = dbcmd.ExecuteReader();
