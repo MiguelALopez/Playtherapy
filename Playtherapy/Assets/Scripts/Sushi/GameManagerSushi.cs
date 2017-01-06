@@ -63,6 +63,13 @@ public class GameManagerSushi : MonoBehaviour {
     private float bestPartialRightShoulderAngle;
     private float bestTotalRightShoulderAngle;
 
+    //Necessary elements in order to display the final sushi table animation
+    public float translateTime;
+    public float timePerFloor;
+    public int floorsNumber;
+    public float animTimer;
+    bool animEnded;
+
     public void StartGame(int levelToLoad, bool time, int value, float flTime, float uTime)
     {
         withTime = time; 
@@ -123,17 +130,19 @@ public class GameManagerSushi : MonoBehaviour {
         bestTotalLeftShoulderAngle = 0.0f;
         bestPartialRightShoulderAngle = 0.0f;
         bestTotalRightShoulderAngle = 0.0f;
+
+        //Initialize time values for final animation
+        animEnded = false;
     }
 
 	// this is the main game event loop
 	void Update () {
-
-
 		if (gameIsStarted) {
 			if (!gameIsOver) {
 				if (withTime) {
 					if (currentTime < 0) { // check to see if timer has run out
-						EndGame ();
+                        gameIsOver = true;
+                        gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
 					} else { // game playing state, so update the timer
 						currentTime -= Time.deltaTime;
 						totalTime += Time.deltaTime;
@@ -149,8 +158,9 @@ public class GameManagerSushi : MonoBehaviour {
 					}
 				} else {
 					if (remainingReps < 0) { // check to see if timer has run out
-						EndGame ();
-					} else { // game playing state, so update the timer
+                        gameIsOver = true;
+                        gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
+                    } else { // game playing state, so update the timer
 						currentTime -= Time.deltaTime;
 						totalTime += Time.deltaTime;
 						mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
@@ -170,10 +180,19 @@ public class GameManagerSushi : MonoBehaviour {
                     if (currentRightShoulderAngle > bestPartialRightShoulderAngle)
                         bestPartialRightShoulderAngle = currentRightShoulderAngle;
                 }
-
-
-
-				}
+			}
+            else
+            {
+                if (!animEnded)
+                {
+                    if (animTimer > (translateTime + (timePerFloor * floorsNumber)))
+                    {
+                        animEnded = true;
+                        EndGame();
+                    }
+                }
+                animTimer += Time.deltaTime;
+            }
 		} else if (countdownStarted) {
 			if (3.0f - countdownTime > 2.0f) {
 				countdownDisplay.text = "3";
@@ -231,7 +250,7 @@ public class GameManagerSushi : MonoBehaviour {
 
 	void EndGame() {
 		// game is over
-		gameIsOver = true;
+		
 
 		// repurpose the timer to display a message to the player
 		mainTimerDisplay.text = "GAME OVER";
