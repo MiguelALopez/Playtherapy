@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class OnStartSelectedAtrapalo : MonoBehaviour {
@@ -7,8 +10,8 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
     public Toggle toggleRep;
     public Toggle toggleTime;
 
-    public Slider sliderRep;
-    public Slider sliderTime;
+    public InputField inputRep;
+    public InputField inputTime;
     public Slider sliderLevel;
 	public Slider sliderTimeLaunch;
 
@@ -34,12 +37,12 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
         if (toggleTime.isOn)
         {
             time = true;
-            timeRepValue = (int)sliderTime.value * 30;
+            timeRepValue = Int32.Parse(inputTime.text) * 60;
         }
         else
         {
             time = false;
-            timeRepValue = (int)sliderRep.value;
+            timeRepValue = Int32.Parse(inputRep.text);
         }
         if (GameManagerAtrapalo.gms)
         {
