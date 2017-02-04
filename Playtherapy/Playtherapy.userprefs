@@ -1,16 +1,6 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Sushi/GameManagerSushi.cs">
-    <Files>
-      <File FileName="Assets/Scripts/DBConnection.cs" Line="25" Column="3" />
-      <File FileName="Assets/Scripts/Sushi/GameManagerSushi.cs" Line="242" Column="10" />
-      <File FileName="Assets/Scripts/DAO/GameSessionDAO.cs" Line="63" Column="37" />
-      <File FileName="Assets/Scripts/DAO/GameSession.cs" Line="5" Column="1" />
-      <File FileName="Assets/Scripts/DAO/TherapySessionDAO.cs" Line="58" Column="5" />
-      <File FileName="Assets/Scripts/TherapySessionObject.cs" Line="68" Column="97" />
-      <File FileName="Assets/Scripts/DAO/Patient.cs" Line="4" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupItem="Playtherapy.CSharp.Plugins.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

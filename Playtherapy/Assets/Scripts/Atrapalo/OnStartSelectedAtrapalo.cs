@@ -33,7 +33,7 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
         int level = (int)sliderLevel.value;
         bool time = false;
         int timeRepValue = 0;
-		int timeLaunch = (int)sliderTimeLaunch.value;
+		int timeLaunch = setVelocBalls((int)sliderTimeLaunch.value);
         if (toggleTime.isOn)
         {
             time = true;
@@ -50,5 +50,27 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
         }
 		menu.SetActive (false);
         
+    }
+
+    /**
+     * 
+     * */
+    private int setVelocBalls(int option)
+    {
+        int timeLaunch = 0;
+        switch (option)
+        {
+            case 1:
+                timeLaunch = 4;
+                break;
+            case 2:
+                timeLaunch = 6;
+                break;
+            case 3:
+                timeLaunch = 9;
+                break;
+        }
+
+        return timeLaunch;
     }
 }
