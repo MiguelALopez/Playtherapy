@@ -159,6 +159,7 @@ public class GameManagerSushi : MonoBehaviour {
 				} else {
 					if (remainingReps < 0) { // check to see if timer has run out
                         gameIsOver = true;
+                        floorsNumber = ((score - (score % 6)) / 6) + 1; 
                         gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
                     } else { // game playing state, so update the timer
 						currentTime -= Time.deltaTime;

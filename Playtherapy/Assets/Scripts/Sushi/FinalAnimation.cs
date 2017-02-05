@@ -25,7 +25,7 @@ public class FinalAnimation : MonoBehaviour {
         timePerFloor = 0.0f;
         cam = GameObject.Find("Main Camera");
         table = GameObject.Find("SushiContainer");
-        deltaPosition = table.transform.position - cam.transform.position - new Vector3(0.0f, -0.5f, 2.0f);
+        deltaPosition = table.transform.position - cam.transform.position - new Vector3(0.0f, -0.5f, 3.0f);
         deltaRotation = new Vector3(cam.transform.eulerAngles.x, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
     }
 	
