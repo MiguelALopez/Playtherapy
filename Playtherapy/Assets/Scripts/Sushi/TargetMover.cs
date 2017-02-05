@@ -105,7 +105,7 @@ public class TargetMover : MonoBehaviour
                 }
             }
 
-
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().RedPoint();
             Destroy(gameObject);
         }
 

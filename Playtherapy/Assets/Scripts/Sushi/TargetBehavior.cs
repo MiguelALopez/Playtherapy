@@ -83,8 +83,10 @@ public class TargetBehavior : MonoBehaviour
 			}
 
 			sSpawner.MakeSpawn();
-			// destroy self
-			Destroy (gameObject);
+
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().GreenPoint();
+            // destroy self
+            Destroy (gameObject);
 		}
 	}
 }

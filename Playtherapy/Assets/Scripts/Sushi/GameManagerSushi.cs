@@ -313,9 +313,6 @@ public class GameManagerSushi : MonoBehaviour {
 		// don't let it go negative
 		if (currentTime < 0)
 			currentTime = 0.0f;
-
-		// update the text UI
-		mainTimerDisplay.text = currentTime.ToString ("0.00");
 	}
 
 	// public function that can be called to restart the game
