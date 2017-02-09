@@ -88,5 +88,10 @@ public class TargetBehavior : MonoBehaviour
             // destroy self
             Destroy (gameObject);
 		}
-	}
+        else if ((newCollision.gameObject.tag == "KatanaLeft" && fishingHand == "right") || (newCollision.gameObject.tag == "KatanaRight" && fishingHand == "left"))
+        {
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().RedPoint();
+        }
+
+    }
 }

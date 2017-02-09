@@ -32,6 +32,8 @@ public class GameManagerSushi : MonoBehaviour {
     public GameObject goldTrophy;
     public GameObject canvasResults;
 
+    public GameObject resultMessage;
+
 	public GameObject gameOverScoreOutline;
 
 	public AudioSource musicAudioSource;
@@ -42,8 +44,11 @@ public class GameManagerSushi : MonoBehaviour {
 	private bool lastSeconds = false;
 
 	public AudioSource countdownSound;
+    public AudioSource beepSound;
+    public AudioSource finalSound;
+    public AudioSource resultsSoundtrack;
 
-	public float currentTime;
+    public float currentTime;
 	public float totalTime = 0.0f;
 	private float countdownTime = 0.0f;
 
@@ -142,29 +147,37 @@ public class GameManagerSushi : MonoBehaviour {
 				if (withTime) {
 					if (currentTime < 0) { // check to see if timer has run out
                         gameIsOver = true;
+                        floorsNumber = ((score - (score % 6)) / 6) + 1;
+                        GameObject.Find("CanvasInfoManos").SetActive(false);
+                        mainTimerDisplay.text = "TERMINADO";
                         gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
 					} else { // game playing state, so update the timer
 						currentTime -= Time.deltaTime;
 						totalTime += Time.deltaTime;
-						mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
-					}
+                        //mainTimerDisplay.text = "Tiempo: " + (((int)currentTime) / 60).ToString () + ":" + (((int)currentTime) % 60).ToString ("00");
+                        mainTimerDisplay.text = "" + (((int)currentTime) / 60).ToString() + ":" + (((int)currentTime) % 60).ToString("00");
+                    }
 					if (!lastSeconds && currentTime <= 3.0f) {
 						lastSeconds = true;
 						if (countdownSound) {
+                            musicAudioSource.Stop();
 							countdownSound.Play ();
 						}
-						mainTimerDisplay.fontStyle = FontStyle.Bold;
+                        gameObject.GetComponent<FinalCoutdownManager>().startCoutdown();
+                        mainTimerDisplay.fontStyle = FontStyle.Bold;
 						mainTimerDisplay.color = Color.red;
 					}
 				} else {
 					if (remainingReps < 0) { // check to see if timer has run out
                         gameIsOver = true;
-                        floorsNumber = ((score - (score % 6)) / 6) + 1; 
+                        floorsNumber = ((score - (score % 6)) / 6) + 1;
+                        GameObject.Find("CanvasInfoManos").SetActive(false);
+                        mainTimerDisplay.text = "TERMINADO";
                         gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
                     } else { // game playing state, so update the timer
 						currentTime -= Time.deltaTime;
 						totalTime += Time.deltaTime;
-						mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString ();
+						mainTimerDisplay.text = "Restantes: " + remainingReps.ToString ();
 					}
 				}
 
@@ -231,6 +244,22 @@ public class GameManagerSushi : MonoBehaviour {
         currentReps++;
         remainingReps--;
 
+        if (!withTime)
+        {
+            if (remainingReps <=2 && remainingReps >= 0)
+            {
+                gameObject.GetComponent<RepCountdownManager>().startCountdown(false);
+                beepSound.Play();
+            }
+            else if (remainingReps < 0)
+            {
+                gameObject.GetComponent<RepCountdownManager>().startCountdown(true);
+                musicAudioSource.Stop();
+                finalSound.Play();
+                resultsSoundtrack.PlayDelayed(1.0f);
+            }
+        }
+
         if (bestPartialLeftShoulderAngle > bestTotalLeftShoulderAngle)
         {
             bestTotalLeftShoulderAngle = bestPartialLeftShoulderAngle;
@@ -254,14 +283,14 @@ public class GameManagerSushi : MonoBehaviour {
 		
 
 		// repurpose the timer to display a message to the player
-		mainTimerDisplay.text = "GAME OVER";
+		
 
 
         // reduce the pitch of the background music, if it is set 
         //if (musicAudioSource)
         //	musicAudioSource.pitch = 0.5f; // slow down the music
 
-        GameObject.Find("CanvasInfoManos").SetActive(false);
+        
         GameObject.Find("Canvas").SetActive(false);
 
 		TherapySessionObject objTherapy = GameObject.Find ("TherapySession").GetComponent<TherapySessionObject> ();
@@ -279,15 +308,18 @@ public class GameManagerSushi : MonoBehaviour {
 
         if (finalScore <= 60)
         {
+            resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
             bronzeTrophy.SetActive(true);
         }
         else if (finalScore <= 90)
         {
+            resultMessage.GetComponent<TextMesh>().text = "¡Grandioso!";
             bronzeTrophy.SetActive(false);
             silverTrophy.SetActive(true);
         }
         else if (finalScore <= 100)
         {
+            resultMessage.GetComponent<TextMesh>().text = "¡Increíble!";
             bronzeTrophy.SetActive(false);
             goldTrophy.SetActive(true);
         }        

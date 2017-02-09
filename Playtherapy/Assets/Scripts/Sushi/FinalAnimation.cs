@@ -41,7 +41,7 @@ public class FinalAnimation : MonoBehaviour {
             timePerFloor = 4.0f;
         floorsNumber = flNumber;
         if (floorsNumber == 0)
-            floorsNumber = 3;
+            floorsNumber = 1;
 
         Debug.Log(transTime);
         Debug.Log(translateTime);
