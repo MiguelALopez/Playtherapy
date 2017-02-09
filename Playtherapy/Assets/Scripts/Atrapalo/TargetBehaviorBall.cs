@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class TargetBehaviorBall : MonoBehaviour
 {
 
 	// target impact on game
-	public int scoreAmount = 10;
+	public int scoreAmount;
 	public float timeAmount = 0.0f;
 
 	// explosion when hit?
 	public GameObject explosionPrefab;
+    public TextMesh textPoint;
+    public Material mat;
+    public Font font;
 
-	// information when hit?
-	public GameObject informationPrefab;
+    // information when hit?
+    public GameObject informationPrefab;
 
 
 	private MovementDetectionLibrary.SpawnGameObjects spawner;
@@ -25,6 +29,17 @@ public class TargetBehaviorBall : MonoBehaviour
 		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
 		sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
 		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+        if (scoreAmount > 0)
+        {
+            textPoint.text = "+"+scoreAmount.ToString();
+        }
+        else
+        {
+            textPoint.text =  scoreAmount.ToString();
+
+        }
+
+        textPoint.color = getColorBall(scoreAmount);
 	}
 
 	// when collided with another gameObject
@@ -41,15 +56,19 @@ public class TargetBehaviorBall : MonoBehaviour
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
-			}
+                Instantiate(textPoint, transform.position, textPoint.transform.rotation);
+                // create 3d text mesh
 
-			/*if (informationPrefab) {
+
+            }
+
+            /*if (informationPrefab) {
 				//Intantiate an information dialog at the gameObjects position and rotation
 				Instantiate (informationPrefab, transform.position, GameObject.FindWithTag("MainCamera").transform.rotation);
 			}*/
 
-			// if game manager exists, make adjustments based on target properties
-			if (GameManagerAtrapalo.gms) {
+            // if game manager exists, make adjustments based on target properties
+            if (GameManagerAtrapalo.gms) {
 				GameManagerAtrapalo.gms.targetHit (scoreAmount);
 			}
 				
@@ -60,4 +79,26 @@ public class TargetBehaviorBall : MonoBehaviour
 			Destroy (gameObject);
 		}
 	}
+
+    private Color getColorBall(int score)
+    {
+        Color ballColor;
+
+        switch (score)
+        {
+            case 10:
+                ballColor = new Color(253, 0, 0, 1);
+                break;
+            case -20:
+                ballColor = new Color(0, 0, 0, 1);
+                break;
+           case 30:
+                ballColor = new Color(233, 255, 98, 1);
+                break;
+            default:
+                ballColor = new Color(253, 0, 0, 1);
+                break;
+        }
+        return ballColor;
+    }
 }
