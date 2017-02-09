@@ -9,6 +9,10 @@ public class PointFeedbackManager : MonoBehaviour {
     //Text that will be modified
     public GameObject pointsText;
 
+    //Points and miss image
+    public GameObject pointsImg;
+    public GameObject missImg;
+
     //Time that lasts the panel and text in turning green or red
     public float appearTime;
     //Time that lasts the panel and text in turning white again
@@ -54,6 +58,16 @@ public class PointFeedbackManager : MonoBehaviour {
 
         //Applies the new panel color
         pointsPanel.GetComponent<Image>().color = panelColor;
+
+
+        //Changes the alpha value of the images
+        Color pointImgColor = pointsImg.GetComponent<Image>().color;
+        pointImgColor.a = 0.0f;
+        pointsImg.GetComponent<Image>().color = pointImgColor;
+
+        Color missImgColor = missImg.GetComponent<Image>().color;
+        missImgColor.a = 0.0f;
+        missImg.GetComponent<Image>().color = missImgColor;
     }
 
 	// Update is called once per frame
@@ -63,38 +77,53 @@ public class PointFeedbackManager : MonoBehaviour {
             if (animTime <= appearTime)
             {
                 Color panelColor = pointsPanel.GetComponent<Image>().color;
+                Color pointImgColor = pointsImg.GetComponent<Image>().color;
+                Color missImgColor = missImg.GetComponent<Image>().color;
+
                 switch (animStatus)
                 {
                     case 1:
                         panelColor.b -= (1.0f * Time.deltaTime / appearTime);
                         panelColor.r -= (1.0f * Time.deltaTime / appearTime);
+                        pointImgColor.a += (1.0f * Time.deltaTime / appearTime);
                         break;
                     case 2:
                         panelColor.g -= (1.0f * Time.deltaTime / appearTime);
                         panelColor.b -= (1.0f * Time.deltaTime / appearTime);
+                        missImgColor.a += (1.0f * Time.deltaTime / appearTime);
                         break;
                     default:
                         break;
                 }
                 //Applies the new panel color
                 pointsPanel.GetComponent<Image>().color = panelColor;
+                pointsImg.GetComponent<Image>().color = pointImgColor;
+                missImg.GetComponent<Image>().color = missImgColor;
+
             } else if (animTime <= appearTime + disappearTime) {
                 Color panelColor = pointsPanel.GetComponent<Image>().color;
+                Color pointImgColor = pointsImg.GetComponent<Image>().color;
+                Color missImgColor = missImg.GetComponent<Image>().color;
+
                 switch (animStatus)
                 {
                     case 1:
                         panelColor.b += (1.0f * Time.deltaTime / disappearTime);
                         panelColor.r += (1.0f * Time.deltaTime / disappearTime);
+                        pointImgColor.a -= (1.0f * Time.deltaTime / disappearTime);
                         break;
                     case 2:
                         panelColor.g += (1.0f * Time.deltaTime / disappearTime);
                         panelColor.b += (1.0f * Time.deltaTime / disappearTime);
+                        missImgColor.a -= (1.0f * Time.deltaTime / disappearTime);
                         break;
                     default:
                         break;
                 }
                 //Applies the new panel color
                 pointsPanel.GetComponent<Image>().color = panelColor;
+                pointsImg.GetComponent<Image>().color = pointImgColor;
+                missImg.GetComponent<Image>().color = missImgColor;
             } else
             {
                 ResetColor();
