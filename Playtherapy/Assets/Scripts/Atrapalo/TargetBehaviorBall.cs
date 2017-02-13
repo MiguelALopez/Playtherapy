@@ -20,15 +20,15 @@ public class TargetBehaviorBall : MonoBehaviour
 
 
 	private MovementDetectionLibrary.SpawnGameObjects spawner;
-	private GameManagerSushi gameM;
+	private GameManagerAtrapalo gameM;
 
-	private SushiSpawner sSpawner;
+	private SpawnGameObjectsBall sSpawner;
 
 	void Start()
 	{
 		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
-		sSpawner = GameObject.Find("Spawner").GetComponent<SushiSpawner>();
-		gameM = GameObject.Find("GameManager").GetComponent<GameManagerSushi>();
+		sSpawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjectsBall>();
+		gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
         if (scoreAmount > 0)
         {
             textPoint.text = "+"+scoreAmount.ToString();
@@ -86,13 +86,13 @@ public class TargetBehaviorBall : MonoBehaviour
 
         switch (score)
         {
-            case 10:
-                ballColor = new Color(253, 0, 0, 1);
+            case 1:
+                ballColor = new Color(0, 95, 195, 1);
                 break;
-            case -20:
-                ballColor = new Color(0, 0, 0, 1);
+            case -2:
+                ballColor = new Color(255, 0, 0, 1);
                 break;
-           case 30:
+           case 3:
                 ballColor = new Color(233, 255, 98, 1);
                 break;
             default:

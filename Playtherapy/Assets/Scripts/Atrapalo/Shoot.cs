@@ -71,10 +71,10 @@ namespace MovementDetectionLibrary
                 flag = false;
             }
             else {
-                if (gameObject.transform.position != pointFin) {
+                if (gameObject.transform.position.x > pointFin.x) {
                     
                     //posNew.MovePosition(pointIni+pointFin*Time.deltaTime);
-                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
                 }
                 else
                 {
@@ -83,7 +83,7 @@ namespace MovementDetectionLibrary
                         pointFin = pointFin * 2;
                         flagArrive = true;
                     }
-                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
                 }
             }
 
@@ -134,8 +134,14 @@ namespace MovementDetectionLibrary
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
-
+            Debug.Log("point ini 1");
+            Debug.Log(pointIni);
             this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad, 0.0f, gameM.plane);
+            Debug.Log("point fin 1");
+            Debug.Log(pointFin);
+            this.pointFin = pointFinal(pointIni, pointFin, -60.0f);
+            Debug.Log("point fin 2");
+            Debug.Log(pointFin);
             //gameObject.transform.position = pointFin;
             gameM.NewRepetition();      
 			
@@ -158,6 +164,24 @@ namespace MovementDetectionLibrary
                 gameM.countBallPlane = 1;
                 gameM.changePlane();
             }
+        }
+
+
+        /**
+         * Function to calculate a point with a line equation in the x pos correction
+         **/
+        public Vector3 pointFinal(Vector3 pointOne, Vector3 pointTwo, float xFinal)
+        {
+
+            Vector3 directorVector = pointTwo - pointOne;
+
+            Vector3 finalPos = new Vector3();
+            finalPos.x = xFinal;
+            float eqOne = (xFinal - pointOne.x) / directorVector.x;
+            finalPos.y = eqOne * directorVector.y + pointOne.y;
+            finalPos.z = eqOne * directorVector.z + pointOne.z;
+
+            return finalPos;
         }
     }
 }

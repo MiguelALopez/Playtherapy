@@ -5,7 +5,7 @@ public class SpawnGameObjectsBall : MonoBehaviour
 {
 	// public variables
 	public float secondsBetweenSpawning = 0.1f;
-	public float xBallPos= -20.0f;
+	public float xBallPos= -14.0f;
 	public float yBallPos = 0.0f;
 	public float zBallPos = 15.0f;
 	int n = 0;
@@ -43,10 +43,10 @@ public class SpawnGameObjectsBall : MonoBehaviour
 	//Function to return the number of the kind of the ball
 	public int chooseBall(int ball){
 
-		if (ball <= 50) {
+		if (ball <= 60) {
 			return 0;
 		}
-		if (ball > 50 && ball <= 80) {
+		if (ball > 60 && ball <= 80) {
 			return 1;
 		}
 		if (ball > 80 && ball <= 100) {
