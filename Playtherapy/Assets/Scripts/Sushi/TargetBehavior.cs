@@ -83,8 +83,15 @@ public class TargetBehavior : MonoBehaviour
 			}
 
 			sSpawner.MakeSpawn();
-			// destroy self
-			Destroy (gameObject);
+
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().GreenPoint();
+            // destroy self
+            Destroy (gameObject);
 		}
-	}
+        else if ((newCollision.gameObject.tag == "KatanaLeft" && fishingHand == "right") || (newCollision.gameObject.tag == "KatanaRight" && fishingHand == "left"))
+        {
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().RedPoint();
+        }
+
+    }
 }
