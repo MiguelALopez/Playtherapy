@@ -40,7 +40,8 @@ namespace MovementDetectionLibrary
                 timeLaunch = timeLaunch / 2;
             }
             timeArrive = Time.time + timeLaunch;
-            Vector3 pointIni = transform.position;
+            pointIni = transform.position;
+            Debug.Log(transform.position);
             flagArrive = false;
             //posNew = this.GetComponent<Rigidbody>();
 
@@ -56,13 +57,11 @@ namespace MovementDetectionLibrary
             {               
                 if (gameM.side)
                 {
-                    Debug.Log("lado der");
                     this.shootPosition("ShoulderRight", "HandRight", "right");
                     gameM.side = false;
                 }
                 else
                 {
-                    Debug.Log("lado izq");
                     this.shootPosition("ShoulderLeft", "HandLeft", "left");
                     gameM.side = true;
                 }
@@ -127,21 +126,14 @@ namespace MovementDetectionLibrary
                 counterPlane();
             }
 
-            Debug.Log("plano"+gameM.plane);
 
             float angleRad = calc.setRamdomAngle(side, gameM.plane);
                 
             Vector3 pointOne = GameObject.FindGameObjectWithTag(jointOneName).transform.position;
             Vector3 pointTwo = GameObject.FindGameObjectWithTag(jointTwoName).transform.position;
 
-            Debug.Log("point ini 1");
-            Debug.Log(pointIni);
             this.pointFin = calc.getPosition(pointOne, calc.createPointTwoShoulderAF(pointOne, pointTwo), angleRad, 0.0f, gameM.plane);
-            Debug.Log("point fin 1");
-            Debug.Log(pointFin);
             this.pointFin = pointFinal(pointIni, pointFin, -60.0f);
-            Debug.Log("point fin 2");
-            Debug.Log(pointFin);
             //gameObject.transform.position = pointFin;
             gameM.NewRepetition();      
 			
