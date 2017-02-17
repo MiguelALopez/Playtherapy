@@ -169,7 +169,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
                     {
                         if (currentTime <= 0)
                         { // check to see if timer has run out
-							if (ballsAlive == 0) {
+							if (ballsAlive <= 0) {
 								EndGame();
 							}
                         }

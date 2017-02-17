@@ -9,7 +9,7 @@
 /[Bb]uilds/
 /Assets/AssetStoreTools*
 
-/Playtherapy/[Ll]ibrary/
+#/Playtherapy/[Ll]ibrary/
 /Playtherapy/[Tt]emp/
 /Playtherapy/[Oo]bj/
 /Playtherapy/[Bb]uild/
@@ -327,3 +327,5 @@ __pycache__/
 build/
 
 # End of https://www.gitignore.io/api/unity,visualstudio,monodevelop
+
+*.info

@@ -12,7 +12,7 @@ public class SpawnGameObjectsBall : MonoBehaviour
 	public GameObject[] spawnObjects; // what prefabs to spawn
 
 	private float nextSpawnTime;
-
+	public bool can_trow = true;
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,15 +30,39 @@ public class SpawnGameObjectsBall : MonoBehaviour
 		}
 		
 		// if time to spawn a new game object
-		if (((Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.remainingReps>0&&!GameManagerAtrapalo.gms.withTime)||(Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.currentTime>0&&GameManagerAtrapalo.gms.withTime))&&(Time.time >= nextSpawnTime && GameManagerAtrapalo.gms.ballsAlive == 0)) {
+//		if (((Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.remainingReps>0&&!GameManagerAtrapalo.gms.withTime)||(Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.currentTime>0&&GameManagerAtrapalo.gms.withTime))&&(Time.time >= nextSpawnTime && GameManagerAtrapalo.gms.ballsAlive == 0)) {
+		//		if (((Time.time  >= nextSpawnTime 
+		//&& GameManagerAtrapalo.gms.remainingReps>0
+		//&& !GameManagerAtrapalo.gms.withTime)
+		//|| (Time.time  >= nextSpawnTime 
+		//&& GameManagerAtrapalo.gms.currentTime>0
+		//&&GameManagerAtrapalo.gms.withTime))&&(Time.time >= nextSpawnTime && GameManagerAtrapalo.gms.ballsAlive == 0)) {
+
+		//
+		if (GameManagerAtrapalo.gms.withTime) {
+
+			if (GameManagerAtrapalo.gms.currentTime>0) 
+			{
+				launchBall ();
+			}
+
+		}
+		else
+		{
+			launchBall ();
+		}
+			
+	}
+	public void launchBall()
+	{
+		if(can_trow && Time.time  >= nextSpawnTime && GameManagerAtrapalo.gms.repetitions >0)	//
+		{
 			// Spawn the game object through function below
 			MakeThingToSpawn ();
 			// determine the next time to spawn the object
 			nextSpawnTime = Time.time+secondsBetweenSpawning;
-
+			can_trow = false;	
 		}
-
-
 	}
 	//Function to return the number of the kind of the ball
 	public int chooseBall(int ball){
