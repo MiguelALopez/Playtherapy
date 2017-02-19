@@ -116,8 +116,8 @@ public class TargetBehaviorBall : MonoBehaviour
 		int ballsAlive = GameManagerAtrapalo.gms.ballsAlive - 1;
 
 		GameManagerAtrapalo.gms.ballsAlive = ballsAlive;
-
-		Debug.Log ("hola:"+basket.transform.localScale);
+ 
+		Debug.Log ("hola:"+basket.transform.localScale); 
 		float randomX = basket.transform.position.x+1*Random.Range (-1,1);
 		float randomZ = basket.transform.position.z+1*Random.Range (-1,1);
 		Vector3 position = new Vector3 (randomX, basket.transform.position.y +4, randomZ);
