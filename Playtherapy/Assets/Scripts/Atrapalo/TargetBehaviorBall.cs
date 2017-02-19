@@ -118,9 +118,9 @@ public class TargetBehaviorBall : MonoBehaviour
 		GameManagerAtrapalo.gms.ballsAlive = ballsAlive;
 
 		Debug.Log ("hola:"+basket.transform.localScale);
-		float randomX = basket.transform.position.x+Random.Range (Mathf.Round(-basket.transform.localScale.x * 0.15f), Mathf.Round(basket.transform.localScale.x * 0.15f));
-		float randomZ = basket.transform.position.z+Random.Range (Mathf.Round(-basket.transform.localScale.z * 0.15f), Mathf.Round(basket.transform.localScale.z * 0.15f));
-		Vector3 position = new Vector3 (+randomX, basket.transform.position.y +3, randomZ);
+		float randomX = basket.transform.position.x+1*Random.Range (-1,1);
+		float randomZ = basket.transform.position.z+1*Random.Range (-1,1);
+		Vector3 position = new Vector3 (randomX, basket.transform.position.y +4, randomZ);
 
 		this.transform.position = position;
 		this.gameObject.GetComponent<Shoot>().enabled= false;
