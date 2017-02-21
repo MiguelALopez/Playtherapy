@@ -59,6 +59,14 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public GameObject nextLevelButtons;
     public string nextLevelToLoad;
 
+	//Necessary elements for capturing the best angle in a section
+	public GameObject FullBodyObject;
+	private MovementDetectionLibrary.FullBody fBodyObject;
+	private float bestPartialLeftShoulderAngle;
+	private float bestTotalLeftShoulderAngle;
+	private float bestPartialRightShoulderAngle;
+	private float bestTotalRightShoulderAngle;
+
     public float currentTime;
     private float countdownTime = 0.0f;
 	public int ballsAlive;
@@ -146,6 +154,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
         if (countdownDisplayObject)
             countdownDisplay = countdownDisplayObject.GetComponent<Text>();
+		initiateAngleSystem ();
 
         
     }
@@ -203,6 +212,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
                             currentTime -= Time.deltaTime;
                         }
                     }
+
+					setCurrentMaximunAngle ();
                 }
             }
         }
@@ -249,6 +260,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
         currentReps++;
         remainingReps--;
 		mainTimerDisplay.text = "Repeticiones: " + remainingReps.ToString();
+		setBestMaximunAngleRepetition ();
 
     }
 
@@ -399,6 +411,74 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
 	IEnumerator waitBall() {
 		yield return new WaitForSeconds(10);
+	}
+
+
+	/**
+	 * Function to initiate the system of mesuare of angel to calculate the maximu	
+	 * */
+
+	private void initiateAngleSystem(){
+
+
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+
+		if (FullBodyObject)
+			fBodyObject = FullBodyObject.GetComponent<MovementDetectionLibrary.FullBody>();
+
+		//Initialize angle values
+		bestPartialLeftShoulderAngle = 0.0f;
+		bestTotalLeftShoulderAngle = 0.0f;
+		bestPartialRightShoulderAngle = 0.0f;
+		bestTotalRightShoulderAngle = 0.0f;
+
+		//Initialize time values for final animation
+		animEnded = false;
+
+	}
+
+
+	/**
+	 * Function to set the maximun current angle do by the patient
+	 * */
+	private void setCurrentMaximunAngle(){
+
+		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
+
+		float currentLeftShoulderAngle = 0.0f;
+		float currentRightShoulderAngle = 0.0f;
+
+		if (fBodyObject)
+		{
+			currentLeftShoulderAngle = fBodyObject.getAngle("shoulderAbdLeft");
+			if (currentLeftShoulderAngle > bestPartialLeftShoulderAngle)
+				bestPartialLeftShoulderAngle = currentLeftShoulderAngle;
+
+			currentRightShoulderAngle = fBodyObject.getAngle("shoulderAbdRight");
+			if (currentRightShoulderAngle > bestPartialRightShoulderAngle)
+				bestPartialRightShoulderAngle = currentRightShoulderAngle;
+		}
+	}
+
+
+
+	/**
+	 * Function to set best maximum angle 
+	 * */
+	private void setBestMaximunAngleRepetition(){
+
+		if (bestPartialLeftShoulderAngle > bestTotalLeftShoulderAngle)
+		{
+			bestTotalLeftShoulderAngle = bestPartialLeftShoulderAngle;
+		}
+		bestPartialLeftShoulderAngle = 0.0f;
+
+		if (bestPartialRightShoulderAngle > bestTotalRightShoulderAngle)
+		{
+			bestTotalRightShoulderAngle = bestPartialRightShoulderAngle;
+		}
+		bestPartialRightShoulderAngle = 0.0f;
+
 	}
 
 }
