@@ -1,6 +1,11 @@
-﻿<Properties StartupItem="Playtherapy.CSharp.Plugins.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Atrapalo/GameManagerAtrapalo.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Sushi/GameManagerSushi.cs" Line="263" Column="1" />
+      <File FileName="Assets/Scripts/Atrapalo/GameManagerAtrapalo.cs" Line="157" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

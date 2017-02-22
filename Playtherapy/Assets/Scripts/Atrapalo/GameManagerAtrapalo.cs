@@ -209,7 +209,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
                         }
                         else
                         { // game playing state, so update the timer
-                            currentTime -= Time.deltaTime;
+                            //currentTime -= Time.deltaTime;
                         }
                     }
 
@@ -478,6 +478,21 @@ public class GameManagerAtrapalo : MonoBehaviour {
 			bestTotalRightShoulderAngle = bestPartialRightShoulderAngle;
 		}
 		bestPartialRightShoulderAngle = 0.0f;
+
+	}
+
+
+	/**
+	 * Function to save the information of a game session and a performance
+	 * */
+	public void saveGameSessionInfo(){
+
+		TherapySessionObject objTherapy = GameObject.Find ("TherapySession").GetComponent<TherapySessionObject> ();
+		objTherapy.fillLastSession(score, repetitions, (int)startTime, level.ToString());
+		objTherapy.saveLastGameSession ();
+
+		objTherapy.savePerformance((int)bestTotalLeftShoulderAngle, "4");
+		objTherapy.savePerformance((int)bestTotalRightShoulderAngle, "5");
 
 	}
 
