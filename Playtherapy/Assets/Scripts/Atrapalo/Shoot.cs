@@ -21,7 +21,9 @@ namespace MovementDetectionLibrary
 		public int type;
         private bool flagArrive;
         private Vector3 pointIni;
-        private Rigidbody posNew; 
+        private Rigidbody posNew;
+
+        public float speed = 1.5f; 
 
 
         // Use this for initialization
@@ -66,15 +68,15 @@ namespace MovementDetectionLibrary
                     this.shootPosition("ShoulderLeft", "HandLeft", "left");
                     gameM.side = true;
                 }
-                this.vel = (pointFin - gameObject.transform.position).magnitude / timeLaunch;
-                this.vel = vel * Time.deltaTime;
+                this.vel = (pointFin - gameObject.transform.position).magnitude * speed / timeLaunch;
+                //this.vel = vel * Time.deltaTime;
                 flag = false;
             }
             else {
                 if (gameObject.transform.position.x > pointFin.x) {
-                    
                     //posNew.MovePosition(pointIni+pointFin*Time.deltaTime);
-                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
+                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel*Time.deltaTime);
                 }
                 else
                 {
@@ -83,7 +85,8 @@ namespace MovementDetectionLibrary
                         pointFin = pointFin * 2;
                         flagArrive = true;
                     }
-                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
+                    //this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel);
+                    this.transform.position = Vector3.MoveTowards(transform.position, pointFin, this.vel * Time.deltaTime);
                 }
             }
 

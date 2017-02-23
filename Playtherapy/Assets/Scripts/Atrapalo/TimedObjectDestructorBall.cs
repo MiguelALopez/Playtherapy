@@ -9,17 +9,17 @@ public class TimedObjectDestructorBall : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		// invote the DestroyNow funtion to run after timeOut seconds
-//		Invoke ("DestroyNow", timeOut);
+		Invoke ("DestroyNow", timeOut);
 	}
 	
 
 	void DestroyNow ()
 	{
-//		if (detachChildren) { // detach the children before destroying if specified
-//			transform.DetachChildren ();
-//		}
-//
-//		// destory the game Object
-//		Destroy(gameObject);
+		if (detachChildren) { // detach the children before destroying if specified
+			transform.DetachChildren ();
+		}
+
+		// destory the game Object
+		Destroy(gameObject);
 	}
 }
