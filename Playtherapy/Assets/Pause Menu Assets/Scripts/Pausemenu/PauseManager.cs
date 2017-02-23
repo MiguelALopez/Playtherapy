@@ -278,8 +278,7 @@ namespace GreatArcStudios
         /// The start method; you will need to place all of your inital value getting/setting here. 
         /// </summary>
         public void Start()
-        {
-           
+        {           
             readUseSimpleTerrain = useSimpleTerrain;
             if (useSimpleTerrain)
             {
@@ -437,6 +436,7 @@ namespace GreatArcStudios
             readUseSimpleTerrain = useSimpleTerrain;
             useSimpleTerrain = readUseSimpleTerrain;
             //colorCrossfade();
+            /**
             if (vidPanel.active == true)
             {
                 pauseMenu.text = "Opciones Gráficas";
@@ -449,6 +449,7 @@ namespace GreatArcStudios
             {
                 pauseMenu.text = "Menú de Pausa";
             }
+            **/
 
             if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
             {
@@ -510,7 +511,7 @@ namespace GreatArcStudios
             audioPanel.SetActive(true);
             audioPanelAnimator.enabled = true;
             audioIn();
-            pauseMenu.text = "Audio Menu";
+            //pauseMenu.text = "Opciones de Audio";
         }
         /// <summary>
         /// Play the "audio panel in" animation.
@@ -617,7 +618,8 @@ namespace GreatArcStudios
         internal IEnumerator applyAudioMain()
         {
             audioPanelAnimator.Play("Audio Panel Out");
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)audioPanelAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)audioPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
@@ -641,8 +643,8 @@ namespace GreatArcStudios
         internal IEnumerator cancelAudioMain()
         {
             audioPanelAnimator.Play("Audio Panel Out");
-            // Debug.Log(audioPanelAnimator.GetCurrentAnimatorClipInfo(0).Length);
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)audioPanelAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)audioPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
@@ -650,8 +652,6 @@ namespace GreatArcStudios
             //Debug.Log(_beforeMaster + AudioListener.volume);
             try
             {
-
-
                 for (_audioEffectAmt = 0; _audioEffectAmt < effects.Length; _audioEffectAmt++)
                 {
                     //get the values for all effects before the change
@@ -673,13 +673,12 @@ namespace GreatArcStudios
         /// </summary>
         public void Video()
         {
-
             mainPanel.SetActive(false);
             vidPanel.SetActive(true);
             audioPanel.SetActive(false);
             vidPanelAnimator.enabled = true;
             videoIn();
-            pauseMenu.text = "Video Menu";
+            //pauseMenu.text = "Opciones Gráficas";
 
         }
         /// <summary>
@@ -723,7 +722,7 @@ namespace GreatArcStudios
             modelQualSlider.value = QualitySettings.lodBias;
             renderDistSlider.value = mainCam.farClipPlane;
             shadowDistSlider.value = QualitySettings.shadowDistance;
-            masterTexSlider.value = QualitySettings.masterTextureLimit;
+            masterTexSlider.value = (QualitySettings.masterTextureLimit - 2) * -1; // to change the direction of the slider
             shadowCascadesSlider.value = QualitySettings.shadowCascades;
             fullscreenToggle.isOn = Screen.fullScreen;
             aoToggle.isOn = aoBool;
@@ -773,8 +772,10 @@ namespace GreatArcStudios
         internal IEnumerator cancelVideoMain()
         {
             vidPanelAnimator.Play("Video Panel Out");
+            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
 
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            Debug.Log(vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+
             try
             {
                 mainCam.farClipPlane = renderDistINI;
@@ -834,7 +835,8 @@ namespace GreatArcStudios
         internal IEnumerator applyVideo()
         {
             vidPanelAnimator.Play("Video Panel Out");
-            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0).Length));
+            yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+
             mainPanel.SetActive(true);
             vidPanel.SetActive(false);
             audioPanel.SetActive(false);
@@ -851,6 +853,7 @@ namespace GreatArcStudios
             lastShadowCascade = QualitySettings.shadowCascades;
             vsyncINI = QualitySettings.vSyncCount;
             isFullscreen = Screen.fullScreen;
+
             try
             {
                 if (useSimpleTerrain == true)
@@ -946,6 +949,7 @@ namespace GreatArcStudios
         {
 
             int f = Mathf.RoundToInt(qual);
+            f = (f - 2) * -1;
             QualitySettings.masterTextureLimit = f;
         }
         /// <summary>

@@ -171,7 +171,7 @@ public class GameManagerSushi : MonoBehaviour {
 					if (remainingReps < 0) { // check to see if timer has run out
                         gameIsOver = true;
                         floorsNumber = ((score - (score % 6)) / 6) + 1;
-                        GameObject.Find("HandInfo Holder").SetActive(false);
+                        GameObject.Find("CanvasInfoManos").SetActive(false);
                         mainTimerDisplay.text = "TERMINADO";
                         gameObject.GetComponent<FinalAnimation>().startAnimation(translateTime, timePerFloor, floorsNumber);
                     } else { // game playing state, so update the timer
