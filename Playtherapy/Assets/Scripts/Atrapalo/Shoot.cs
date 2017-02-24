@@ -22,14 +22,33 @@ namespace MovementDetectionLibrary
         private bool flagArrive;
         private Vector3 pointIni;
         private Rigidbody posNew;
-
         public float speed = 1.5f; 
+		/* Global variants for the use of indicator cubes in cannons */
+
+		private GameObject cubeRightIndicator;
+		private GameObject cubeLeftIndicator;
+
+		private Color indicatorOn;
+		private Color indicatorOff;
+
+		private Color indicatorLeft;
+		private Color indicatorRight;
 
 
         // Use this for initialization
         void Start()
-        {
-            
+        {	
+			/*Obtengo instacion de los GameObject cube*/
+			cubeLeftIndicator = GameObject.FindGameObjectWithTag("cubeLeft");
+			cubeRightIndicator = GameObject.FindGameObjectWithTag("cubeRight");
+			/*I define the colors that will be used as indicators "indicatorOn" color to designate the exit of the ball
+			 * "IndicatorOff" Color to indicate the standby time */
+			indicatorOn = new Color (0.2f,0.2f,0.2f);
+			indicatorOff = new Color (0,1,0);
+			/*Inicio con ambos cubos con el color de espera*/
+			indicatorRight = indicatorOff;
+			indicatorLeft = indicatorOff;
+
 			gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
 			gameM.ballsAlive++;
 			angle = (180*gameM.level)/6;
@@ -53,7 +72,8 @@ namespace MovementDetectionLibrary
         // Update is called once per frame
         void Update()
         {
-
+			/*"SetupIndicator ();" Configura los indicadores en el momento*/
+			SetupIndicator ();
             if (flag)
             {               
                 if (gameM.side)
@@ -125,6 +145,10 @@ namespace MovementDetectionLibrary
 
 		public void shootPosition(string jointOneName, string jointTwoName, string side)
         {
+			/* Recibe como entrada la posicion de salida de la pelota
+			 * para decidir que indicador entra en estado de espera o activo "ControllerIndicator(jointOneName);"*/
+			ControllerIndicator(jointOneName);
+
             if (gameM.shootOpt==3)
             {
                 counterPlane();
@@ -186,5 +210,29 @@ namespace MovementDetectionLibrary
 
             return finalPos;
         }
+
+		/* Controls which indicator is on standby or active depending on "ControllerIndicator(string ubication)"*/
+		public void ControllerIndicator(string ubication){
+			SetupIndicator ();
+			if (string.ReferenceEquals("ShoulderRight",ubication)) {
+
+				indicatorLeft = indicatorOff;
+				indicatorRight = indicatorOn;
+
+
+			} else {
+
+				indicatorLeft = indicatorOn;
+				indicatorRight = indicatorOff;
+			}
+		}
+
+		public void SetupIndicator(){
+			/*Behavior configuration for indicator cubes"SetupIndicator()" */
+
+			cubeLeftIndicator.GetComponent<Renderer> ().material.color = indicatorLeft;
+			cubeRightIndicator.GetComponent<Renderer> ().material.color = indicatorRight;
+
+		}
     }
 }
