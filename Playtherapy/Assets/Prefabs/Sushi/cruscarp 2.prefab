@@ -975,7 +975,7 @@ MonoBehaviour:
   timeAmount: 0
   explosionPrefab: {fileID: 1000010255417676, guid: 33dae13eff02642e9ac31c72cf8b7a98,
     type: 2}
-  informationPrefab: {fileID: 0}
+  informationPrefab: {fileID: 119564, guid: 9d0f5969bb7b50d48a681191a4172d48, type: 2}
 --- !u!114 &114000011605460514
 MonoBehaviour:
   m_ObjectHideFlags: 1
