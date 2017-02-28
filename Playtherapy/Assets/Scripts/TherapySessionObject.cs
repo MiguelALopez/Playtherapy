@@ -31,7 +31,7 @@ public class TherapySessionObject : MonoBehaviour
         {
             therapySession = new TherapySession(therapist.Id_num, patient.Id_num);
 			bool insertion = TherapySessionDAO.InsertTherapySession (therapySession);
-        }              
+        } 
     }
 
     public void addGameSession(GameSession gs)
@@ -79,6 +79,17 @@ public class TherapySessionObject : MonoBehaviour
 	public float getGameRecord(){
 		return GameSessionDAO.GetRecord (gameSessionList [gameSessionList.Count - 1], patient.Id_num);
 	}
+
+    public void SaveObservations(string observations)
+    {
+        therapySession.Description = observations;
+        if (therapyId == "")
+            therapyId = TherapySessionDAO.GetLastTherapyId(patient.Id_num).ToString();
+        if (TherapySessionDAO.insertObservations(therapyId, therapySession.Description))
+            Debug.Log("Observations successfully saved");
+        else
+            Debug.Log("Observations not saved");
+    }
 
     public Patient Patient
     {

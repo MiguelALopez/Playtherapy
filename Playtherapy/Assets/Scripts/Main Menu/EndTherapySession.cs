@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndTherapySession : MonoBehaviour {
 
-	// used for transition between menus
-	public GameObject canvasOld;
-	public GameObject canvasNew;
+    // used for transition between menus
+    public TherapySessionObject tso;
+	public GameObject minigamesMenuPanel;
+	public GameObject observationsPanel;
+    public InputField observationsField;
+    public string sceneToLoad;
 
 	// Use this for initialization
 	void Start () {
-	
+        sceneToLoad = "Main Menu";
 	}
 	
 	// Update is called once per frame
@@ -17,8 +22,20 @@ public class EndTherapySession : MonoBehaviour {
 	
 	}
 
-	public void Tiki(){
-		canvasOld.SetActive(false);
-		canvasNew.SetActive(true);  
+	public void EndTherapy()
+    {
+		minigamesMenuPanel.SetActive(false);
+		observationsPanel.SetActive(true);  
 	}
+
+    public void SaveObservations()
+    {
+        string observations = observationsField.text;
+
+        if (tso)
+        {
+            tso.SaveObservations(observations);
+            SceneManager.LoadScene(sceneToLoad);
+        }
+    }
 }

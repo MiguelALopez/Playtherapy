@@ -16,9 +16,9 @@ public class StartTherapySession : MonoBehaviour
     public TherapySessionObject tso;
 
     // used for transition between menus
-    public GameObject mainCanvas;
-    public GameObject mainMenu;
-    public GameObject canvasNew;
+    public GameObject loginCanvas;
+    public GameObject loginMenu;
+    public GameObject minigamesMenuCanvas;
 
     private List<Minigame> minigames = null;
 
@@ -86,10 +86,10 @@ public class StartTherapySession : MonoBehaviour
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 
-            mainMenu.SetActive(false);
-            canvasNew.SetActive(true);
-            mainCanvas.SetActive(false);
-            mainCanvas.SetActive(true);           
+            loginMenu.SetActive(false);
+            minigamesMenuCanvas.SetActive(true);
+            loginCanvas.SetActive(false);
+            loginCanvas.SetActive(true);           
         }
     }
 }
