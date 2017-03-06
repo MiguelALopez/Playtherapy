@@ -300,7 +300,7 @@ public class GameManagerSushi : MonoBehaviour {
         objTherapy.savePerformance((int)bestTotalLeftShoulderAngle, "4");
         objTherapy.savePerformance((int)bestTotalRightShoulderAngle, "5");
 
-		int finalScore = (int)(((double)score/ currentReps) * 100.0f);
+        int finalScore = (int)(((double)score / currentReps) * 100.0f);
 
         canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
 		canvasBestScoreText.GetComponentInChildren<TextMesh> ().text = objTherapy.getGameRecord() + "%";

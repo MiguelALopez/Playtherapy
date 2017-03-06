@@ -11,9 +11,6 @@ public class SpawnGameObjectsBall : MonoBehaviour
 	int n = 0;
 	public GameObject[] spawnObjects; // what prefabs to spawn
 
-	private GameManagerAtrapalo gms;
-
-
 	private float nextSpawnTime;
 	public bool can_trow = true;
 	// Use this for initialization
@@ -21,8 +18,6 @@ public class SpawnGameObjectsBall : MonoBehaviour
 	{
 		// determine when to spawn the next object
 		nextSpawnTime = Time.time+secondsBetweenSpawning;
-		gms = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
-
 	}
 	
 	// Update is called once per frame
@@ -73,14 +68,12 @@ public class SpawnGameObjectsBall : MonoBehaviour
 	public int chooseBall(int ball){
 
 		if (ball <= 60) {
-			GameManagerAtrapalo.gms.ballsLaunched += 1;
 			return 0;
 		}
 		if (ball > 60 && ball <= 80) {
 			return 1;
 		}
 		if (ball > 80 && ball <= 100) {
-			GameManagerAtrapalo.gms.ballsLaunched += 1;
 			return 2;
 		}
 		return 0;

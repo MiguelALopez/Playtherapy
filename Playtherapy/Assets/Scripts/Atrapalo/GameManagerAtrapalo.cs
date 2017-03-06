@@ -77,8 +77,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public Toggle toggleLatPlan;
 
     private SpawnGameObjectsBall spawner;
-	public int ballsLaunched;
-	public int hits;
 
     public bool withTime = false;
 
@@ -90,8 +88,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
 	public void StartGame(int levelToLoad, bool time, int value, int launchTime)
     {
-		ballsLaunched = 0;
-		hits = 0;
         withTime = time;
 
         if (time)
@@ -313,7 +309,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
         //GameObject.Find("CanvasInfoManos").SetActive(false);
         GameObject.Find("Canvas").SetActive(false);
 
-		int finalScore = (int)(((double)hits/ ballsLaunched) * 100.0f);
+        double finalScore = score / repetitions * 100;
+        finalScore = 61;
 
         canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
 
