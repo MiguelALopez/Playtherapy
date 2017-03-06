@@ -20,7 +20,7 @@ public class TargetBehaviorBall : MonoBehaviour
 
 
 	private MovementDetectionLibrary.SpawnGameObjects spawner;
-	private GameManagerAtrapalo gameM;
+	private GameManagerAtrapalo gms;
 
 	private SpawnGameObjectsBall sSpawner;
 
@@ -28,7 +28,7 @@ public class TargetBehaviorBall : MonoBehaviour
 	{
 		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
 		sSpawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjectsBall>();
-		gameM = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
+		gms = GameObject.Find("GameManager").GetComponent<GameManagerAtrapalo>();
         if (scoreAmount > 0)
         {
             textPoint.text = "+"+scoreAmount.ToString();
@@ -47,8 +47,8 @@ public class TargetBehaviorBall : MonoBehaviour
 	{
 
 		// exit if there is a game manager and the game is over
-		if (GameManagerSushi.gms) {
-			if (GameManagerSushi.gms.gameIsOver)
+		if (GameManagerAtrapalo.gms) {
+			if (GameManagerAtrapalo.gms.gameIsOver)
 				return;
 		}
 		// only do stuff if hit by a projectile
@@ -58,7 +58,9 @@ public class TargetBehaviorBall : MonoBehaviour
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
                 Instantiate(textPoint, transform.position, textPoint.transform.rotation);
                 // create 3d text mesh
-
+				if(scoreAmount == 1 || scoreAmount == 3){
+					GameManagerAtrapalo.gms.hits +=1;
+				}
 
             }
 
