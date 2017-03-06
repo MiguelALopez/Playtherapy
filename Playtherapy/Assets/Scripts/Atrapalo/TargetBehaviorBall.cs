@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using MovementDetectionLibrary;
 public class TargetBehaviorBall : MonoBehaviour
 {
 
@@ -23,6 +23,7 @@ public class TargetBehaviorBall : MonoBehaviour
 	private GameManagerAtrapalo gms;
 
 	private SpawnGameObjectsBall sSpawner;
+
 
 	void Start()
 	{
@@ -51,8 +52,16 @@ public class TargetBehaviorBall : MonoBehaviour
 			if (GameManagerAtrapalo.gms.gameIsOver)
 				return;
 		}
+		if (newCollision.gameObject.tag == "Wall") {
+			// destroy the projectile
+			Debug.Log ("destruir pelota");
+			Destroy(this.gameObject);//comentado para prueba de domenico
+			sSpawner.can_trow = true;
+		}
+
 		// only do stuff if hit by a projectile
-		if (newCollision.gameObject.tag == "HandRight"||newCollision.gameObject.tag == "HandLeft") {
+		if (newCollision.gameObject.tag == "HandRight"||newCollision.gameObject.tag == "HandLeft")
+		{
 			if (explosionPrefab) {
 				// Instantiate an explosion effect at the gameObjects position and rotation
 				Instantiate (explosionPrefab, transform.position, transform.rotation);
@@ -72,13 +81,11 @@ public class TargetBehaviorBall : MonoBehaviour
             // if game manager exists, make adjustments based on target properties
             if (GameManagerAtrapalo.gms) {
 				GameManagerAtrapalo.gms.targetHit (scoreAmount);
+				putBallInBasket ();
+
 			}
 				
-			// destroy the projectile
-			//Destroy (newCollision.gameObject);
-				
-			// destroy self
-			Destroy (gameObject);
+
 		}
 	}
 
@@ -103,4 +110,25 @@ public class TargetBehaviorBall : MonoBehaviour
         }
         return ballColor;
     }
+	void putBallInBasket()
+	{
+		
+		GameObject basket = GameObject.Find ("Basket");
+
+		int ballsAlive = GameManagerAtrapalo.gms.ballsAlive - 1;
+
+		GameManagerAtrapalo.gms.ballsAlive = ballsAlive;
+
+		Debug.Log ("hola:"+basket.transform.localScale);
+		float randomX = basket.transform.position.x+1*Random.Range (-1,1);
+		float randomZ = basket.transform.position.z+1*Random.Range (-1,1);
+		Vector3 position = new Vector3 (randomX, basket.transform.position.y +4, randomZ);
+
+		this.transform.position = position;
+		this.gameObject.GetComponent<Shoot>().enabled= false;
+		this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		this.GetComponent<Rigidbody> ().useGravity = true;
+		sSpawner.can_trow = true;
+
+	}
 }

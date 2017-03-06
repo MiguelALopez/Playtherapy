@@ -1,12 +1,12 @@
-﻿<Properties StartupItem="Playtherapy.Plugins.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Atrapalo\TargetBehaviorBall.cs">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Atrapalo/TargetBehaviorBall.cs">
     <Files>
-      <File FileName="Assets\Scripts\Atrapalo\GameManagerAtrapalo.cs" Line="304" Column="30" />
-      <File FileName="Assets\Scripts\DBConnection.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Atrapalo\SpawnGameObjectsBall.cs" Line="15" Column="2" />
-      <File FileName="Assets\Scripts\Atrapalo\Shoot.cs" Line="46" Column="55" />
-      <File FileName="Assets\Scripts\Atrapalo\TargetBehaviorBall.cs" Line="61" Column="39" />
+      <File FileName="Assets/Scripts/Atrapalo/TargetBehaviorBall.cs" Line="121" Column="69" />
+      <File FileName="Assets/Scripts/Atrapalo/GameManagerAtrapalo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Atrapalo/SpawnGameObjectsBall.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Atrapalo/OnStartSelectedAtrapalo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Atrapalo/Shoot.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
