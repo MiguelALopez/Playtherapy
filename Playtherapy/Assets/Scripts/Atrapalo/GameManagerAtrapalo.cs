@@ -420,9 +420,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
 	private void initiateAngleSystem(){
 
-
-		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
-
 		if (FullBodyObject)
 			fBodyObject = FullBodyObject.GetComponent<MovementDetectionLibrary.FullBody>();
 
@@ -433,8 +430,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
 		bestTotalRightShoulderAngle = 0.0f;
 
 		//Initialize time values for final animation
-		animEnded = false;
-
 	}
 
 
@@ -442,8 +437,6 @@ public class GameManagerAtrapalo : MonoBehaviour {
 	 * Function to set the maximun current angle do by the patient
 	 * */
 	private void setCurrentMaximunAngle(){
-
-		spawner = GameObject.Find("Spawner").GetComponent<MovementDetectionLibrary.SpawnGameObjects>();
 
 		float currentLeftShoulderAngle = 0.0f;
 		float currentRightShoulderAngle = 0.0f;
