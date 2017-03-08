@@ -22,7 +22,7 @@ public class DBConnection : MonoBehaviour
         {
             dbConnectionObject = FindObjectOfType(typeof(DBConnection)) as DBConnection;
             if (!dbConnectionObject)
-                Debug.LogError("There needs to be one active DBConnection script on a GameObject in your scene.");
+                Debug.Log("There needs to be one active DBConnection script on a GameObject in your scene.");
         }
 
         return dbConnectionObject;
