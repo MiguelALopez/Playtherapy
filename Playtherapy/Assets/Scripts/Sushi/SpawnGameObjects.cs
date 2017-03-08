@@ -20,8 +20,8 @@ namespace MovementDetectionLibrary
         public GameObject panelIzq;
         public GameObject panelDer;
 
-        public Light leftLight;
-        public Light rightLight;
+        public GameObject leftLight;
+        public GameObject rightLight;
 
         float angle;
         public GameAngles calc;
@@ -122,15 +122,15 @@ namespace MovementDetectionLibrary
                 panelIzq.SetActive(true);
                 panelDer.SetActive(false);
 
-                leftLight.color = Color.green;
-                rightLight.color = Color.red;
+                leftLight.SetActive(true);
+                rightLight.SetActive(false);
             } else
             {
                 panelIzq.SetActive(false);
                 panelDer.SetActive(true);
 
-                leftLight.color = Color.red;
-                rightLight.color = Color.green;
+                leftLight.SetActive(false);
+                rightLight.SetActive(true);
             }
 
             // actually spawn the game object
