@@ -20,7 +20,7 @@ public class TimeSliderChanger : MonoBehaviour {
 
     public void onValueChanged()
     {
-		timeText.text = "Tiempo: " + ((int) Math.Floor( (double)timeSlider.value/2 )).ToString() + ":";
+		timeText.text = "Tiempo (mins): " + ((int) Math.Floor( (double)timeSlider.value/2 )).ToString() + ":";
         if (timeSlider.value % 2 == 0)
         {
             timeText.text += "00";
