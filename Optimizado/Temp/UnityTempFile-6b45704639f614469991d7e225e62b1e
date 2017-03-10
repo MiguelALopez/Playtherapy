@@ -1,0 +1,181 @@
+-debug
+-target:library
+-nowarn:0169
+-langversion:4
+-out:'Temp/Assembly-CSharp-Editor.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll'
+-r:'Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll'
+-r:'Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll'
+-r:'Library/ScriptAssemblies/Assembly-CSharp.dll'
+-r:'Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/EditorTestsRunner/Editor/nunit.framework.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/EditorTestsRunner/Editor/UnityEditor.EditorTestsRunner.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/PlaymodeTestsRunner/Editor/UnityEditor.PlaymodeTestsRunner.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll'
+-r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/macstandalonesupport/UnityEditor.OSXStandalone.Extensions.dll'
+-r:'Assets/Plugins/Postgresql Driver/Npgsql.dll'
+-r:'Assets/Plugins/Postgresql Driver/System.Data.dll'
+-r:'Assets/OpenNI/OpenNI.Net.dll'
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_4_OR_NEWER
+-define:UNITY_5_5_OR_NEWER
+-define:UNITY_5_5_2
+-define:UNITY_5_5
+-define:UNITY_5
+-define:UNITY_64
+-define:UNITY_ANALYTICS
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_DUCK_TYPING
+-define:ENABLE_GENERICS
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_PHYSICS
+-define:ENABLE_SPRITERENDERER_FLIPPING
+-define:ENABLE_SPRITES
+-define:ENABLE_TERRAIN
+-define:ENABLE_RAKNET
+-define:ENABLE_UNET
+-define:ENABLE_LZMA
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_CLOUD_SERVICES_COLLAB
+-define:ENABLE_CLOUD_SERVICES_ADS
+-define:ENABLE_CLOUD_HUB
+-define:ENABLE_CLOUD_PROJECT_ID
+-define:ENABLE_CLOUD_SERVICES_UNET
+-define:ENABLE_CLOUD_SERVICES_BUILD
+-define:ENABLE_CLOUD_LICENSE
+-define:ENABLE_EDITOR_METRICS
+-define:ENABLE_EDITOR_METRICS_CACHING
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:PLATFORM_SUPPORTS_MONO
+-define:RENDER_SOFTWARE_CURSOR
+-define:INCLUDE_PUBNUB
+-define:ENABLE_PLAYMODE_TESTS_RUNNER
+-define:ENABLE_SCRIPTING_NEW_CSHARP_COMPILER
+-define:UNITY_STANDALONE_OSX
+-define:UNITY_STANDALONE
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_GAMECENTER
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_MOVIES
+-define:ENABLE_NETWORK
+-define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+-define:ENABLE_UNITYWEBREQUEST
+-define:ENABLE_CLOUD_SERVICES
+-define:ENABLE_CLOUD_SERVICES_ANALYTICS
+-define:ENABLE_CLOUD_SERVICES_PURCHASING
+-define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+-define:ENABLE_VIDEO
+-define:ENABLE_VR
+-define:ENABLE_CLUSTERINPUT
+-define:ENABLE_WEBSOCKET_HOST
+-define:ENABLE_MONO
+-define:ENABLE_PROFILER
+-define:DEBUG
+-define:TRACE
+-define:UNITY_ASSERTIONS
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_64
+-define:UNITY_EDITOR_OSX
+-define:UNITY_TEAM_LICENSE
+'Assets/External Assets/FGC/Volund-Morph3D/Shared/Editor/VolundMultiStandardShaderGUI.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/AntialiasingEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/BloomAndFlaresEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/BloomEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/CameraMotionBlurEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/ColorCorrectionCurvesEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/ColorCorrectionLookupEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/CreaseShadingEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/DepthOfFieldDeprecatedEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/DepthOfFieldEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/EdgeDetectionEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/NoiseAndGrainEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/SunShaftsEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/TonemappingEditor.cs'
+'Assets/External Assets/NatureStarterKit2/Editor/ImageEffects/VignetteAndChromaticAberrationEditor.cs'
+'Assets/OpenNI/Editor/OpenNI/NIEventLoggerInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIInputInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIOpenNISettingsManagerInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIPlayerManagerCOMSelectionInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIPlayerManagerInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIPlayerManagerPoseSelectionInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIQueryInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NISkeletonControllerInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NISkeletonTrackerInspector.cs'
+'Assets/OpenNI/Editor/OpenNI/NIUserPoseDetectorInspector.cs'
+'Assets/Scripts/Editor/BuildScenes.cs'
+'Assets/Scripts/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs'
+'Assets/Scripts/Editor/FindMissingScripts.cs'
+'Assets/Scripts/NGUI/Examples/Scripts/InventorySystem/Editor/InvDatabaseInspector.cs'
+'Assets/Scripts/NGUI/Examples/Scripts/InventorySystem/Editor/InvFindItem.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/BMFontReader.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/ComponentSelector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUIEditorTools.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUIJson.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUIMenu.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUISelectionTools.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUISettings.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/NGUITransformInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/SpriteSelector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIAtlasInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIAtlasMaker.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UICameraTool.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UICreateNewUIWizard.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UICreateWidgetWizard.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIDrawCallInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIFilledSpriteInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIFontInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIFontMaker.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIImageButtonInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UILabelInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIPanelInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIPanelTool.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIPopupListInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIScrollBarInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UISlicedSpriteInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UISliderInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UISpriteAnimationInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UISpriteInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UITextureInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UITexturePacker.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UITiledSpriteInspector.cs'
+'Assets/Scripts/NGUI/Scripts/Editor/UIWidgetInspector.cs'
+'Assets/Scripts/RUIS/Editor/RUISCameraEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISCharacterControllerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISCharacterLocomotionEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISCoordinateCalibrationEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISCoordinateSystemEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISDisplayEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISDisplayManagerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISEditorUtility.cs'
+'Assets/Scripts/RUIS/Editor/RUISInputManagerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISKinectAndMecanimCombinerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISSkeletonControllerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISSkeletonWandEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISTrackerEditor.cs'
+'Assets/Scripts/RUIS/Editor/RUISWandSelectorEditor.cs'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Runtime.Serialization.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.Linq.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/UnityScript.Lang.dll'
+-r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/Boo.Lang.dll'
+-sdk:2.0
