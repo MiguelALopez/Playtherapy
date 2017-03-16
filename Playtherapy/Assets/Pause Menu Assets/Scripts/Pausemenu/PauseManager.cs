@@ -252,6 +252,8 @@ namespace GreatArcStudios
         public static Terrain readSimpleTerrain;
 
         private SaveSettings saveSettings = new SaveSettings();
+
+        private bool quitting;
         /*
         //Color fade duration value
         //public float crossFadeDuration;
@@ -332,7 +334,8 @@ namespace GreatArcStudios
             lastTexLimit = QualitySettings.masterTextureLimit;
             //set last shadow cascade 
             lastShadowCascade = QualitySettings.shadowCascades;
-            saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
+            //saveSettings.LoadGameSettings(File.ReadAllText(Application.persistentDataPath + "/" + saveSettings.fileName));
+            quitting = false;
             try
             {
                 densityINI = Terrain.activeTerrain.detailObjectDensity;
@@ -405,6 +408,7 @@ namespace GreatArcStudios
         /// </summary>
         public void quitGame()
         {
+            quitting = true;
             Application.Quit();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -626,7 +630,7 @@ namespace GreatArcStudios
             beforeMaster = AudioListener.volume;
             lastMusicMult = audioMusicSlider.value;
             lastAudioMult = audioEffectsSlider.value;
-            saveSettings.SaveGameSettings();
+            //saveSettings.SaveGameSettings();
         }
         /// <summary>
         /// Cancel the audio setting changes
@@ -774,7 +778,7 @@ namespace GreatArcStudios
             vidPanelAnimator.Play("Video Panel Out");
             yield return StartCoroutine(CoroutineUtilities.WaitForRealTime((float)vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length));
 
-            Debug.Log(vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            //Debug.Log(vidPanelAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
             try
             {
@@ -868,7 +872,7 @@ namespace GreatArcStudios
                 }
             }
             catch { Debug.Log("Please assign a terrain"); }
-            saveSettings.SaveGameSettings();
+            //saveSettings.SaveGameSettings();
 
         }
         /// <summary>
@@ -939,7 +943,7 @@ namespace GreatArcStudios
 
             }
 
-        }
+        }/*
         /// <summary>
         /// Update the texture quality using  
         /// <c>QualitySettings.masterTextureLimit </c>
@@ -947,11 +951,14 @@ namespace GreatArcStudios
         /// <param name="qual"></param>
         public void updateTex(float qual)
         {
-
-            int f = Mathf.RoundToInt(qual);
-            f = (f - 2) * -1;
-            QualitySettings.masterTextureLimit = f;
-        }
+            if (!quitting)
+            {
+                int f = Mathf.RoundToInt(qual);
+                f = (f - 2) * -1;
+                QualitySettings.masterTextureLimit = f;
+                Debug.Log(QualitySettings.masterTextureLimit);
+            }
+        }*/
         /// <summary>
         /// Update the shadow distance using 
         /// <c>
