@@ -13,7 +13,6 @@ public class LoadGameScene : MonoBehaviour
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         Debug.Log("Scene loaded");
 		createGameSession ();
-
     }
 
     public void createGameSession()
