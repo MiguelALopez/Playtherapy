@@ -80,8 +80,13 @@ public class Kick : MonoBehaviour
         }
         else if (other.gameObject.tag == "Target")
         {
-            Debug.Log("entra target");
+            Debug.Log("entra a target");
             TargetCollision();
+        }
+        else if (other.gameObject.tag == "Wall")
+        {
+            Debug.Log("entra a wall");
+            WallCollision();
         }
     }
 
@@ -118,6 +123,13 @@ public class Kick : MonoBehaviour
     }
 
     public void TargetCollision()
+    {
+        kicked = false;
+        ball.transform.position = ballInitialPosition;
+        kicking = true;
+    }
+
+    public void WallCollision()
     {
         kicked = false;
         ball.transform.position = ballInitialPosition;
