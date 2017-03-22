@@ -12,7 +12,7 @@ namespace MovementDetectionLibrary
         //KinectTwoAdapter sensorTwoKinect;
         public GameObject KinectTAdapter;
         private KinectTwoAdapter _KinectTAdapter;
-		private MovementsCollection bodyMovements;
+		public MovementsCollection bodyMovements;
         public GUIText gt;
 
         public Text infoText;
