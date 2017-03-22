@@ -65,7 +65,7 @@ public class Kick : MonoBehaviour
             ball.transform.position = Vector3.MoveTowards(ball.transform.position, 
                 GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].transform.position, speed * Time.deltaTime);
 
-            Debug.Log(GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].name);
+            //Debug.Log(GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].name);
         }
 	}
 
@@ -92,11 +92,7 @@ public class Kick : MonoBehaviour
 
     public void KickBall()
     {
-        kicking = false;
-        lastHipLeftAngle = 0f;
-        lastHipRightAngle = 0f;
-        lastKneeLeftAngle = 0f;
-        lastKneeRightAngle = 0f;
+        kicking = false;        
 
         setKneeLeftOrientation();
 
@@ -110,14 +106,15 @@ public class Kick : MonoBehaviour
         else
             pos1 = 1;
 
-        if (hipLeftAngle > 30)
+        if (hipLeftAngle > 25)
             pos2 = 6;
-        else if (hipLeftAngle > 20)
+        else if (hipLeftAngle > 16)
             pos2 = 3;
         else
             pos2 = 0;
 
         calculatedTarget = pos1 + pos2;
+        Debug.Log(calculatedTarget);
         
         kicked = true;        
     }
@@ -126,6 +123,10 @@ public class Kick : MonoBehaviour
     {
         kicked = false;
         ball.transform.position = ballInitialPosition;
+        lastHipLeftAngle = 0f;
+        lastHipRightAngle = 0f;
+        lastKneeLeftAngle = 0f;
+        lastKneeRightAngle = 0f;
         kicking = true;
     }
 
@@ -133,6 +134,10 @@ public class Kick : MonoBehaviour
     {
         kicked = false;
         ball.transform.position = ballInitialPosition;
+        lastHipLeftAngle = 0f;
+        lastHipRightAngle = 0f;
+        lastKneeLeftAngle = 0f;
+        lastKneeRightAngle = 0f;
         kicking = true;
     }
 
@@ -146,6 +151,10 @@ public class Kick : MonoBehaviour
                 hipLeftAngle = tempFloat;
 
             lastHipLeftAngle = tempFloat;
+        }
+        else
+        {
+            hipLeftAngle = 0f;
         }        
     }
 
