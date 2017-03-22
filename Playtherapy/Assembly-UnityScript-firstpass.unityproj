@@ -204,13 +204,13 @@
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="OpenNI.Net">
- <HintPath>/Users/MacBookPro/Documents/proyecto_tesis/Playtherapy dome/Playtherapy/Assets/OpenNI/OpenNI.Net.dll</HintPath>
+ <HintPath>/Users/mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/OpenNI/OpenNI.Net.dll</HintPath>
  </Reference>
  <Reference Include="Npgsql">
- <HintPath>/Users/MacBookPro/Documents/proyecto_tesis/Playtherapy dome/Playtherapy/Assets/Plugins/Postgresql Driver/Npgsql.dll</HintPath>
+ <HintPath>/Users/mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/Npgsql.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>/Users/MacBookPro/Documents/proyecto_tesis/Playtherapy dome/Playtherapy/Assets/Plugins/Postgresql Driver/System.Data.dll</HintPath>
+ <HintPath>/Users/mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/System.Data.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
