@@ -646,6 +646,8 @@ public class RUISSkeletonController : MonoBehaviour
 				UpdateTransform(ref leftHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftHip, maxAngularVelocity);
 				UpdateTransform(ref rightHip, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightHip, maxAngularVelocity);
 				UpdateTransform(ref leftKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftKnee, maxAngularVelocity);
+                // test knee orientation tracking
+                //Debug.Log(leftKnee.transform.rotation.eulerAngles.)
 				UpdateTransform(ref rightKnee, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightKnee, maxAngularVelocity);
 				
 				UpdateTransform(ref rightElbow, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightElbow, maxAngularVelocity);
@@ -656,6 +658,7 @@ public class RUISSkeletonController : MonoBehaviour
 					UpdateTransform(ref leftFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].leftFoot, maxAngularVelocity);
 					UpdateTransform(ref rightFoot, skeletonManager.skeletons[bodyTrackingDeviceID, playerId].rightFoot, maxAngularVelocity);
 				}
+
 			
 //				// TODO: Restore this when implementation is fixed
 //				if(rotateWristFromElbow && bodyTrackingDevice == bodyTrackingDeviceType.Kinect2)

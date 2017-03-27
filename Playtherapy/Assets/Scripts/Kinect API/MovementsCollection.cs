@@ -9,7 +9,7 @@ namespace MovementDetectionLibrary
 	public class MovementsCollection {
 
 
-		Dictionary<BodyParts, BodyPoint> bodyPointsCollection;
+		public Dictionary<BodyParts, BodyPoint> bodyPointsCollection;
 
 		public void setBodyPointsCollection(Dictionary<BodyParts, BodyPoint> bodyPoints){
 

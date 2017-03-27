@@ -3,24 +3,32 @@ using System.Collections;
 
 public class FGC_addItem : MonoBehaviour {
 
-	// gear, cloth etc. with SkinnedMeschRendered you want to add to this gameObject with bones
+    // gear, cloth etc. with SkinnedMeschRendered you want to add to this gameObject with bones
+    public bool addItems;
 	public GameObject addItem1=null;
 	public GameObject addItem2=null;
 
 
 	void Awake () {
-		if (addItem1!=null) {
-			AddNewItem(addItem1);
-		}
-		else {
-			Debug.Log("FGC_addItem Script. No Item1 found.");
-		}
-		if (addItem2!=null) {
-			AddNewItem(addItem2);
-		}
-		else {
-			Debug.Log("FGC_addItem Script. No Item2 found.");
-		}
+        if (addItems)
+        {
+            if (addItem1 != null)
+            {
+                AddNewItem(addItem1);
+            }
+            else
+            {
+                Debug.Log("FGC_addItem Script. No Item1 found.");
+            }
+            if (addItem2 != null)
+            {
+                AddNewItem(addItem2);
+            }
+            else
+            {
+                Debug.Log("FGC_addItem Script. No Item2 found.");
+            }
+        }
 	}
 
 
