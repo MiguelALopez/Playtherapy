@@ -33,6 +33,7 @@ public class Kick : MonoBehaviour
     private float tempFloat;
 
     private int calculatedTarget;
+    private Vector3 calculatedTargetPosition;
 
     // Use this for initialization
     void Start ()
@@ -62,8 +63,7 @@ public class Kick : MonoBehaviour
         }
         else if (kicked)
         {
-            ball.transform.position = Vector3.MoveTowards(ball.transform.position, 
-                GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].transform.position, speed * Time.deltaTime);
+            ball.transform.position = Vector3.MoveTowards(ball.transform.position, calculatedTargetPosition, speed * Time.deltaTime);
 
             //Debug.Log(GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].name);
         }
@@ -73,7 +73,7 @@ public class Kick : MonoBehaviour
     {
         Debug.Log("entra a trigger");
 
-        if (other.gameObject.tag == "Foot")
+        if (other.gameObject.tag == "Foot" && GameManagerTiroLibre.gm.targetReady)
         {
             Debug.Log("entra a kickball");
             KickBall();
@@ -114,9 +114,11 @@ public class Kick : MonoBehaviour
             pos2 = 0;
 
         calculatedTarget = pos1 + pos2;
+        calculatedTargetPosition = GameManagerTiroLibre.gm.getCurrentTargetPosition(calculatedTarget);
         Debug.Log(calculatedTarget);
         
-        kicked = true;        
+        kicked = true;
+        GameManagerTiroLibre.gm.targetReady = false;
     }
 
     public void TargetCollision()
