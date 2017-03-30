@@ -70,16 +70,16 @@ namespace MovementDetectionLibrary
 			if (side == "left")
 			{
 				if (crossNumber <= 1) {
-					pointFin.x -= 0.75f;
+					pointFin.x -= 0.45f;
 				}
-				pointFin.x += 0.3f;
+				//pointFin.x += 0.3f;
 			}
 			else
 			{
 				if (crossNumber <= 1) {
-					pointFin.x += 0.75f;
+					pointFin.x += 0.45f;
 				}
-				pointFin.x -= 0.3f;
+				//pointFin.x -= 0.3f;
 			}
 
 

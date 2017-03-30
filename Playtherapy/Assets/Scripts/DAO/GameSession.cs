@@ -13,8 +13,9 @@ public class GameSession
 
     public GameSession(string minigame_id)
     {
-        date = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
+        date = DateTime.Now.ToString("yyyy-MM-dd");
         this.minigame_id = minigame_id;
+		Debug.Log ("fecha: " + date);
     }
 
     public string Date

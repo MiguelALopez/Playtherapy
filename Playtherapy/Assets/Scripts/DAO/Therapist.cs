@@ -10,14 +10,14 @@ public class Therapist
     private string genre;
     private string password;
 
-    public Therapist(string id_num, string id_type, string name, string lastname, string genre, string password)
+    public Therapist(string id_num, string id_type, string name, string lastname, string genre)
     {
         this.id_num = id_num;
         this.id_type = id_type;
         this.name = name;
         this.lastname = lastname;
         this.genre = genre;
-        this.password = password;
+        //this.password = password;
     }
 
     public string Id_num

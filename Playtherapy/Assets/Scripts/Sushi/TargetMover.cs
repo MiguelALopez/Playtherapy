@@ -88,6 +88,7 @@ public class TargetMover : MonoBehaviour
         {
             if (gameM.withTime)
             {
+				gameM.NewRepetition();
                 if (gameM.currentTime > 0.0f)
                 {
                     Debug.Log("Makethingtospawn");
@@ -104,7 +105,7 @@ public class TargetMover : MonoBehaviour
                 }
             }
 
-
+            GameObject.Find("GameManager").GetComponent<PointFeedbackManager>().RedPoint();
             Destroy(gameObject);
         }
 

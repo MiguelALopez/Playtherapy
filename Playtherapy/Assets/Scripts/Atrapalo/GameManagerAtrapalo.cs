@@ -28,6 +28,13 @@ public class GameManagerAtrapalo : MonoBehaviour {
     public GameObject countdownDisplayObject;
     private Text countdownDisplay;
 
+    public GameObject canvasScoreText;
+    public GameObject canvasBestScoreText;
+    public GameObject bronzeTrophy;
+    public GameObject silverTrophy;
+    public GameObject goldTrophy;
+    public GameObject canvasResults;
+
     public GameObject gameOverScoreOutline;
 
     public AudioSource musicAudioSource;
@@ -65,6 +72,12 @@ public class GameManagerAtrapalo : MonoBehaviour {
 
     public bool withTime = false;
 
+	public int count_normal_balls;
+	public int count_bonus_balls;
+	public int count_negative_balls;
+
+	GameObject panel_count;
+
 	public void StartGame(int levelToLoad, bool time, int value, int launchTime)
     {
         withTime = time;
@@ -81,6 +94,10 @@ public class GameManagerAtrapalo : MonoBehaviour {
             remainingReps = repetitions;
             mainTimerDisplay.text = "Repeticiones: " + repetitions.ToString();
         }
+
+		count_normal_balls = 0;
+		count_normal_balls = 0;
+		count_normal_balls = 0;
 
         level = levelToLoad;
 		this.launchTime = launchTime/2f; 
@@ -111,6 +128,8 @@ public class GameManagerAtrapalo : MonoBehaviour {
     // setup the game
     void Start()
     {
+		panel_count = GameObject.FindWithTag("CountBalls");
+		panel_count.SetActive (false);
         side = true;
 		spawner = GameObject.Find("Spawner").GetComponent<SpawnGameObjectsBall>();
 		spawner.enabled = false;
@@ -162,8 +181,10 @@ public class GameManagerAtrapalo : MonoBehaviour {
                     {
                         if (currentTime <= 0)
                         { // check to see if timer has run out
-							if (ballsAlive == 0) {
-								EndGame();
+							if (ballsAlive <= 0) {
+								gameIsOver = true;
+								//EndGame(); //we initiate the mobile animation to show all the ball thats been cacth 
+								gameObject.GetComponent<RotateBasketAnimation>().startAnimation();
 							}
                         }
                         else
@@ -187,7 +208,9 @@ public class GameManagerAtrapalo : MonoBehaviour {
                         if (remainingReps <= 0)
                         { // check to see if timer has run out
 							if (ballsAlive == 0) {
-								EndGame();
+								//EndGame();
+								gameIsOver = true;
+								gameObject.GetComponent<RotateBasketAnimation>().startAnimation();
 							}
                             
                         }
@@ -250,7 +273,7 @@ public class GameManagerAtrapalo : MonoBehaviour {
         return remainingReps;
     }
 
-    void EndGame()
+    public void EndGame()
     {
         // game is over
         gameIsOver = true;
@@ -270,6 +293,31 @@ public class GameManagerAtrapalo : MonoBehaviour {
         // reduce the pitch of the background music, if it is set 
         if (musicAudioSource)
             musicAudioSource.pitch = 0.5f; // slow down the music
+
+        //GameObject.Find("CanvasInfoManos").SetActive(false);
+        GameObject.Find("Canvas").SetActive(false);
+
+        double finalScore = score / repetitions * 100;
+        finalScore = 61;
+
+        canvasScoreText.GetComponentInChildren<TextMesh>().text = finalScore + "%";
+
+        if (finalScore <= 60)
+        {
+            bronzeTrophy.SetActive(true);
+        }
+        else if (finalScore <= 90)
+        {
+            bronzeTrophy.SetActive(false);
+            silverTrophy.SetActive(true);
+        }
+        else if (finalScore <= 100)
+        {
+            bronzeTrophy.SetActive(false);
+            goldTrophy.SetActive(true);
+        }
+
+        canvasResults.SetActive(true);
     }
 
     void BeatLevel()
@@ -296,6 +344,18 @@ public class GameManagerAtrapalo : MonoBehaviour {
     // public function that can be called to update the score or time
     public void targetHit(int scoreAmount)
     {
+		switch (scoreAmount) {
+		case 1:
+			count_normal_balls++;
+			break;
+		case 3:
+			count_bonus_balls++;
+			break;
+		case -2:
+			count_negative_balls++;
+			break;
+		}
+
         // increase the score by the scoreAmount and update the text UI
         score += scoreAmount;
         mainScoreDisplay.text = score.ToString();
@@ -307,7 +367,21 @@ public class GameManagerAtrapalo : MonoBehaviour {
         // update the text UI
         //mainTimerDisplay.text = currentTime.ToString("0.00");
     }
+	public void putBallsCount()
+	{
+		
 
+		panel_count.SetActive (true);
+
+		Text txt_normals = (Text)GameObject.Find ("txt_count_normal").GetComponent<Text>();
+		txt_normals.text = "x" + count_normal_balls;
+
+		Text txt_bonus = GameObject.Find ("txt_count_bonus").GetComponent<Text>();
+		txt_bonus.text = "x" + count_bonus_balls;
+
+		Text txt_negative = GameObject.Find ("txt_count_negative").GetComponent<Text>();
+		txt_negative.text = "x" + count_negative_balls;
+	}
     // public function that can be called to restart the game
     public void RestartGame()
     {

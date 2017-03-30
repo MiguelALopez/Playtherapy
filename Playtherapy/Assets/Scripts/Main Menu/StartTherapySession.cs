@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class StartTherapySession : MonoBehaviour
 {
+    public EventSystem eventSystem;
     public GameObject content; // grid container
     public GameObject buttonPrefab; // minigame frame
 
@@ -11,46 +13,64 @@ public class StartTherapySession : MonoBehaviour
     public Text patient_id;
     public Text therapist_name;
 
+    public TherapySessionObject tso;
+
     // used for transition between menus
-    public GameObject canvasOld;
-    public GameObject canvasNew;
+    public GameObject loginCanvas;
+    public GameObject loginMenu;
+    public GameObject minigamesMenuCanvas;
 
     private List<Minigame> minigames = null;
-    private Patient patient;
 
 	// Use this for initialization
 	void Start ()
     {
         minigames = new List<Minigame>();
 
-        minigames.Add(new Minigame("1", "Sushi Samurai", "tirar pura katana"));
-        minigames.Add(new Minigame("2", "Atrapalo", "tirar puro tiki"));
-        minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
-        minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
+        minigames.Add(new Minigame("16", "Sushi Samurai", "tirar pura katana"));
+        minigames.Add(new Minigame("17", "Atrapalo", "tirar puro tiki"));
+        //minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
+        //minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
     }
 
     public void StartTherapy()
     {
-        Login();
-        therapist_name.text = "Random Therapist Name";
-        LoadMinigames();
+        if (tso != null)
+        {
+            tso.Login();
+            DisplayPatientInfo();
+            DisplayTherapistInfo();            
+            LoadMinigames();
+        }
+        else
+        {
+            Debug.Log("No therapy session object found");
+            LoadMinigames();
+        }
     }
 
-    public void Login()
+    public void DisplayPatientInfo()
     {
-        GameObject input = GameObject.Find("Input ID Text");
-        string id = input.GetComponent<Text>().text;
-
-        patient = PatientDAO.ConsultPatient(id);
-
-        if (patient != null)
+        if (tso.Patient != null)
         {
-            patient_name.text = patient.Name + " " + patient.Lastname;
-            patient_id.text = patient.Id_num;
+            patient_name.text = tso.Patient.Name + " " + tso.Patient.Lastname;
+            patient_id.text = tso.Patient.Id_num;
         }
         else
         {
             Debug.Log("Patient not loaded");
+        }
+    }
+
+    public void DisplayTherapistInfo()
+    {
+        if (tso.Therapist != null)
+        {
+            therapist_name.text = tso.Therapist.Name + " " + tso.Therapist.Lastname;
+        }
+        else
+        {
+            Debug.Log("Therapist not loaded");
         }
     }
 
@@ -62,10 +82,14 @@ public class StartTherapySession : MonoBehaviour
             {
                 GameObject m = Instantiate(buttonPrefab, content.transform) as GameObject;
                 m.GetComponentInChildren<Text>().text = minigame.Name;
+                m.GetComponent<Image>().sprite = GameObject.Find(minigame.Name + " Image").GetComponent<Image>().sprite;
+                m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 
-            canvasOld.SetActive(false);
-            canvasNew.SetActive(true);           
+            loginMenu.SetActive(false);
+            minigamesMenuCanvas.SetActive(true);
+            loginCanvas.SetActive(false);
+            loginCanvas.SetActive(true);           
         }
     }
 }

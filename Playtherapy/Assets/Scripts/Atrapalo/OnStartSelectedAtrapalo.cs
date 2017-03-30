@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class OnStartSelectedAtrapalo : MonoBehaviour {
@@ -7,8 +10,8 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
     public Toggle toggleRep;
     public Toggle toggleTime;
 
-    public Slider sliderRep;
-    public Slider sliderTime;
+    public InputField inputRep;
+    public InputField inputTime;
     public Slider sliderLevel;
 	public Slider sliderTimeLaunch;
 
@@ -30,16 +33,16 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
         int level = (int)sliderLevel.value;
         bool time = false;
         int timeRepValue = 0;
-		int timeLaunch = (int)sliderTimeLaunch.value;
+		int timeLaunch = setVelocBalls((int)sliderTimeLaunch.value);
         if (toggleTime.isOn)
         {
             time = true;
-            timeRepValue = (int)sliderTime.value * 30;
+            timeRepValue = Int32.Parse(inputTime.text) * 60;
         }
         else
         {
             time = false;
-            timeRepValue = (int)sliderRep.value;
+            timeRepValue = Int32.Parse(inputRep.text);
         }
         if (GameManagerAtrapalo.gms)
         {
@@ -47,5 +50,27 @@ public class OnStartSelectedAtrapalo : MonoBehaviour {
         }
 		menu.SetActive (false);
         
+    }
+
+    /**
+     * 
+     * */
+    private int setVelocBalls(int option)
+    {
+        int timeLaunch = 0;
+        switch (option)
+        {
+            case 1:
+                timeLaunch = 4;
+                break;
+            case 2:
+                timeLaunch = 6;
+                break;
+            case 3:
+                timeLaunch = 9;
+                break;
+        }
+
+        return timeLaunch;
     }
 }
