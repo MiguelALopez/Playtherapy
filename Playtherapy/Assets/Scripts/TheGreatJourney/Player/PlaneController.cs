@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Windows.Kinect;
+using MovementDetectionLibrary;
 public class PlaneController : MonoBehaviour {
 
 	public float speedForward = 90;
@@ -11,20 +12,82 @@ public class PlaneController : MonoBehaviour {
 	public float initialY;
 	public bool useRestitution=false;
 	Rigidbody rig;
+	//connection with the kinect
+
+	BodyFrameReader reader;
+	KinectSensor sensor;
+	MovementsCollection bodyMovements;
+	Dictionary<BodyParts,BodyPoint> bodyPointsCollection;
+	KinectTwoAdapter adapter;
 	// Use this for initialization
 	void Start () {
 		rig = GetComponent<Rigidbody> ();
 		initialY = transform.position.y;
+		adapter = gameObject.AddComponent<KinectTwoAdapter> ();
+		sensor = KinectSensor.GetDefault ();
+
+		if (sensor!=null) {
+
+			if (!sensor.IsOpen) {
+				sensor.Open ();
+				bodyMovements = new MovementsCollection ();
+				bodyPointsCollection = new Dictionary<BodyParts, BodyPoint> ();
+				for (int i = 0; i < (int) BodyParts.ThumbRight; i++) {
+					bodyPointsCollection.Add (((BodyParts)i), new BodyPoint ((BodyParts)i));
+				}
+
+			
+			}
+
+		}
+
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward*Time.deltaTime);
-
-		//transform.position += transform.forward * Time.deltaTime * speedForward;
 		float vAxis = Input.GetAxis ("Vertical");
 		float hAxis = Input.GetAxis ("Horizontal");
+		if (sensor!=null) {
+
+
+			for (int i = 0; i < (int) BodyParts.ThumbRight; i++) {
+				BodyPointPosition position = adapter.ReturnPosition ((BodyParts)i);
+				bodyPointsCollection [(BodyParts)i].setPosition (position);
+			}
+			bodyMovements.setBodyPointsCollection (bodyPointsCollection);
+
+
+			//transform.position += transform.forward * Time.deltaTime * speedForward;
+
+
+			double angleMovement;
+			var maxAngle = 10;
+			angleMovement= bodyMovements.hipLeftAbMovement ();
+			if ( angleMovement> maxAngle) 
+			{
+				print ("movio a la izquierda"+angleMovement);
+				hAxis = -(float)(angleMovement / maxAngle);
+			} 
+			else 
+			{
+				angleMovement = bodyMovements.hipRigthAbMovement ();
+				if ( angleMovement> maxAngle) {
+					print ("movio a la derecha"+angleMovement);
+					hAxis = (float)(angleMovement / maxAngle);
+				}
+			}
+
+
+		}
+
+
+
+
+
 
 
 
