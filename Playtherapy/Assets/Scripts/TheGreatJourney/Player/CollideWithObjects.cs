@@ -3,10 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 public class CollideWithObjects : MonoBehaviour {
 
-
+    ScoreHandler handler;
     public CameraShake.Properties testProperties;
-    public GameObject emmiter;
-
+    public GameObject emmiterCrash;
+    public GameObject emmiterCoin;
+    AudioSource fireSound;
+    AudioSource coinSound;
+    void Start ()
+    {
+        handler = FindObjectOfType<ScoreHandler>();
+        emmiterCrash = GameObject.Find("EmmiterCrash");
+        
+        emmiterCoin = GameObject.Find("EmmiterCoin");
+        fireSound = GameObject.Find("FireSound").GetComponent<AudioSource>();
+        coinSound = GameObject.Find("CoinSound").GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -20,9 +31,11 @@ public class CollideWithObjects : MonoBehaviour {
 
         if (other.name == "Terrain Chunk")
         {
-            emmiter.GetComponent<ParticleSystem>().Play(true) ;
-            print("Hi Terrain");
+            emmiterCrash.transform.position = this.transform.position;
+            emmiterCrash.GetComponent<ParticleSystem>().Play(true) ;
+            fireSound.Play();
             FindObjectOfType<CameraShake>().StartShake(testProperties);
+            handler.sum_score(-1);
         }
         switch (other.tag)
         {
@@ -31,14 +44,29 @@ public class CollideWithObjects : MonoBehaviour {
                
                 break;
             case "Planes":
-                emmiter.GetComponent<ParticleSystem>().Play(true);
-                print("hi planes");
+                emmiterCrash.transform.position = other.transform.position;
+                emmiterCrash.GetComponent<ParticleSystem>().Play(true);
+                fireSound.Play();
                 FindObjectOfType<CameraShake>().StartShake(testProperties);
                 Destroy(other.gameObject);
+                handler.sum_score(-2);
                 break;
-            case "Coins":
-                print("hi gems");
+            case "Airballoon":
+                emmiterCrash.transform.position = other.transform.position;
+                emmiterCrash.GetComponent<ParticleSystem>().Play(true);
+                fireSound.Play();
+                FindObjectOfType<CameraShake>().StartShake(testProperties);
                 Destroy(other.gameObject);
+
+                handler.sum_score(-1);
+                break;                
+            case "Coins":
+                
+                coinSound.Play();
+                emmiterCoin.transform.position = other.transform.position;
+                emmiterCoin.GetComponent<ParticleSystem>().Play(true);
+                Destroy(other.gameObject);
+                handler.sum_score(5);
                 break;
 
             default:

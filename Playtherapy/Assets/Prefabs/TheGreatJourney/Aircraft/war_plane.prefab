@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 65538014714491740}
   - component: {fileID: 65906744962969888}
   - component: {fileID: 65141318572097310}
+  - component: {fileID: 114760027237200426}
   m_Layer: 0
   m_Name: war_plane
   m_TagString: Planes
@@ -570,7 +571,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1348089967207598}
   m_LocalRotation: {x: -0.00000004371139, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.0772781, y: 28.4, z: 8.482}
+  m_LocalPosition: {x: -2.1644292, y: 54.944706, z: -79.69319}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children:
   - {fileID: 4332270282899472}
@@ -1326,8 +1327,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.274155, y: 0.5067601, z: 1.7313728}
-  m_Center: {x: -0.03967285, y: -0.24661255, z: -0.3656845}
+  m_Size: {x: 40, y: 2.15, z: 9.03}
+  m_Center: {x: -0.03967285, y: 2.4, z: -0.3656845}
 --- !u!65 &65594228295314894
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1338,8 +1339,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8811035, y: 1.12844, z: 6.818815}
-  m_Center: {x: -0.00012207031, y: -0.41004944, z: 0.035837173}
+  m_Size: {x: 5.67, y: 4.19, z: 31.85}
+  m_Center: {x: 0, y: 1.1, z: 0.035837173}
 --- !u!65 &65906744962969888
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1350,8 +1351,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.805688, y: 0.3132562, z: 0.8273926}
-  m_Center: {x: 0, y: -0.03483963, z: 2.7949276}
+  m_Size: {x: 14.84, y: 0.3132562, z: 3.2}
+  m_Center: {x: 0, y: 3.04, z: 14.85}
 --- !u!95 &95649674330618880
 Animator:
   serializedVersion: 3
@@ -1369,3 +1370,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114760027237200426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348089967207598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb09a9d9b87e18b418c3da6bee88ad53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasCollide: 0
