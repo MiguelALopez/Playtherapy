@@ -245,7 +245,7 @@ Prefab:
     - target: {fileID: 198573973230772852, guid: 0b99573dbf771e144a31fb164a06b32c,
         type: 2}
       propertyPath: randomSeed
-      value: 639808409
+      value: 51633862
       objectReference: {fileID: 0}
     - target: {fileID: 198573973230772852, guid: 0b99573dbf771e144a31fb164a06b32c,
         type: 2}
@@ -3239,7 +3239,7 @@ Prefab:
     - target: {fileID: 198512492500723354, guid: 6229e0206b605024fb245e880fb19863,
         type: 2}
       propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4278190335
+      value: 4286982034
       objectReference: {fileID: 0}
     - target: {fileID: 1744077017047630, guid: 6229e0206b605024fb245e880fb19863, type: 2}
       propertyPath: m_Name
@@ -3257,6 +3257,11 @@ Prefab:
         type: 2}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198512492500723354, guid: 6229e0206b605024fb245e880fb19863,
+        type: 2}
+      propertyPath: ColorModule.gradient.maxGradient.key1.rgba
+      value: 4293362175
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6229e0206b605024fb245e880fb19863, type: 2}
