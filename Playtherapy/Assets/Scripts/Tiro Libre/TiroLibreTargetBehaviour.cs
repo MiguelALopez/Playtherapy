@@ -8,6 +8,8 @@ public class TiroLibreTargetBehaviour : MonoBehaviour
     public Collider coll;
     public GameObject particle;
     public int scoreToGrant;
+    public AudioSource hitSound;
+    public ScoreFeedbackBehaviour scoreFeedback;
 
 	// Use this for initialization
 	void Start ()
@@ -21,10 +23,17 @@ public class TiroLibreTargetBehaviour : MonoBehaviour
         {
             EnableTarget(false);
             GameManagerTiroLibre.gm.BallHit(scoreToGrant);
+            hitSound.Play();
             ShowHitParticles();
+            ShowScore();
             GameManagerTiroLibre.gm.NextTarget();
             //StartCoroutine(DelayedShow());
         }
+    }
+
+    public void ShowScore()
+    {
+        scoreFeedback.Show(gameObject.transform.position);
     }
 
     public void ShowHitParticles()

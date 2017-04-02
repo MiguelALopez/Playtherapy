@@ -7,6 +7,7 @@ public class Kick : MonoBehaviour
 {
     public GameObject ball;
     public float speed;
+    public AudioSource hitSound;
 
     public RUISSkeletonController skeleton;
     public FullBody mdl;
@@ -116,8 +117,9 @@ public class Kick : MonoBehaviour
         calculatedTarget = pos1 + pos2;
         calculatedTargetPosition = GameManagerTiroLibre.gm.getCurrentTargetPosition(calculatedTarget);
         Debug.Log(calculatedTarget);
-        
+                
         kicked = true;
+        hitSound.Play();
         GameManagerTiroLibre.gm.targetReady = false;
     }
 
