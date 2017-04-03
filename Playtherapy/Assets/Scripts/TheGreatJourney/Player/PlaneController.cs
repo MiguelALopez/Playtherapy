@@ -5,97 +5,112 @@ using Windows.Kinect;
 using MovementDetectionLibrary;
 public class PlaneController : MonoBehaviour {
 
-	public float speedForward = 90;
-	public float speed = 20;
+    public float speedForward = 90;
+    public float speed = 20;
 
-	public float distanceMovementX=10;
-	public float initialY;
-	public bool useRestitution=false;
-	Rigidbody rig;
-	//connection with the kinect
+    public float distanceMovementX = 10;
+    public float initialY;
+    public bool useRestitution = false;
+    Rigidbody rig;
+    //connection with the kinect
 
-	BodyFrameReader reader;
-	KinectSensor sensor;
-	MovementsCollection bodyMovements;
-	Dictionary<BodyParts,BodyPoint> bodyPointsCollection;
-	KinectTwoAdapter adapter;
-	// Use this for initialization
-	void Start () {
-		rig = GetComponent<Rigidbody> ();
-		initialY = transform.position.y;
-		adapter = gameObject.AddComponent<KinectTwoAdapter> ();
-		sensor = KinectSensor.GetDefault ();
-
-		if (sensor!=null) {
-
-			if (!sensor.IsOpen) {
-				sensor.Open ();
-				bodyMovements = new MovementsCollection ();
-				bodyPointsCollection = new Dictionary<BodyParts, BodyPoint> ();
-				for (int i = 0; i < (int) BodyParts.ThumbRight; i++) {
-					bodyPointsCollection.Add (((BodyParts)i), new BodyPoint ((BodyParts)i));
-				}
-
-			
-			}
-
-		}
+    BodyFrameReader reader;
+    KinectSensor sensor;
+    MovementsCollection bodyMovements;
+    Dictionary<BodyParts, BodyPoint> bodyPointsCollection;
+    KinectTwoAdapter adapter;
 
 
+    //parametros de angulos de la cadera
+    public double minAngle = 10;
+    public double maxAngle = 45;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start() {
+        rig = GetComponent<Rigidbody>();
+        initialY = transform.position.y;
+
+        connectWithSensor();
+
+
+    }
+    void connectWithSensor()
+    {
+        adapter = gameObject.AddComponent<KinectTwoAdapter>();
+        sensor = KinectSensor.GetDefault();
+
+        if (sensor != null)
+        {
+
+            if (!sensor.IsOpen)
+            {
+                sensor.Open();
+                bodyMovements = new MovementsCollection();
+                bodyPointsCollection = new Dictionary<BodyParts, BodyPoint>();
+                for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
+                {
+                    bodyPointsCollection.Add(((BodyParts)i), new BodyPoint((BodyParts)i));
+                }
+
+
+            }
+
+        }
+    }
+    MovementAxis moveWithKinect(double hAxis,double vAxis)
+    {
+        if (sensor != null)
+        {
+
+            // se actualiza cada parte del cuerpo 
+            for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
+            {
+                BodyPointPosition position = adapter.ReturnPosition((BodyParts)i);
+                bodyPointsCollection[(BodyParts)i].setPosition(position);
+            }
+            bodyMovements.setBodyPointsCollection(bodyPointsCollection);
+
+
+            //transform.position += transform.forward * Time.deltaTime * speedForward;
+
+
+            double angleMovement;
+            angleMovement = bodyMovements.hipLeftAbMovement();
+
+            if (angleMovement>=minAngle)
+            {
+                print("movio a la izquierda" + angleMovement);
+                hAxis = -(float)(angleMovement / (maxAngle+minAngle));
+            }
+
+           
+            angleMovement = bodyMovements.hipRigthAbMovement();
+            if (angleMovement >= minAngle)
+            {
+                print("movio a la derecha" + angleMovement);
+                hAxis = (float)(angleMovement / (maxAngle + minAngle));
+            }
+            // falta hacia abajo (probar)
+           
+
+
+        }
+        return new MovementAxis(hAxis,vAxis);
+    }
+    // Update is called once per frame
+    void Update () {
 
 		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward*Time.deltaTime);
 		float vAxis = Input.GetAxis ("Vertical");
 		float hAxis = Input.GetAxis ("Horizontal");
-		if (sensor!=null) {
-
-
-			for (int i = 0; i < (int) BodyParts.ThumbRight; i++) {
-				BodyPointPosition position = adapter.ReturnPosition ((BodyParts)i);
-				bodyPointsCollection [(BodyParts)i].setPosition (position);
-			}
-			bodyMovements.setBodyPointsCollection (bodyPointsCollection);
-
-
-			//transform.position += transform.forward * Time.deltaTime * speedForward;
-
-
-			double angleMovement;
-			var maxAngle = 10;
-			angleMovement= bodyMovements.hipLeftAbMovement ();
-			if ( angleMovement> maxAngle) 
-			{
-				print ("movio a la izquierda"+angleMovement);
-				hAxis = -(float)(angleMovement / maxAngle);
-			} 
-			else 
-			{
-				angleMovement = bodyMovements.hipRigthAbMovement ();
-				if ( angleMovement> maxAngle) {
-					print ("movio a la derecha"+angleMovement);
-					hAxis = (float)(angleMovement / maxAngle);
-				}
-			}
-
-
-		}
-
-
-
-
-
-
-
-
-
-
-
-
-		Vector3 movement = new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
+        
+        // de estar conectado el kinect vera el moviento y retornara lo que ha movido
+        // de no ser asi pasara los valores como estan
+        MovementAxis movement_axis = moveWithKinect(hAxis,vAxis);
+        hAxis = (float)movement_axis.xAxis;
+        vAxis = (float)movement_axis.yAxis;
+        
+        Vector3 movement = new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
 
 		if (transform.position.x+movement.x>distanceMovementX || transform.position.x+movement.x<-distanceMovementX) 
 		{
@@ -116,7 +131,7 @@ public class PlaneController : MonoBehaviour {
 		rig.MovePosition (transform.position + movement);
 
 		
-
+        //esto es para controlar ña rotacion apenas se mueva el avion en cualquiera de las dos direcciones (X,y)
         if (hAxis == 0 || vAxis == 0)
         {
             transform.Rotate(-vAxis * 5, 0, -hAxis * 5);
@@ -128,8 +143,6 @@ public class PlaneController : MonoBehaviour {
 
                 Vector3 startPos = transform.position;
                 Vector3 endPos = new Vector3(0, initialY, startPos.z);
-
-                //transform.position = Vector3.MoveTowards(startPos, endPos, speed*Time.deltaTime);
                 transform.position=Vector3.Lerp(startPos, endPos, 0.05f);
 			}
 		}
@@ -142,5 +155,16 @@ public class PlaneController : MonoBehaviour {
 
 		  
 	}
-
+    class MovementAxis
+    {
+        public double xAxis;
+        public double yAxis;
+        
+        public MovementAxis(double x,double y)
+        {
+            xAxis = x;
+            yAxis = y;
+        }
+        
+    }
 }

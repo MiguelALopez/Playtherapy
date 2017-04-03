@@ -2552,6 +2552,8 @@ MonoBehaviour:
   distanceMovementX: 10
   initialY: 0
   useRestitution: 1
+  minAngle: 10
+  maxAngle: 45
 --- !u!54 &1475710635
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2611,8 +2613,6 @@ MonoBehaviour:
     noisePercent: 0.681
     dampingPercent: 0.415
     rotationPercent: 0.126
-  emmiterCrash: {fileID: 0}
-  emmiterCoin: {fileID: 0}
 --- !u!1 &1513096564
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,12 +5,16 @@ public class CollideWithObjects : MonoBehaviour {
 
     ScoreHandler handler;
     public CameraShake.Properties testProperties;
-    public GameObject emmiterCrash;
-    public GameObject emmiterCoin;
+    GameObject emmiterCrash;
+    GameObject emmiterCoin;
     AudioSource fireSound;
     AudioSource coinSound;
+    bool isInmune = false;
+    float timer_inmune = 0;
+    float TIME_DEFAULT_INMUNE = 3f;
     void Start ()
     {
+        isInmune = false;
         handler = FindObjectOfType<ScoreHandler>();
         emmiterCrash = GameObject.Find("EmmiterCrash");
         
@@ -20,45 +24,97 @@ public class CollideWithObjects : MonoBehaviour {
     }
     void Update()
     {
+        if (timer_inmune>0)
+        {
+            timer_inmune -= Time.deltaTime;
+            if (timer_inmune<=0)
+            {
+                isInmune = false;
+                timer_inmune = 0;
+                makeNormal();
+            }
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FindObjectOfType<CameraShake>().StartShake(testProperties);
         }
     }
+    void makeTransparent()
+    {
+        Renderer[] renders = gameObject.GetComponentsInChildren<Renderer>();
 
+        foreach (Renderer render in renders)
+        {
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0.5f);
+        }
+
+    }
+    void makeNormal()
+    {
+        Renderer[] renders = gameObject.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer render in renders)
+        {
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1f);
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.name == "Terrain Chunk")
-        {
-            emmiterCrash.transform.position = this.transform.position;
-            emmiterCrash.GetComponent<ParticleSystem>().Play(true) ;
-            fireSound.Play();
-            FindObjectOfType<CameraShake>().StartShake(testProperties);
-            handler.sum_score(-1);
-        }
         switch (other.tag)
         {
             case "Clouds":
                 print("hi clouds");
                
                 break;
+            case "Terrain":
+               
+                if (isInmune == false)
+                {
+                    emmiterCrash.transform.position = gameObject.transform.position;
+                    emmiterCrash.GetComponent<ParticleSystem>().Play(true);
+                    fireSound.Play();
+                    FindObjectOfType<CameraShake>().StartShake(testProperties);
+                    //Destroy(other.gameObject);
+
+                    handler.sum_score(-2);
+                    isInmune = true;
+                    makeTransparent();
+                    timer_inmune = TIME_DEFAULT_INMUNE;
+                }
+                break;
             case "Planes":
-                emmiterCrash.transform.position = other.transform.position;
-                emmiterCrash.GetComponent<ParticleSystem>().Play(true);
-                fireSound.Play();
-                FindObjectOfType<CameraShake>().StartShake(testProperties);
-                Destroy(other.gameObject);
-                handler.sum_score(-2);
+               
+                if (isInmune == false)
+                {
+                    emmiterCrash.transform.position = other.transform.position;
+                    emmiterCrash.GetComponent<ParticleSystem>().Play(true);
+                    fireSound.Play();
+                    FindObjectOfType<CameraShake>().StartShake(testProperties);
+                    Destroy(other.gameObject);
+                    handler.sum_score(-2);
+                    isInmune = true;
+                    makeTransparent();
+                    timer_inmune = TIME_DEFAULT_INMUNE;
+                }
                 break;
             case "Airballoon":
-                emmiterCrash.transform.position = other.transform.position;
-                emmiterCrash.GetComponent<ParticleSystem>().Play(true);
-                fireSound.Play();
-                FindObjectOfType<CameraShake>().StartShake(testProperties);
-                Destroy(other.gameObject);
+                
 
-                handler.sum_score(-1);
+                if (isInmune == false)
+                {
+                    emmiterCrash.transform.position = other.transform.position;
+                    emmiterCrash.GetComponent<ParticleSystem>().Play(true);
+                    fireSound.Play();
+                    FindObjectOfType<CameraShake>().StartShake(testProperties);
+                    Destroy(other.gameObject);
+                    handler.sum_score(-1);
+                    isInmune = true;
+                    timer_inmune = TIME_DEFAULT_INMUNE;
+                    makeTransparent();
+                }
                 break;                
             case "Coins":
                 
