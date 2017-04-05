@@ -9,12 +9,11 @@ public class Dodge : MonoBehaviour {
     void Start()
     {
         handler = FindObjectOfType<ScoreHandler>();
-        print("dodge implemented");
     }
     void OnTriggerEnter(Collider other)
     {
         HasCollide collideWithOther;
-        print("dodge collider:"+ other.tag);
+       
         switch (other.tag)
         {
             case "Airballoon":

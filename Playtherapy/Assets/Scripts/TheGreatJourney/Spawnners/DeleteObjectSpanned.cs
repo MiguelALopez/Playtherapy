@@ -14,6 +14,11 @@ public class DeleteObjectSpanned : MonoBehaviour {
 		case"Planes":
 			Destroy(other.gameObject);
 			break;
+		case"Airballoon":
+			Destroy(other.gameObject);
+
+			break;
+
 		case"Coins":
 			Destroy(other.gameObject);
 			break;
@@ -23,6 +28,5 @@ public class DeleteObjectSpanned : MonoBehaviour {
 			break;
 		}
 
-		//Destroy(other.gameObject);
 	}
 }

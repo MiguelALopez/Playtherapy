@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+// for your own scripts make sure to add the following line:
+using DigitalRuby.Tween;
 public class ScoreHandler : MonoBehaviour {
 
 
@@ -25,11 +27,12 @@ public class ScoreHandler : MonoBehaviour {
             else
             {
                 score_obtain += pts;
-                
+				TweenColorIncorrecto ();
             }
         }
         else
         {
+			TweenColorCorrecto ();
             score_max += pts;
             score_obtain += pts;
         }
@@ -39,4 +42,48 @@ public class ScoreHandler : MonoBehaviour {
         txt_score.text = "Puntaje: " + score_obtain + "/" + score_max;
 
     }
+
+
+	private void TweenColorIncorrecto()
+	{
+		Color endColor = Color.red;
+		txt_score.gameObject.Tween("ColorCircle", txt_score.color, endColor, 0.25f, TweenScaleFunctions.QuadraticEaseOut, (t) =>
+			{
+				// progress
+				txt_score.color = t.CurrentValue;
+			}, (t) =>
+			{
+				// completion
+				endColor= Color.white;
+				txt_score.gameObject.Tween("ColorCircle", txt_score.color, endColor, 0.25f, TweenScaleFunctions.QuadraticEaseOut, (t2) =>
+					{
+						// progress
+						txt_score.color = t2.CurrentValue;
+					}, (t2) =>
+					{
+						// completion
+					});
+			});
+	}
+	private void TweenColorCorrecto()
+	{
+		Color endColor = Color.green;
+		txt_score.gameObject.Tween("ColorCircle", txt_score.color, endColor, 0.25f, TweenScaleFunctions.QuadraticEaseOut, (t) =>
+			{
+				// progress
+				txt_score.color = t.CurrentValue;
+			}, (t) =>
+			{
+				// completion
+				endColor= Color.white;
+				txt_score.gameObject.Tween("ColorCircle", txt_score.color, endColor, 0.25f, TweenScaleFunctions.QuadraticEaseOut, (t2) =>
+					{
+						// progress
+						txt_score.color = t2.CurrentValue;
+					}, (t2) =>
+					{
+						// completion
+					});
+			});
+	}
 }
