@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class Dodge : MonoBehaviour {
 
+
+	AudioSource coinSound;
     ScoreHandler handler;
     void Start()
     {
         handler = FindObjectOfType<ScoreHandler>();
+		coinSound = GameObject.Find("CoinSound").GetComponent<AudioSource>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -16,23 +19,22 @@ public class Dodge : MonoBehaviour {
        
         switch (other.tag)
         {
-            case "Airballoon":
-                collideWithOther = other.GetComponent<HasCollide>();
-                if (collideWithOther.hasCollide==false)
-                {
-                    collideWithOther.hasCollide = true;
-                    handler.sum_score(1);
-                }
-                
+		case "Airballoon":
+			collideWithOther = other.GetComponent<HasCollide> ();
+			if (collideWithOther.hasCollide == false) {
+				collideWithOther.hasCollide = true;
+				handler.sum_score (1);
+			}
+			coinSound.Play ();
                 
                 break;
-            case "Planes":
-                collideWithOther = other.GetComponent<HasCollide>();
-                if (collideWithOther.hasCollide == false)
-                {
-                    collideWithOther.hasCollide = true;
-                    handler.sum_score(2);
-                }
+		case "Planes":
+			collideWithOther = other.GetComponent<HasCollide> ();
+			if (collideWithOther.hasCollide == false) {
+				collideWithOther.hasCollide = true;
+				handler.sum_score (2);
+			}
+			coinSound.Play ();
                 break;
 
             default:

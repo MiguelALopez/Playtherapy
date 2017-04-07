@@ -35,7 +35,19 @@ public class SpannerOfMovements : MonoBehaviour {
 	}
 	public void releaseObject()
 	{
-		sendMoveToRight (0);
+
+		int time = (int)Mathf.Floor (Random.Range (0, 7)) ;
+
+		if (Mathf.Floor (Random.Range (0, 3)) > 1) 
+		{
+			sendMoveToLeft(time);
+		} 
+		else
+		{
+			sendMoveToRight(time);
+		}
+
+
 
 	}
 	/// <summary>
@@ -69,6 +81,7 @@ public class SpannerOfMovements : MonoBehaviour {
 			createGem (new Vector3 (9, -0.5f, 45), speed);
 			break;
 		case 3:
+			createSmallPlane (new Vector3 (-6, -0.5f, 0), speed);
 			createSmallPlane (new Vector3 (-3, -0.5f, 15), speed);
 			createSmallPlane (new Vector3 (-9, -0.5f, 15), speed);
 			createWarPlane (new Vector3 (-1, -0.5f, 30), speed);
@@ -78,30 +91,115 @@ public class SpannerOfMovements : MonoBehaviour {
 			createGem (new Vector3 (9, -0.5f, 60), speed);
 			break;
 		case 4:
-
-
-
+			createWarPlane (new Vector3 (-6, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (-4, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-2, -0.5f, 30), speed);
+			createWarPlane (new Vector3 (-0, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (2, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (2, -0.5f, 75), speed);
+			createGem (new Vector3 (9, -0.5f, 60), speed);
 			break;
 		case 5:
-
-
-
+			createWarPlane (new Vector3 (-9, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-1, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (1, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (-1, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 75), speed);
+			createSmallPlane (new Vector3 (1, -0.5f, 90), speed);
+			createGem (new Vector3 (9, -0.5f, 90), speed);
 			break;
 		case 6:
+			createSmallPlane (new Vector3 (-1, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 0), speed);
 
-
-
+			createWarPlane (new Vector3 (0, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-4, -4, 15), speed);
+			createWarPlane (new Vector3 (-6, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 75), speed);
+			createSmallPlane (new Vector3 (3, -2f, 90), speed);
+			createSmallPlane(new Vector3 (5, -0.5F, 105), speed);
+			createGem (new Vector3 (9, -0.5f, 90), speed);
 			break;
 		default:
 			break;
 		}
-
-
-
-
-		//createWarPlane(new Vector3(-6,-0.5f,30),speed);
 	}
+	/// <summary>
+	/// Sends the move to left.
+	/// The planes gone to be send for the left line to avoid
+	/// </summary>
+	/// <param name="time">Time.</param> used to know how much have the patient in this potition
+	/// <param name="speedPlane">Time.</param> used to put the speed of the planes
+	public void sendMoveToLeft(int time=1,float speed=5)
+	{
 
+		// we are goint to send the wave of planes or airballons
+		switch (time) {
+		case 0: 
+			createAirBalloon (new Vector3 (9, -0.5f, 0), speed);
+			createAirBalloon (new Vector3 (6, -0.5f, 0), speed);
+			createAirBalloon (new Vector3 (0, -0.5f, 0), speed);
+			createAirBalloon (new Vector3 (-3, -0.5f, 0), speed);
+			createGem (new Vector3 (-9, -0.5f, 15), speed);
+			break;
+		case 1:
+			createWarPlane (new Vector3 (6, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-1, -0.5f, 15), speed);
+			createGem (new Vector3 (-9, -0.5f, 15), speed);
+			break;
+		case 2:
+			createSmallPlane (new Vector3 (3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (1, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 45), speed);
+			createGem (new Vector3 (-9, -0.5f, 45), speed);
+			break;
+		case 3:
+			createSmallPlane (new Vector3 (6, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (1, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 45), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (1, -0.5f, 60), speed);
+			createGem (new Vector3 (-9, -0.5f, 60), speed);
+			break;
+		case 4:
+			createWarPlane (new Vector3 (6, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (4, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (2, -0.5f, 30), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (-2, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (-2, -0.5f, 75), speed);
+			createGem (new Vector3 (-9, -0.5f, 60), speed);
+			break;
+		case 5:
+			createWarPlane (new Vector3 (9, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (1, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-1, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (1, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 75), speed);
+			createSmallPlane (new Vector3 (-1, -0.5f, 90), speed);
+			createGem (new Vector3 (-9, -0.5f, 90), speed);
+			break;
+		case 6:
+			createSmallPlane (new Vector3 (1, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 0), speed);
+
+			createWarPlane (new Vector3 (0, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (4, -4, 15), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 75), speed);
+			createSmallPlane (new Vector3 (-3, -2f, 90), speed);
+			createSmallPlane(new Vector3 (-5, -0.5F, 105), speed);
+			createGem (new Vector3 (-9, -0.5f, 90), speed);
+			break;
+		default:
+			break;
+		}
+	}
 	public void createSmallPlane(Vector3 initialPos=default(Vector3),float speed=5)
 	{
 		GameObject planeType = planes_types[0];// small plane

@@ -9,6 +9,7 @@ public class CollideWithObjects : MonoBehaviour {
     GameObject emmiterCoin;
     AudioSource fireSound;
     AudioSource coinSound;
+	AudioSource coinMultipleSound;
     bool isInmune = false;
     float timer_inmune = 0;
     float TIME_DEFAULT_INMUNE = 3f;
@@ -21,6 +22,7 @@ public class CollideWithObjects : MonoBehaviour {
         emmiterCoin = GameObject.Find("EmmiterCoin");
         fireSound = GameObject.Find("FireSound").GetComponent<AudioSource>();
         coinSound = GameObject.Find("CoinSound").GetComponent<AudioSource>();
+		coinMultipleSound = GameObject.Find("CoinMultipleSound").GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -118,7 +120,7 @@ public class CollideWithObjects : MonoBehaviour {
                 break;                
             case "Coins":
                 
-                coinSound.Play();
+				coinMultipleSound.Play();
                 emmiterCoin.transform.position = other.transform.position;
                 emmiterCoin.GetComponent<ParticleSystem>().Play(true);
                 Destroy(other.gameObject);
