@@ -11,6 +11,8 @@ public class GameManagerTiroLibre : MonoBehaviour
 
     public GameObject mainPanel;
     public GameObject gameOverPanel;
+    public GameObject leftLegPanel;
+    public GameObject rightLegPanel;
 
     public int score;
     public Text scoreText;
@@ -37,8 +39,10 @@ public class GameManagerTiroLibre : MonoBehaviour
     public GameObject[] targets3;    
 
     public bool targetReady;
-    public Collider ballCollider;
+    //public Collider ballCollider;
     public float timeBetweenTargets;
+
+    public bool leftLegActive;
 
 	// Use this for initialization
 	void Start ()
@@ -52,7 +56,7 @@ public class GameManagerTiroLibre : MonoBehaviour
         remainingRepetitions = totalRepetitions;
 
         //currentScene = 1;
-        ballCollider.enabled = false;
+        //ballCollider.enabled = false;
 
         StartGame();
     }
@@ -96,7 +100,7 @@ public class GameManagerTiroLibre : MonoBehaviour
         else if (isGameOver)
         {
             targetReady = false;
-            ballCollider.enabled = false;
+            //ballCollider.enabled = false;
 
             mainPanel.SetActive(false);
             gameOverPanel.SetActive(true);
@@ -119,8 +123,8 @@ public class GameManagerTiroLibre : MonoBehaviour
         repetitionsText.text = remainingRepetitions.ToString();
 
         isPlaying = true;
-        NextTarget();
-        ballCollider.enabled = true;
+        NextTarget();        
+        //ballCollider.enabled = true;
     }
 
     public void BallHit(int points)
@@ -137,10 +141,30 @@ public class GameManagerTiroLibre : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
+    public void NextLeg()
+    {
+        int choice = Random.Range(0, 2);
+
+        if (choice == 0)
+        {
+            leftLegActive = false;
+            leftLegPanel.SetActive(false);
+            rightLegPanel.SetActive(true);
+        }
+        else
+        {
+            leftLegActive = true;
+            leftLegPanel.SetActive(true);
+            rightLegPanel.SetActive(false);
+        }
+    }
+
     public void NextTarget()
     {
         if (isPlaying && !isGameOver)
         {
+            NextLeg();
+
             int nextTarget;
 
             switch (currentScene)

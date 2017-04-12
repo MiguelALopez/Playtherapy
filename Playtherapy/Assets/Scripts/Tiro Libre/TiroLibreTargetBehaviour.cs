@@ -22,16 +22,17 @@ public class TiroLibreTargetBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Ball")
         {
             EnableTarget(false);
+            GameManagerTiroLibre.gm.targetReady = false;
             GameManagerTiroLibre.gm.BallHit(scoreToGrant);
             hitSound.Play();
             ShowHitParticles();
-            ShowScore();
+            ShowScoreFeedback();
             GameManagerTiroLibre.gm.NextTarget();
             //StartCoroutine(DelayedShow());
         }
     }
 
-    public void ShowScore()
+    public void ShowScoreFeedback()
     {
         scoreFeedback.Show(gameObject.transform.position);
     }
