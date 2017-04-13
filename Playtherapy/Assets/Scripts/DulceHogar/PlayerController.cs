@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour {
 
-	public float speed;
+	public float speed = 7;
+	public float rotacion = 0.27f;
 	public float sensitiveRotate = 1.5f;
+	Vector3 movement;
 	public GameObject personaje;
 	Animator anim;
 	int idleHash;
 	int runStateHash;
 
-	private Rigidbody rb;
+	private Rigidbody playerRigidbody;
 
 	void Start ()
 	{
 		anim = personaje.GetComponent<Animator> ();
 		idleHash = Animator.StringToHash("Idle_B");
 		runStateHash = Animator.StringToHash("Run");
-		rb = GetComponent<Rigidbody>();
+		playerRigidbody = GetComponent<Rigidbody>();
 	}
 
 	void FixedUpdate ()
@@ -26,27 +29,32 @@ public class PlayerController : MonoBehaviour {
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		float vision = personaje.GetComponent<Transform> ().rotation.y;
-		print(" a:   " + personaje.GetComponent<Transform> ().rotation.y);
-		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		//Aplicacion de fuerza
-		rb.AddForce (movement * speed);
+		Move (moveHorizontal, moveVertical);
 	
 		/*Controla la rotacion del personaje para un desplasamieto realista*/
 		float orientacion = 0; 
+		float angulorotation = personaje.GetComponent<Transform> ().rotation.y;
 
-		//Movimieto A la derecha
+		//Movimieto Rotatorio a la derecha
 		if (moveHorizontal == 1) {
 			//Limites de la Rotacion
-			orientacion = sensitiveRotate;
+			if (angulorotation < rotacion) {
+				orientacion = sensitiveRotate;
+			}
 		}
-		//Movimiento A la Izquierda
+
+		//Movimiento Rotatorio a la Izquierda
 		if(moveHorizontal == -1){
 			//Limites de la rotacion
-			orientacion = -sensitiveRotate;
+			if (angulorotation > -rotacion) {
+				orientacion = -sensitiveRotate;
+			}
 		}
+//Aplica la rotacion al personaje
 		personaje.GetComponent<Transform> ().Rotate (0.0f,orientacion,0.0f);
 
-
+// Ejecuta la Animacion de correr y detencion
 		if (moveHorizontal == 0 && moveVertical == 0) {
 			anim.Play (idleHash);
 		} else {
@@ -54,5 +62,14 @@ public class PlayerController : MonoBehaviour {
 		}
 
 
+	}
+void Move (float h, float v)
+	{
+// Set the movement vector based on the axis input.
+	movement.Set (h, 0f, v);
+// Normalise the movement vector and make it proportional to the speed per second.
+	movement = movement.normalized * speed * Time.deltaTime;
+// Move the player to it's current position plus the movement.
+	playerRigidbody.MovePosition (transform.position + movement);
 	}
 }
