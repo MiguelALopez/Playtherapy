@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 54246098127611936}
   - component: {fileID: 136006485266294860}
   - component: {fileID: 114965629650320152}
+  - component: {fileID: 114718848277336840}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1114,7 +1115,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1287885845790320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 158.26031, y: 0.72, z: 69.90253}
+  m_LocalPosition: {x: 100.25005, y: 0.063, z: 31.002}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4035876079538810}
@@ -1515,6 +1516,24 @@ Light:
   m_BounceIntensity: 0.5
   m_ShadowRadius: 1.91
   m_ShadowAngle: 0
+--- !u!114 &114718848277336840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1287885845790320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce0672ff7774564394a51802045c34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  currentHealth: 0
+  healthSlider: {fileID: 0}
+  damageImage: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: d36a393bca4582043982db9089e1694f, type: 3}
+  flashSpeed: 5
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
 --- !u!114 &114965629650320152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1527,6 +1546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
+  rotacion: 0.27
   sensitiveRotate: 1.1
   personaje: {fileID: 1287885845790320}
 --- !u!124 &124846067270652410
