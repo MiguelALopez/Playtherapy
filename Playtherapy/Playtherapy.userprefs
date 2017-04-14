@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DulceHogar\Managers\GameOverManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DulceHogar\PlayerHealth.cs">
     <Files>
       <File FileName="Assets\Scripts\DulceHogar\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DulceHogar\PlayerHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DulceHogar\PlayerHealth.cs" Line="44" Column="1" />
       <File FileName="Assets\Scripts\DulceHogar\Managers\GameOverManager.cs" Line="23" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

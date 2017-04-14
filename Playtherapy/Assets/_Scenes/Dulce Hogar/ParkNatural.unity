@@ -92,6 +92,18 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: 947455e7560aadb49b1b85fe96bb3af6, type: 2}
+--- !u!114 &102765717 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114718848277336840, guid: 43117a8126f610346b67c1eeba3793b2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1344079277}
+  m_Script: {fileID: 11500000, guid: cce0672ff7774564394a51802045c34d, type: 3}
+--- !u!114 &473856444 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114411765320101380, guid: 0a917f071db28c74f9cbab888f789dd4,
+    type: 2}
+  m_PrefabInternal: {fileID: 619964626}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &619964626
 Prefab:
   m_ObjectHideFlags: 0
@@ -189,6 +201,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114831420860536872, guid: 0a917f071db28c74f9cbab888f789dd4,
+        type: 2}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 102765717}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a917f071db28c74f9cbab888f789dd4, type: 2}
   m_IsPrefabParent: 0
@@ -231,9 +248,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114718848277336840, guid: 43117a8126f610346b67c1eeba3793b2,
+        type: 2}
+      propertyPath: damageImage
+      value: 
+      objectReference: {fileID: 1485870521}
+    - target: {fileID: 114718848277336840, guid: 43117a8126f610346b67c1eeba3793b2,
+        type: 2}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 473856444}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43117a8126f610346b67c1eeba3793b2, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1485870521 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114785587022662780, guid: 0a917f071db28c74f9cbab888f789dd4,
+    type: 2}
+  m_PrefabInternal: {fileID: 619964626}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1572546862
 Prefab:
   m_ObjectHideFlags: 0
