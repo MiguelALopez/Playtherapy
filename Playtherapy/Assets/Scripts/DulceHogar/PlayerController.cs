@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public float speed = 7;
+	public float speed = 12;
 	public float rotacion = 0.27f;
 	public float sensitiveRotate = 1.5f;
 	Vector3 movement;
