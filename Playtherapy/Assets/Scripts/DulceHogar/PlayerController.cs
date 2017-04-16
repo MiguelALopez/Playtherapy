@@ -63,7 +63,8 @@ public class PlayerController : MonoBehaviour {
 
 
 	}
-void Move (float h, float v)
+
+	void Move (float h, float v)
 	{
 // Set the movement vector based on the axis input.
 	movement.Set (h, 0f, v);
@@ -72,4 +73,6 @@ void Move (float h, float v)
 // Move the player to it's current position plus the movement.
 	playerRigidbody.MovePosition (transform.position + movement);
 	}
+
+
 }
