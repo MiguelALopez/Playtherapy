@@ -6,7 +6,8 @@ namespace CompleteProject
 	public class CoinsController : MonoBehaviour {
 
 		// Use this for initialization
-		public GameObject start; 
+		public GameObject start;
+	
 		public int scoreValue = 10;
 		void Start () {
 		}

@@ -62,6 +62,12 @@ public class PlayerHealth : MonoBehaviour
             Death ();
         }
     }
+	public void BonusDamage (int amount)
+	{
+		damaged = true;
+		currentHealth += amount;
+		healthSlider.value = currentHealth;
+	}
 
 
     void Death ()
@@ -82,6 +88,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void RestartLevel ()
     {
-        SceneManager.LoadScene (0);
+		SceneManager.LoadScene ("Urban");
     }
 }
