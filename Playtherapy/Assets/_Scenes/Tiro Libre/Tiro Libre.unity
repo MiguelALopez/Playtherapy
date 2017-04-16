@@ -4393,7 +4393,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 556068303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: -3.23}
   m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_Children:
   - {fileID: 797316098}
@@ -4527,7 +4527,7 @@ MonoBehaviour:
   customLeftFoot: {fileID: 0}
   customLeftThumb: {fileID: 0}
   customRightThumb: {fileID: 0}
-  fistCurlFingers: 1
+  fistCurlFingers: 0
   externalCurlTrigger: 0
   trackThumbs: 0
   trackWrist: 0
@@ -4543,9 +4543,12 @@ MonoBehaviour:
   bodyTrackingDeviceID: 0
   playerId: 0
   switchToAvailableKinect: 1
-  updateRootPosition: 0
+  updateRootPosition: 1
+  updateRootX: 1
+  updateRootY: 0
+  updateRootZ: 0
   rootSpeedScaling: {x: 1, y: 1, z: 1}
-  rootOffset: {x: 0, y: 0, z: -0.1}
+  rootOffset: {x: 0, y: 0, z: 0}
   updateJointPositions: 0
   updateJointRotations: 1
   useHierarchicalModel: 1
@@ -5612,7 +5615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575cb7dc5eb8ea94e8f0ab6fde7e92f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPivotType: 0
+  characterPivotType: 1
   useHmdPositionalTracking: 0
   headRotatesBody: 1
   headPointsWalkingDirection: 1
@@ -5643,7 +5646,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!4 &696199198
 Transform:
@@ -5653,7 +5656,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 696199193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: -3.23}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 989305233}
@@ -8845,7 +8848,7 @@ Transform:
   m_GameObject: {fileID: 989305232}
   m_LocalRotation: {x: 0.117364064, y: -0.0000000013429261, z: 0.000000011363317,
     w: 0.99308896}
-  m_LocalPosition: {x: 0, y: 1.426, z: -1.6679997}
+  m_LocalPosition: {x: 0, y: 1.526, z: -4.898}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 696199198}
@@ -10498,6 +10501,9 @@ MonoBehaviour:
   playerId: 0
   switchToAvailableKinect: 1
   updateRootPosition: 0
+  updateRootX: 1
+  updateRootY: 1
+  updateRootZ: 1
   rootSpeedScaling: {x: 1, y: 1, z: 1}
   rootOffset: {x: 0, y: 0, z: -0.1}
   updateJointPositions: 0
@@ -15475,7 +15481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1685961515
 Transform:
   m_ObjectHideFlags: 0
@@ -17618,7 +17624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1909728182
 Transform:
   m_ObjectHideFlags: 0

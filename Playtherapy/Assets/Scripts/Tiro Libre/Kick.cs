@@ -75,10 +75,10 @@ public class Kick : MonoBehaviour
     {
         if (kicking && mdl.bodyMovements.bodyPointsCollection != null && GameManagerTiroLibre.gm.isPlaying && GameManagerTiroLibre.gm.targetReady)
         {
-            Debug.Log("entra a kick update");
+            //Debug.Log("entra a kick update");
             if (GameManagerTiroLibre.gm.leftLegActive)
             {
-                Debug.Log("entra a kick left");
+                //Debug.Log("entra a kick left");
                 setHipLeftAngle();
 
                 if (hipLeftAngle > 80)
@@ -118,7 +118,7 @@ public class Kick : MonoBehaviour
             }
             else
             {
-                Debug.Log("entra a kick right");
+                //Debug.Log("entra a kick right");
                 setHipRightAngle();
 
                 if (hipRightAngle > 80)
@@ -204,9 +204,9 @@ public class Kick : MonoBehaviour
         }
         else
         {
-            if (legRightOrientation > (rightHip.position.x + 0.02f))
+            if (legRightOrientation > (rightHip.position.x + 0.11f))
                 pos1 = 2;
-            else if (legRightOrientation < (rightHip.position.x - 0.11f))
+            else if (legRightOrientation < (rightHip.position.x - 0.02f))
                 pos1 = 0;
             else
                 pos1 = 1;
