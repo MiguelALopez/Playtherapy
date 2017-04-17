@@ -34,6 +34,16 @@ public class SpanwClouds : MonoBehaviour {
 
 
 	}
+	void makeTransparent(GameObject gameObject)
+	{
+		Renderer[] renders = gameObject.GetComponentsInChildren<Renderer>();
+
+		foreach (Renderer render in renders)
+		{
+			render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0.75f);
+		}
+
+	}
 	public void releaseObject()
 	{
 		int random = (int)Mathf.Floor(Random.Range (0, clouds_types.Length));
@@ -51,6 +61,6 @@ public class SpanwClouds : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis(Random.Range (0, 360), Vector3.up);
 
 		cloud.transform.position = this.gameObject.transform.position+randomPosition;
-
+		makeTransparent (cloud);
 	}
 }

@@ -72,6 +72,7 @@
      <None Include="Assets\Scripts\NGUI\Resources\Shaders\Unlit - Masked Colored.shader" />
      <None Include="Assets\Plugins\x86_64\donotdelete.txt" />
      <None Include="Assets\External Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
+     <None Include="Assets\Tween\Readme.txt" />
      <None Include="Assets\External Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
      <None Include="Assets\External Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
      <None Include="Assets\External Assets\NatureStarterKit2\info.txt" />
@@ -205,13 +206,15 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="OpenNI.Net">
- <HintPath>C:/Users/Mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/OpenNI/OpenNI.Net.dll</HintPath>
+
+ <HintPath>C:/Users/mauricio/Documents/GitHub/Playtherapy/Playtherapy/Assets/OpenNI/OpenNI.Net.dll</HintPath>
  </Reference>
  <Reference Include="Npgsql">
- <HintPath>C:/Users/Mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/Npgsql.dll</HintPath>
+ <HintPath>C:/Users/mauricio/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/Npgsql.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/Mauro/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/System.Data.dll</HintPath>
+ <HintPath>C:/Users/mauricio/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/System.Data.dll</HintPath>
+
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

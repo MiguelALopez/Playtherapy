@@ -7,12 +7,6 @@ public class DeleteObjectSpanned : MonoBehaviour {
 	// Use this for initialization
 	void OnTriggerEnter(Collider other) {
 
-
-
-
-		if (other.name=="Terrain Chunk") {
-			print ("Hi");
-		}
 		switch (other.tag) {
 		case "Clouds":
 			Destroy (other.transform.parent.gameObject);
@@ -20,14 +14,19 @@ public class DeleteObjectSpanned : MonoBehaviour {
 		case"Planes":
 			Destroy(other.gameObject);
 			break;
+		case"Airballoon":
+			Destroy(other.gameObject);
+
+			break;
+
 		case"Coins":
 			Destroy(other.gameObject);
 			break;
-		
+        case "Terrain":
+                break;
 		default:
 			break;
 		}
 
-		//Destroy(other.gameObject);
 	}
 }

@@ -60,7 +60,15 @@ public class SpanwPlanes : MonoBehaviour {
 
 
         plane.transform.parent = PlanesParentArray.transform;
-        plane.transform.GetChild(0).tag = "Planes";
+        if (random!=2)
+        {
+            plane.transform.GetChild(0).tag = "Planes";
+        }
+        else
+        {
+            plane.transform.GetChild(0).tag = "Airballoon";
+        }
+        
 		Vector3 randomPosition = new Vector3 (Random.Range (-distanceFromCenter, distanceFromCenter), 0, 0);
 
         //transform.rotation = Quaternion.AngleAxis(Random.Range (0, 360), Vector3.up);

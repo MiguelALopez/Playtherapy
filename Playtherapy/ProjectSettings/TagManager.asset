@@ -30,6 +30,8 @@ TagManager:
   - cubeRight
   - cubeLeft
   - Playlist Check
+  - Terrain
+  - Airballoon
   layers:
   - Default
   - TransparentFX
