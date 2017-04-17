@@ -206,6 +206,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="OpenNI.Net">
+
  <HintPath>C:/Users/mauricio/Documents/GitHub/Playtherapy/Playtherapy/Assets/OpenNI/OpenNI.Net.dll</HintPath>
  </Reference>
  <Reference Include="Npgsql">
@@ -213,6 +214,7 @@
  </Reference>
  <Reference Include="System.Data">
  <HintPath>C:/Users/mauricio/Documents/GitHub/Playtherapy/Playtherapy/Assets/Plugins/Postgresql Driver/System.Data.dll</HintPath>
+
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
