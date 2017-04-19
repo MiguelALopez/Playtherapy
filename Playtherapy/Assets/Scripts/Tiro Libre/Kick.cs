@@ -16,10 +16,28 @@ public class Kick : MonoBehaviour
     public Transform leftFoot;
     public Transform rightFoot;
 
+    public float firstFlexionAngle;
+    public float secondFlexionAngle;
+    public float thirdFlexionAngle;
+    public float firstExtensionAngle;
+    public float secondExtensionAngle;
+    public float thirdExtensionAngle;
+
     public bool kicking;
     public bool kicked;
 
+    public GameObject indicator;
+    public float indicatorSpeed;
+    public GameObject barRed;
+    public GameObject barYellow;
+    public GameObject barGreen;
+
     private Vector3 ballInitialPosition;
+    private Vector3 indicatorInitialPosition;
+    private RectTransform indicatorTransform;
+    private RectTransform barRedTransform;
+    private RectTransform barYellowTransform;
+    private RectTransform barGreenTransform;
 
     private float hipLeftAngle;
     private float hipRightAngle;
@@ -49,6 +67,11 @@ public class Kick : MonoBehaviour
     void Start ()
     {
         ballInitialPosition = ball.transform.position;
+        indicatorInitialPosition = indicator.GetComponent<RectTransform>().position;
+        indicatorTransform = indicator.GetComponent<RectTransform>();
+        barRedTransform = barRed.GetComponent<RectTransform>();
+        barYellowTransform = barYellow.GetComponent<RectTransform>();
+        barGreenTransform = barGreen.GetComponent<RectTransform>();
 
         hipLeftAngle = 0f;
         hipRightAngle = 0f;
@@ -81,17 +104,17 @@ public class Kick : MonoBehaviour
                 //Debug.Log("entra a kick left");
                 setHipLeftAngle();
 
-                if (hipLeftAngle > 80)
+                if (hipLeftAngle > thirdFlexionAngle)
                 {
                     thirdThreshold = true;
                     if (!thirdOrientation)
                     {
                         setLegLeftOrientation();
                         Debug.Log(legLeftOrientation);
-                        thirdOrientation = true;
+                        thirdOrientation = true;                        
                     }
                 }
-                else if (hipLeftAngle > 60)
+                else if (hipLeftAngle > secondFlexionAngle)
                 {
                     secondThreshold = true;
                     if (!thirdOrientation && !secondOrientation)
@@ -101,7 +124,7 @@ public class Kick : MonoBehaviour
                         secondOrientation = true;
                     }
                 }
-                else if (hipLeftAngle > 40)
+                else if (hipLeftAngle > firstFlexionAngle)
                 {
                     firstThreshold = true;
                     if (!thirdOrientation && !secondOrientation && !firstOrientation)
@@ -121,7 +144,7 @@ public class Kick : MonoBehaviour
                 //Debug.Log("entra a kick right");
                 setHipRightAngle();
 
-                if (hipRightAngle > 80)
+                if (hipRightAngle > thirdFlexionAngle)
                 {
                     thirdThreshold = true;
                     if (!thirdOrientation)
@@ -131,7 +154,7 @@ public class Kick : MonoBehaviour
                         thirdOrientation = true;
                     }
                 }
-                else if (hipRightAngle > 60)
+                else if (hipRightAngle > secondFlexionAngle)
                 {
                     secondThreshold = true;
                     if (!thirdOrientation && !secondOrientation)
@@ -141,7 +164,7 @@ public class Kick : MonoBehaviour
                         secondOrientation = true;
                     }
                 }
-                else if (hipRightAngle > 40)
+                else if (hipRightAngle > firstFlexionAngle)
                 {
                     firstThreshold = true;
                     if (!thirdOrientation && !secondOrientation && !firstOrientation)
@@ -160,10 +183,48 @@ public class Kick : MonoBehaviour
         else if (kicked)
         {
             ball.transform.position = Vector3.MoveTowards(ball.transform.position, calculatedTargetPosition, speed * Time.deltaTime);
-
             //Debug.Log(GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].name);
         }
-	}
+
+        if (GameManagerTiroLibre.gm.leftLegActive)
+        {
+            if (hipLeftAngle > thirdFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else if (hipLeftAngle > secondFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else if (hipLeftAngle > firstFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            if (hipRightAngle > thirdFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else if (hipRightAngle > secondFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else if (hipRightAngle > firstFlexionAngle)
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+            }
+            else
+            {
+                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+            }
+        }
+    }
 
     public void OnTriggerEnter(Collider other)
     {

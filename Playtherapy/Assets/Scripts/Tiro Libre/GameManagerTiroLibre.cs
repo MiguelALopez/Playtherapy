@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class GameManagerTiroLibre : MonoBehaviour
 {
     public static GameManagerTiroLibre gm;
+    public Kick kickScript;
 
     public int currentScene;
+
+    public bool useFrontPlane;
+    public bool useBackPlane;
+    public bool useShifts;
+    public bool useSustained;
+    public float timeSustained;
 
     public GameObject mainPanel;
     public GameObject gameOverPanel;
@@ -58,7 +65,7 @@ public class GameManagerTiroLibre : MonoBehaviour
         //currentScene = 1;
         //ballCollider.enabled = false;
 
-        StartGame();
+        //StartGame();
     }
 	
 	// Update is called once per frame
@@ -125,6 +132,42 @@ public class GameManagerTiroLibre : MonoBehaviour
         isPlaying = true;
         NextTarget();        
         //ballCollider.enabled = true;
+    }
+
+    public void StartGame(bool withTime, float time, int repetitions, float timeBetweenTargets, bool frontPlane, float frontAngle1, float frontAngle2, float frontAngle3, bool backPlane, float backAngle1, float backAngle2, float backAngle3, bool shifts, bool sustained, float timeSustained)
+    {
+        this.withTime = withTime;
+
+        if (withTime)
+        {
+            repetitionsPanel.SetActive(false);
+            timerPanel.SetActive(true);
+        }
+        else
+        {
+            timerPanel.SetActive(false);
+            repetitionsPanel.SetActive(true);
+        }
+        
+        currentTime = time;
+        remainingRepetitions = repetitions;
+        repetitionsText.text = remainingRepetitions.ToString();
+
+        useFrontPlane = frontPlane;
+        useBackPlane = backPlane;
+        useShifts = shifts;
+        useSustained = sustained;
+        this.timeSustained = timeSustained;
+
+        kickScript.firstFlexionAngle = frontAngle1;
+        kickScript.secondFlexionAngle = frontAngle2;
+        kickScript.thirdFlexionAngle = frontAngle3;
+        kickScript.firstExtensionAngle = backAngle1;
+        kickScript.secondExtensionAngle = backAngle2;
+        kickScript.thirdExtensionAngle = backAngle3;
+
+        isPlaying = true;
+        NextTarget();
     }
 
     public void BallHit(int points)
