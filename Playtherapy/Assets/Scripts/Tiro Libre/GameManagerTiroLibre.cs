@@ -10,6 +10,7 @@ public class GameManagerTiroLibre : MonoBehaviour
 
     public int currentScene;
 
+    public int level;
     public bool useFrontPlane;
     public bool useBackPlane;
     public bool useShifts;
@@ -20,6 +21,13 @@ public class GameManagerTiroLibre : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject leftLegPanel;
     public GameObject rightLegPanel;
+
+    public TextMesh resultsScoreText;
+    public TextMesh resultsBestScoreText;
+    public GameObject bronzeTrophy;
+    public GameObject silverTrophy;
+    public GameObject goldTrophy;
+    public GameObject resultsPanel;
 
     public int score;
     public Text scoreText;
@@ -96,7 +104,7 @@ public class GameManagerTiroLibre : MonoBehaviour
                 }
                 else
                 {
-                    
+                    totalTime += Time.deltaTime;
                 }
             }
             else
@@ -107,10 +115,8 @@ public class GameManagerTiroLibre : MonoBehaviour
         else if (isGameOver)
         {
             targetReady = false;
-            //ballCollider.enabled = false;
 
-            mainPanel.SetActive(false);
-            gameOverPanel.SetActive(true);
+            EndGame();            
         }
 	}
 
@@ -150,7 +156,8 @@ public class GameManagerTiroLibre : MonoBehaviour
         }
         
         currentTime = time;
-        remainingRepetitions = repetitions;
+        totalRepetitions = repetitions;
+        remainingRepetitions = totalRepetitions;
         repetitionsText.text = remainingRepetitions.ToString();
 
         useFrontPlane = frontPlane;
@@ -176,6 +183,8 @@ public class GameManagerTiroLibre : MonoBehaviour
 
         if (!withTime)
             UpdateRepetitions(1);
+        else
+            totalRepetitions += 1;
     }
 
     public void UpdateScore(int points)
@@ -252,6 +261,52 @@ public class GameManagerTiroLibre : MonoBehaviour
             isPlaying = false;
             isGameOver = true;
         }
+    }
+
+    public void EndGame()
+    {
+        mainPanel.SetActive(false);
+        
+        TherapySessionObject objTherapy = TherapySessionObject.tso;
+
+        if (objTherapy != null)
+        {
+            objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
+            objTherapy.saveLastGameSession();
+
+            objTherapy.savePerformance((int)kickScript.BestLeftHipFrontAngle, "4");
+            objTherapy.savePerformance((int)kickScript.BestRightHipFrontAngle, "5");
+        }       
+
+        int finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
+        resultsScoreText.text = finalScore + "%";
+
+        if (objTherapy != null)
+            resultsBestScoreText.text = objTherapy.getGameRecord() + "%";
+
+        if (finalScore <= 60)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
+            silverTrophy.SetActive(false);
+            goldTrophy.SetActive(false);
+            bronzeTrophy.SetActive(true);
+        }
+        else if (finalScore <= 90)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Grandioso!";
+            bronzeTrophy.SetActive(false);
+            goldTrophy.SetActive(false);
+            silverTrophy.SetActive(true);
+        }
+        else if (finalScore <= 100)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Increíble!";
+            bronzeTrophy.SetActive(false);
+            silverTrophy.SetActive(false);
+            goldTrophy.SetActive(true);
+        }
+
+        resultsPanel.SetActive(true);
     }
 
     public GameObject[] getCurrentTargets()

@@ -63,6 +63,11 @@ public class Kick : MonoBehaviour
     private bool secondOrientation;
     private bool thirdOrientation;
 
+    private float bestLeftHipFrontAngle;
+    private float bestRightHipFrontAngle;
+    private float bestLeftHipBackAngle;
+    private float bestRightHipBackAngle;
+
     // Use this for initialization
     void Start ()
     {
@@ -113,6 +118,9 @@ public class Kick : MonoBehaviour
                         Debug.Log(legLeftOrientation);
                         thirdOrientation = true;                        
                     }
+
+                    if (hipLeftAngle > bestLeftHipFrontAngle)
+                        bestLeftHipFrontAngle = hipLeftAngle;
                 }
                 else if (hipLeftAngle > secondFlexionAngle)
                 {
@@ -123,6 +131,9 @@ public class Kick : MonoBehaviour
                         Debug.Log(legLeftOrientation);
                         secondOrientation = true;
                     }
+
+                    if (hipLeftAngle > bestLeftHipFrontAngle)
+                        bestLeftHipFrontAngle = hipLeftAngle;
                 }
                 else if (hipLeftAngle > firstFlexionAngle)
                 {
@@ -133,6 +144,9 @@ public class Kick : MonoBehaviour
                         Debug.Log(legLeftOrientation);
                         firstOrientation = true;
                     }
+
+                    if (hipLeftAngle > bestLeftHipFrontAngle)
+                        bestLeftHipFrontAngle = hipLeftAngle;
                 }
                 else if (thirdThreshold || secondThreshold || firstThreshold)
                 {
@@ -403,5 +417,57 @@ public class Kick : MonoBehaviour
             legRightOritation *= -1;
             */
         legRightOrientation = rightFoot.position.x;
+    }
+
+    public float BestLeftHipFrontAngle
+    {
+        get
+        {
+            return bestLeftHipFrontAngle;
+        }
+
+        set
+        {
+            bestLeftHipFrontAngle = value;
+        }
+    }
+
+    public float BestRightHipFrontAngle
+    {
+        get
+        {
+            return bestRightHipFrontAngle;
+        }
+
+        set
+        {
+            bestRightHipFrontAngle = value;
+        }
+    }
+
+    public float BestLeftHipBackAngle
+    {
+        get
+        {
+            return bestLeftHipBackAngle;
+        }
+
+        set
+        {
+            bestLeftHipBackAngle = value;
+        }
+    }
+
+    public float BestRightHipBackAngle
+    {
+        get
+        {
+            return bestRightHipBackAngle;
+        }
+
+        set
+        {
+            bestRightHipBackAngle = value;
+        }
     }
 }
