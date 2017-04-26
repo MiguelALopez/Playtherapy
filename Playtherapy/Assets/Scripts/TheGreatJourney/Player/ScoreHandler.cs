@@ -10,12 +10,20 @@ public class ScoreHandler : MonoBehaviour {
     public int score_obtain;
     public int score_max;
     public Text txt_score;
+
+	Text desempeno;
     // Use this for initialization
     void Start () {
-        score_obtain = 0;
-        score_max = 0;
+        
         txt_score = GameObject.Find("txt_score").GetComponent<Text>();
+		desempeno = GameObject.Find ("percent_complete").GetComponent<Text> ();
+		reset ();
     }
+	public void reset()
+	{
+		score_obtain = 0;
+		score_max = 0;
+	}
 	public void sum_score(int pts=0)
     {
         if (pts<0)
@@ -39,7 +47,34 @@ public class ScoreHandler : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        txt_score.text = "Puntaje: " + score_obtain + "/" + score_max;
+		txt_score.text = "Puntaje: " + score_obtain;// + "/" + score_max;
+
+
+		if (score_max>0) {
+
+		
+			string p_string = "000";
+
+			float percent =((float)score_obtain / (float)score_max) * 100;
+			//print ("percent:"+percent);
+			if (percent == 100f) {
+				p_string =""+ percent;
+			} else if (percent < 10f) 
+			{
+
+				p_string = "00" + percent;
+			}
+			else 
+			{
+				p_string = "0" + percent;
+			}
+
+			p_string=p_string.Substring (0, 3);
+
+			desempeno.text = "desempeño: " +p_string +"%";
+			//desempeno.text = ""+score_obtain+"/" +score_max +" ->"+ percent+"%";
+		}
+
 
     }
 
