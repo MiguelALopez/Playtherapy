@@ -23,6 +23,9 @@ public class RUISSkeletonControllerEditor : Editor
     SerializedProperty useHierarchicalModel;
 
     SerializedProperty updateRootPosition;
+    SerializedProperty updateRootX;
+    SerializedProperty updateRootY;
+    SerializedProperty updateRootZ;
     SerializedProperty updateJointPositions;
     SerializedProperty updateJointRotations;
 	
@@ -111,6 +114,9 @@ public class RUISSkeletonControllerEditor : Editor
         useHierarchicalModel = serializedObject.FindProperty("useHierarchicalModel");
 
         updateRootPosition = serializedObject.FindProperty("updateRootPosition");
+        updateRootX = serializedObject.FindProperty("updateRootX");
+        updateRootY = serializedObject.FindProperty("updateRootY");
+        updateRootZ = serializedObject.FindProperty("updateRootZ");
         updateJointPositions = serializedObject.FindProperty("updateJointPositions");
         updateJointRotations = serializedObject.FindProperty("updateJointRotations");
 		
@@ -217,7 +223,16 @@ public class RUISSkeletonControllerEditor : Editor
 		
 		GUI.enabled = updateRootPosition.boolValue;
 		EditorGUI.indentLevel++;
-		EditorGUILayout.PropertyField(rootSpeedScaling, new GUIContent(  "Root Speed Scaling", "Multiply Kinect root position, making the character move "
+        EditorGUILayout.PropertyField(updateRootX, new GUIContent("Update Root X", "Update the X component of this GameObject according "
+                                                                         + "to the skeleton root position"));
+
+        EditorGUILayout.PropertyField(updateRootY, new GUIContent("Update Root Y", "Update the Y component of this GameObject according "
+                                                                         + "to the skeleton root position"));
+
+        EditorGUILayout.PropertyField(updateRootZ, new GUIContent("Update Root Z", "Update the Z component of this GameObject according "
+                                                                         + "to the skeleton root position"));
+
+        EditorGUILayout.PropertyField(rootSpeedScaling, new GUIContent(  "Root Speed Scaling", "Multiply Kinect root position, making the character move "
 		                                                               + "larger distances than Kinect tracking area allows. This is not propagated to "
 		                                                               + "Skeleton Wands or other devices (e.g. head trackers) even if they are calibrated "
 		                                                               + "with Kinect's coordinate system. Default and recommended value is (1,1,1)."));

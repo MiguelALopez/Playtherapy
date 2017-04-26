@@ -493,7 +493,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 30156910}
-        m_MethodName: onTimeValueChanged
+        m_MethodName: OnTimeValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8738,7 +8738,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 476238151}
-        m_MethodName: onRepValueChanged
+        m_MethodName: OnRepValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16609,6 +16609,9 @@ MonoBehaviour:
   playerId: 0
   switchToAvailableKinect: 1
   updateRootPosition: 0
+  updateRootX: 1
+  updateRootY: 1
+  updateRootZ: 1
   rootSpeedScaling: {x: 1, y: 1, z: 1}
   rootOffset: {x: 0, y: 0, z: -0.1}
   updateJointPositions: 0
@@ -28429,6 +28432,9 @@ MonoBehaviour:
   playerId: 0
   switchToAvailableKinect: 1
   updateRootPosition: 0
+  updateRootX: 1
+  updateRootY: 1
+  updateRootZ: 1
   rootSpeedScaling: {x: 1, y: 1, z: 1}
   rootOffset: {x: 0, y: 0, z: -0.1}
   updateJointPositions: 0
