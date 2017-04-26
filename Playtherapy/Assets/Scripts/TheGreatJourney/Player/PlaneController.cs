@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Windows.Kinect;
 using MovementDetectionLibrary;
+using UnityEngine.UI;
 public class PlaneController : MonoBehaviour {
 
     public float speedForward = 90;
@@ -22,16 +23,20 @@ public class PlaneController : MonoBehaviour {
 
 
     //parametros de angulos de la cadera
-    public double minAngle = 10;
-    public double maxAngle = 45;
+	public double minAngle = HoldParametersGreatJourney.min_angle-2;
+	public double maxAngle = HoldParametersGreatJourney.select_angle;
 
+	Text txt_prueba;
+	GameObject prueba;
     // Use this for initialization
     void Start() {
         rig = GetComponent<Rigidbody>();
         initialY = transform.position.y;
-
+		prueba = GameObject.Find ("angle_test");
+		prueba.SetActive (false);
+		txt_prueba = prueba.GetComponent<Text>();
         connectWithSensor();
-
+		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward*Time.deltaTime);
 
     }
     void connectWithSensor()
@@ -41,25 +46,24 @@ public class PlaneController : MonoBehaviour {
 
         if (sensor != null)
         {
-
+			prueba.SetActive (true);
             if (!sensor.IsOpen)
             {
                 sensor.Open();
-                bodyMovements = new MovementsCollection();
-                bodyPointsCollection = new Dictionary<BodyParts, BodyPoint>();
-                for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
-                {
-                    bodyPointsCollection.Add(((BodyParts)i), new BodyPoint((BodyParts)i));
-                }
-
-
             }
+			bodyMovements = new MovementsCollection();
+			bodyPointsCollection = new Dictionary<BodyParts, BodyPoint>();
+			for (int i = 0; i < (int)BodyParts.ThumbRight; i++)
+			{
+				bodyPointsCollection.Add(((BodyParts)i), new BodyPoint((BodyParts)i));
+			}
 
         }
     }
     MovementAxis moveWithKinect(double hAxis,double vAxis)
     {
-        if (sensor != null)
+		
+		if (sensor != null && sensor.IsOpen)
         {
 
             // se actualiza cada parte del cuerpo 
@@ -77,21 +81,26 @@ public class PlaneController : MonoBehaviour {
             double angleMovement;
             angleMovement = bodyMovements.hipLeftAbMovement();
 
-            if (angleMovement>=minAngle)
-            {
-                print("movio a la izquierda" + angleMovement);
-                hAxis = -(float)(angleMovement / (maxAngle+minAngle));
-            }
+			if (angleMovement >= minAngle) {
+				//print ("movio a la izquierda" + angleMovement);
+				hAxis = -(float)(angleMovement / (maxAngle + minAngle));
+			} else {
 
+				angleMovement = bodyMovements.hipRigthAbMovement();
+				if (angleMovement >= minAngle)
+				{
+					//print("movio a la derecha" + angleMovement);
+					hAxis = (float)(angleMovement / (maxAngle + minAngle));
+				}
+				// falta hacia abajo (probar)
+
+			}
+			txt_prueba.text = "angle: " +angleMovement+"º";
            
-            angleMovement = bodyMovements.hipRigthAbMovement();
-            if (angleMovement >= minAngle)
-            {
-                print("movio a la derecha" + angleMovement);
-                hAxis = (float)(angleMovement / (maxAngle + minAngle));
+
+			if (angleMovement>HoldParametersGreatJourney.best_angle_left) {
+				HoldParametersGreatJourney.best_angle_left = angleMovement;
             }
-            // falta hacia abajo (probar)
-           
 
 
         }
@@ -100,7 +109,7 @@ public class PlaneController : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward*Time.deltaTime);
+
 		float vAxis = Input.GetAxis ("Vertical");
 		float hAxis = Input.GetAxis ("Horizontal");
         

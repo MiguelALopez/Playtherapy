@@ -30,7 +30,7 @@ namespace CompleteProject
         void Update ()
         {
             // Set the displayed text to be the word "Score" followed by the score value.
-            text.text = "Score: " + score;
+            text.text = "Puntaje: " + score;
 			//Cambio de Escena
 			if (score >= nextLevel && "Urban".Equals(nameScene)) {
 				print ("Cambio de Nivel");

@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using DigitalRuby.Tween;
 public class SpannerOfMovements : MonoBehaviour {
 
-	GameObject PlanesParentArray;
+	public GameObject PlanesParentArray;
 	GameObject GemsParentArray;
 	[Range (0,40)]
 	public int maxPlanesInScreen;
@@ -14,12 +13,49 @@ public class SpannerOfMovements : MonoBehaviour {
 	public GameObject[] gems_types;
 	// Use this for initialization
 	public float distanceFromCenter =15;
+	List<SideData> repeticiones_lados;
+	bool usingTwoSides = false;
 	float timer =0;
 	void Start () {
 		PlanesParentArray = GameObject.Find ("PlanesArray");
 		GemsParentArray = GameObject.Find ("GemsArray");
+
 	}
-	
+	public void setup()
+	{
+		timer = 0;
+		repeticiones_lados = new List<SideData>();
+		if (HoldParametersGreatJourney.use_time==false) {
+
+
+
+			usingTwoSides = HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_IZQ_DER;
+			FillRepetitions ();
+
+		}
+		SecondsPerPlane = HoldParametersGreatJourney.select_descanso;
+
+
+	}
+	void FillRepetitions()
+	{
+		if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_IZQ_DER) {
+
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_DERECHO));
+			}
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_IZQUIERDO));
+			}
+				
+		} else 
+		{
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.lados_involucrados));
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		timer -= Time.deltaTime;
@@ -33,19 +69,61 @@ public class SpannerOfMovements : MonoBehaviour {
 
 		}
 	}
+	SideData pullRepetition()
+	{
+		SideData side;
+
+		int randomIndex = (int)Random.Range (0, repeticiones_lados.Count);
+
+		side = repeticiones_lados [randomIndex];
+		repeticiones_lados.RemoveAt (randomIndex);
+
+
+
+		return side;
+	}
 	public void releaseObject()
 	{
+		
 
-		int time = (int)Mathf.Floor (Random.Range (0, 7)) ;
+		int time;
 
-		if (Mathf.Floor (Random.Range (0, 3)) > 1) 
-		{
-			sendMoveToLeft(time);
-		} 
-		else
-		{
-			sendMoveToRight(time);
+		if (HoldParametersGreatJourney.sostener_aleatorio == true) {
+			time = (int)Mathf.Floor (Random.Range (0, HoldParametersGreatJourney.select_sostener));
+
+		} else {
+			time = (int)HoldParametersGreatJourney.select_sostener;
 		}
+
+
+
+		if (HoldParametersGreatJourney.use_time == true) {
+			
+			if (Mathf.Floor (Random.Range (0, 2)) > 1) 
+			{
+				sendMoveToLeft(time);
+			} 
+			else
+			{
+				sendMoveToRight(time);
+			}	
+
+
+		} else {
+			HoldParametersGreatJourney.repeticiones_restantes--;
+
+			if (HoldParametersGreatJourney.repeticiones_restantes>0) {
+				SideData movement = pullRepetition (); 
+
+				if (movement.side == HoldParametersGreatJourney.LADO_DERECHO) {
+					sendMoveToRight (time);
+				} else {
+					sendMoveToLeft(time);
+				}
+			}
+
+		}
+
 
 
 
@@ -62,10 +140,10 @@ public class SpannerOfMovements : MonoBehaviour {
 		// we are goint to send the wave of planes or airballons
 		switch (time) {
 		case 0: 
-			createAirBalloon (new Vector3 (-9, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (-6, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (0, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (3, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 0), speed);
+			//createAirBalloon (new Vector3 (-6, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (0, -0.5f, 0), speed);
+			//createAirBalloon (new Vector3 (3, -0.5f, 0), speed);
 			createGem (new Vector3 (9, -0.5f, 15), speed);
 			break;
 		case 1:
@@ -137,10 +215,10 @@ public class SpannerOfMovements : MonoBehaviour {
 		// we are goint to send the wave of planes or airballons
 		switch (time) {
 		case 0: 
-			createAirBalloon (new Vector3 (9, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (6, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (0, -0.5f, 0), speed);
-			createAirBalloon (new Vector3 (-3, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 0), speed);
+			//createAirBalloon (new Vector3 (6, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (0, -0.5f, 0), speed);
+			//createAirBalloon (new Vector3 (-3, -0.5f, 0), speed);
 			createGem (new Vector3 (-9, -0.5f, 15), speed);
 			break;
 		case 1:
@@ -266,5 +344,18 @@ public class SpannerOfMovements : MonoBehaviour {
 						// completion
 					});
 			});
+	}
+
+
+	class SideData
+	{
+		public int side;
+
+		public SideData(int side_=HoldParametersGreatJourney.LADO_DERECHO)
+		{
+			side = side_;
+		}
+
+
 	}
 }

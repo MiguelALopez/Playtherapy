@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public float speed = 7;
-	public float rotacion = 0.27f;
+	private float rotacion = 2*Mathf.PI;
 	public float sensitiveRotate = 1.5f;
 	Vector3 movement;
 	public GameObject personaje;
@@ -15,19 +15,21 @@ public class PlayerController : MonoBehaviour {
 	int runStateHash;
 
 	private Rigidbody playerRigidbody;
-
+	//public Camera camera_gameplay;
 	void Start ()
 	{
 		anim = personaje.GetComponent<Animator> ();
 		idleHash = Animator.StringToHash("Idle_B");
 		runStateHash = Animator.StringToHash("Run");
 		playerRigidbody = GetComponent<Rigidbody>();
+		//camera_gameplay = GameObject.Find ("Camera").GEt;
 	}
 
 	void FixedUpdate ()
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
+		moveVertical = Mathf.Abs (moveVertical);
 		float vision = personaje.GetComponent<Transform> ().rotation.y;
 		//Aplicacion de fuerza
 		Move (moveHorizontal, moveVertical);
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 		/*Controla la rotacion del personaje para un desplasamieto realista*/
 		float orientacion = 0; 
 		float angulorotation = personaje.GetComponent<Transform> ().rotation.y;
+
 
 		//Movimieto Rotatorio a la derecha
 		if (moveHorizontal == 1) {
@@ -49,8 +52,10 @@ public class PlayerController : MonoBehaviour {
 			//Limites de la rotacion
 			if (angulorotation > -rotacion) {
 				orientacion = -sensitiveRotate;
+
 			}
 		}
+
 //Aplica la rotacion al personaje
 		personaje.GetComponent<Transform> ().Rotate (0.0f,orientacion,0.0f);
 
