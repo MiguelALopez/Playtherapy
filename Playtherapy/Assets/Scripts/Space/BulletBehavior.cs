@@ -33,13 +33,13 @@ public class BulletBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        //if (GameManagerSpace.gms.IsPlaying())
-        //{
+        if (GameManagerSpace.gms.IsPlaying())
+        {
             if (Input.GetButtonDown("Fire1"))
             {
                 Fire();
             }
-        //}
+        }
     }
 
     /// <summary>

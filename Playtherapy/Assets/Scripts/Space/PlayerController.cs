@@ -31,12 +31,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (GameManagerSpace.gms.IsPlaying())
-        //{
-        HorizontalMove();
-        CalculateRotation();
-        CalculateBoundary();
-        //}
+        if (GameManagerSpace.gms.IsPlaying())
+        {
+            HorizontalMove();
+            CalculateRotation();
+            CalculateBoundary();
+        }
     }
 
     /// <summary>

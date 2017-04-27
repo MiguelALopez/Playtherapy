@@ -22,7 +22,7 @@ public class AsteroidDestroy : MonoBehaviour {
             other.gameObject.tag == "Wall" || 
             other.gameObject.tag == "Ball")
         {
-            //GameManagerSpace.gms.UpdateScore(1);
+            GameManagerSpace.gms.UpdateScore(1);
             ResetObject();
         }
     }
