@@ -7,8 +7,6 @@ public class AsteroidBehavior : MonoBehaviour {
     public GameObject plane;
     public float meteorVeocity = 10f;
 
-
-    private MeshCollider colliderPlane;
     private GameObject[] meteors;
 
     public float minSecondsBetweenSpawning = 3.0f;
@@ -20,9 +18,6 @@ public class AsteroidBehavior : MonoBehaviour {
     private float secondsBetweenSpawning;
     private int meteorCount;
 
-
-
-
     // Use this for initialization
     void Start () {
         meteors = GameObject.FindGameObjectsWithTag("Enemy");
@@ -33,8 +28,7 @@ public class AsteroidBehavior : MonoBehaviour {
 
         meteorCount = 0;
 
-        colliderPlane = plane.GetComponent<MeshCollider>();
-        planeSize = colliderPlane.bounds.size;
+        planeSize = plane.GetComponent<MeshCollider>().bounds.size;
 
         savedTime = Time.time;
         secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
@@ -50,15 +44,16 @@ public class AsteroidBehavior : MonoBehaviour {
         }
     }
 
-    void Spawn()
+    public void Spawn()
     {
         //if (Time.time - savedTime >= secondsBetweenSpawning && !meteorsRender[meteorCount].enabled)
         if (Time.time - savedTime >= secondsBetweenSpawning && !meteors[meteorCount].activeSelf)
         {
             meteors[meteorCount].transform.position = plane.transform.position;
+            //meteors[meteorCount].transform.position = new Vector3(Random.Range(-planeSize.x / 2, planeSize.x / 2), 0f, plane.transform.position.z);
             //meteorsRender[meteorCount].enabled = true;
             meteors[meteorCount].SetActive(true);
-            meteors[meteorCount].GetComponent<Rigidbody>().AddTorque(Vector3.up * 500f);
+            meteors[meteorCount].GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * 7f;
             meteors[meteorCount].GetComponent<Rigidbody>().velocity = Vector3.back* meteorVeocity;
 
             meteorCount++;

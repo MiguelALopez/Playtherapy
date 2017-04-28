@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd2079e8ec54a14b869c87945badb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 5
+  explosionParticle: {fileID: 100002, guid: f7efb0d9df2264096af57128df85dddb, type: 2}
 --- !u!135 &135663506073689660
 SphereCollider:
   m_ObjectHideFlags: 1

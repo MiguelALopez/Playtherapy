@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class BulletDestroy : MonoBehaviour {
 
-    public float lifeTime = 5f;
+    public GameObject explosionParticle;
 
-    Rigidbody m_rigidbody;
-    private float savedTime;
+    private Rigidbody m_rigidbody;
     
 
 	// Use this for initialization
@@ -16,20 +15,20 @@ public class BulletDestroy : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
-		if(Time.time - savedTime >= lifeTime)
-        {
-            ResetObject();
-        }
-	}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
         {
+            if (explosionParticle != null)
+            {
+                Instantiate(explosionParticle, transform.position, Quaternion.identity);
+            }
             ResetObject();
-        }        
+            GameManagerSpace.gms.UpdateScore(1);
+        }else if(other.gameObject.tag == "Wall")
+        {
+            ResetObject();
+        }
     }
 
     public void ResetObject()
@@ -38,15 +37,5 @@ public class BulletDestroy : MonoBehaviour {
         m_rigidbody.angularVelocity = new Vector3(0f, 0f, 0f);
         transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         gameObject.SetActive(false);
-    }
-
-    public void SetInitialTime(float time)
-    {
-        savedTime = time;
-    }
-
-    public void OnEnable()
-    {
-        savedTime = Time.time;
     }
 }

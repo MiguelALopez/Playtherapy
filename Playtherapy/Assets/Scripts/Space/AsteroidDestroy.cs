@@ -4,25 +4,20 @@ using UnityEngine;
 
 public class AsteroidDestroy : MonoBehaviour {
 
-    Rigidbody m_rigidbody;
+    private Rigidbody m_rigidbody;
 
 	// Use this for initialization
 	void Start () {
         m_rigidbody = GetComponent<Rigidbody>();
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player" || 
             other.gameObject.tag == "Wall" || 
             other.gameObject.tag == "Ball")
         {
-            GameManagerSpace.gms.UpdateScore(1);
+            //GameManagerSpace.gms.UpdateScore(1);
             ResetObject();
         }
     }
