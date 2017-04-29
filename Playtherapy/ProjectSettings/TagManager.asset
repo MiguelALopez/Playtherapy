@@ -30,6 +30,8 @@ TagManager:
   - cubeRight
   - cubeLeft
   - Playlist Check
+  - Enemy
+  - Shield
   layers:
   - Default
   - TransparentFX

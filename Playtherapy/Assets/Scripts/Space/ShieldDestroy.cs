@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShieldDestroy : MonoBehaviour {
 
-    public GameObject bonusParticle;
+    //public GameObject bonusParticle;
     private Rigidbody m_rigidbody;
 
 	// Use this for initialization
@@ -14,14 +14,7 @@ public class ShieldDestroy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
-        {
-            if(bonusParticle != null)
-            {
-                Instantiate(bonusParticle, transform.position, Quaternion.identity);
-            }
-            ResetObject();
-        }else if(other.gameObject.tag == "Wall")
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Wall")
         {
             ResetObject();
         }
