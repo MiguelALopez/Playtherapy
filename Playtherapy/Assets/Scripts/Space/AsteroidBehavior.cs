@@ -38,7 +38,7 @@ public class AsteroidBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (GameManagerSpace.gms.IsPlaying())
+        if (GameManagerSpace.gms.IsPlaying() && GameManagerSpace.gms.GetState() == GameManagerSpace.PlayState.ASTEROIDS)
         {
             Spawn();
         }

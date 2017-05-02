@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody m_rigidbody;                          // Rigidbody of the Ship
     private float moveHorizontal;                           // Amount of horizontal movement
 
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
@@ -36,6 +37,11 @@ public class PlayerController : MonoBehaviour
             HorizontalMove();
             CalculateRotation();
             CalculateBoundary();
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                BulletBehavior.bbh.Fire();
+            }
         }
     }
 

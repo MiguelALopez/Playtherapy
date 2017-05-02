@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
 public class GameManagerSpace : MonoBehaviour {
 
@@ -30,6 +32,15 @@ public class GameManagerSpace : MonoBehaviour {
 
     private int score;                                 // Current score in the game 
 
+    public enum PlayState
+    {
+        ASTEROIDS,
+        STARS,
+        ENEMIES
+    }
+
+    private PlayState state;
+
     // Use this for initialization
     void Start () {
         if (gms == null)
@@ -43,7 +54,12 @@ public class GameManagerSpace : MonoBehaviour {
 
         playing = false;
         score = 0;
-	}
+
+        state = PlayState.ASTEROIDS;
+        //state = (PlayState)UnityEngine.Random.Range(0, (float)Enum.GetValues(typeof(PlayState)).Cast<PlayState>().Max());
+        Debug.Log(state);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -81,5 +97,10 @@ public class GameManagerSpace : MonoBehaviour {
     public bool IsGameOver()
     {
         return gameOver;
+    }
+
+    public PlayState GetState()
+    {
+        return state;
     }
 }

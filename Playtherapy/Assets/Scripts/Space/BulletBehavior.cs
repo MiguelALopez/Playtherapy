@@ -7,16 +7,28 @@ using UnityEngine;
 /// </summary>
 public class BulletBehavior : MonoBehaviour {
 
+    public static BulletBehavior bbh;
+
     public Vector3 bulletRight = new Vector3(0.94f, -0.05f, 0.15f);     // Relative right  position of the bullet depending of the ship
     public Vector3 bulletLeft = new Vector3(-0.94f, -0.05f, 0.15f);     // Relative left  position of the bullet depending of the ship
     public float bulletVelocity = 10.0f;                                // Velocity of the bullet
+    private float fireRate = 1f;
 
     private int currentBullet;                                          // Flag with the position of the next bullet for the shot
     private GameObject[] bullets;                                       // Array with the available bullets
     private GameObject player;                                          // Object with the player
 
+    private float nextFire;
+
+    
+
 	// Use this for initialization
 	void Start () {
+
+        if (bbh == null)
+        {
+            bbh = this.gameObject.GetComponent<BulletBehavior>();
+        }
 
         // initialice the current bullet with 0
         currentBullet = 0;
@@ -29,47 +41,42 @@ public class BulletBehavior : MonoBehaviour {
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        nextFire = Time.time + fireRate;
 	}
 	
-	// Update is called once per frame
-	void FixedUpdate () {
-        if (GameManagerSpace.gms.IsPlaying())
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Fire();
-            }
-        }
-    }
-
     /// <summary>
     /// 
     /// </summary>
     public void Fire()
     {
-        if (!bullets[currentBullet].activeSelf)
+        if (Time.time > nextFire)
         {
-            bullets[currentBullet].transform.position = player.transform.position + bulletRight;
-            bullets[currentBullet].SetActive(true);
-            bullets[currentBullet].GetComponent<Rigidbody>().velocity = Vector3.forward * bulletVelocity;
-            currentBullet++;
-
-            if(currentBullet >= bullets.Length)
+            nextFire = Time.time + fireRate;
+            if (!bullets[currentBullet].activeSelf)
             {
-                currentBullet = 0;
+                bullets[currentBullet].transform.position = player.transform.position + bulletRight;
+                bullets[currentBullet].SetActive(true);
+                bullets[currentBullet].GetComponent<Rigidbody>().velocity = Vector3.forward * bulletVelocity;
+                currentBullet++;
+
+                if (currentBullet >= bullets.Length)
+                {
+                    currentBullet = 0;
+                }
             }
-        }
 
-        if (!bullets[currentBullet].activeSelf)
-        {
-            bullets[currentBullet].transform.position = player.transform.position + bulletLeft;
-            bullets[currentBullet].SetActive(true);
-            bullets[currentBullet].GetComponent<Rigidbody>().velocity = Vector3.forward * bulletVelocity;
-            currentBullet++;
-
-            if (currentBullet >= bullets.Length)
+            if (!bullets[currentBullet].activeSelf)
             {
-                currentBullet = 0;
+                bullets[currentBullet].transform.position = player.transform.position + bulletLeft;
+                bullets[currentBullet].SetActive(true);
+                bullets[currentBullet].GetComponent<Rigidbody>().velocity = Vector3.forward * bulletVelocity;
+                currentBullet++;
+
+                if (currentBullet >= bullets.Length)
+                {
+                    currentBullet = 0;
+                }
             }
         }
     }
