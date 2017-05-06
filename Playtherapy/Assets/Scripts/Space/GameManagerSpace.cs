@@ -55,8 +55,8 @@ public class GameManagerSpace : MonoBehaviour {
         playing = false;
         score = 0;
 
-        state = PlayState.ASTEROIDS;
-        //state = (PlayState)UnityEngine.Random.Range(0, (float)Enum.GetValues(typeof(PlayState)).Cast<PlayState>().Max());
+        //state = PlayState.ASTEROIDS;
+        state = (PlayState)UnityEngine.Random.Range(0, (float)Enum.GetValues(typeof(PlayState)).Cast<PlayState>().Max());
         Debug.Log(state);
 
     }

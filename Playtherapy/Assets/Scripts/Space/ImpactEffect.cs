@@ -5,6 +5,7 @@ using UnityEngine;
 public class ImpactEffect : MonoBehaviour {
 
     public GameObject shieldParticle;
+    public GameObject forceField;
 
 
 	// Use this for initialization
@@ -16,6 +17,7 @@ public class ImpactEffect : MonoBehaviour {
     {
         if(other.gameObject.tag == "Shield")
         {
+            forceField.SetActive(true);
             Instantiate(shieldParticle, transform.position, Quaternion.identity);
         }
     }
