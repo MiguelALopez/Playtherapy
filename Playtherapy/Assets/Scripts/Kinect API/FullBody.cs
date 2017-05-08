@@ -32,7 +32,7 @@ namespace MovementDetectionLibrary
         // Update is called once per frame
         void Update()
         {
-
+            /*
             foreach (char c in Input.inputString)
             {
                 if (c == "\b"[0])
@@ -45,7 +45,7 @@ namespace MovementDetectionLibrary
                     else
                         gt.text += c;
             }
-
+            */
             if (KinectTAdapter == null)
             {
                 return;
@@ -88,7 +88,7 @@ namespace MovementDetectionLibrary
  
 
             bodyMovements.setBodyPointsCollection(bodyPointsCollection);
-            this.testCollectionMovement();
+            //this.testCollectionMovement();
             //infoText.text = ("Angle " + bodyMovements.headFrontalFleAngle());
         }
 

@@ -8,7 +8,6 @@ public class ChangeSky : MonoBehaviour {
     public Renderer rend;
     void Start()
     {
-        print("hi im here");
         rend = GetComponent<Renderer>();
     }
     void Update()

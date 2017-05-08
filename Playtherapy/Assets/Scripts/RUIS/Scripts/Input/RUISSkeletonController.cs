@@ -103,7 +103,10 @@ public class RUISSkeletonController : MonoBehaviour
 
 
 	public bool updateRootPosition = true;
-	public Vector3 rootSpeedScaling = Vector3.one;
+    public bool updateRootX = true;
+    public bool updateRootY = true;
+    public bool updateRootZ = true;
+    public Vector3 rootSpeedScaling = Vector3.one;
 	public Vector3 rootOffset = Vector3.zero;
 
 	public bool updateJointPositions = true;
@@ -967,13 +970,19 @@ public class RUISSkeletonController : MonoBehaviour
 		positionKalman.update(measuredPos);
 		pos = positionKalman.getState();
 
-		skeletonPosition = new Vector3((float)pos[0], (float)pos[1], (float)pos[2]);
+        //skeletonPosition = new Vector3((float)pos[0], (float)pos[1], (float)pos[2]);
+        if (updateRootX)
+            skeletonPosition.x = (float)pos[0];
+        if (updateRootY)
+            skeletonPosition.y = (float)pos[1];
+        if (updateRootZ)
+            skeletonPosition.z = (float)pos[2];
 
-//		if (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].root.positionConfidence >= minimumConfidenceToUpdate)
-//        {
-//			skeletonPosition = skeletonManager.skeletons[bodyTrackingDeviceID, playerId].root.position;
-//        }
-	}
+        //		if (skeletonManager.skeletons[bodyTrackingDeviceID, playerId].root.positionConfidence >= minimumConfidenceToUpdate)
+        //        {
+        //			skeletonPosition = skeletonManager.skeletons[bodyTrackingDeviceID, playerId].root.position;
+        //        }
+    }
 
 	private void SaveInitialRotation(Transform bodyPart)
 	{

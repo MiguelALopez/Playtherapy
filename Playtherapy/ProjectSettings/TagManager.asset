@@ -32,6 +32,9 @@ TagManager:
   - Playlist Check
   - Enemy
   - Shield
+  - Terrain
+  - Airballoon
+  - AvatarPlatform
   layers:
   - Default
   - TransparentFX
