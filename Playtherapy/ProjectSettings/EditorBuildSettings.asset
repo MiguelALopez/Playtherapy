@@ -17,3 +17,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/Dulce Hogar/ParkNatural.unity
   - enabled: 1
     path: Assets/_Scenes/Dulce Hogar/ParkNaturalDark.unity
+  - enabled: 1
+    path: Assets/_Scenes/Tiro Libre/Tiro Libre.unity
+  - enabled: 1
+    path: Assets/_Scenes/TheGreatJourney/TheGreatJourney.unity

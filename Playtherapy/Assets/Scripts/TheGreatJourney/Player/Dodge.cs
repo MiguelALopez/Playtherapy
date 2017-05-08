@@ -24,6 +24,7 @@ public class Dodge : MonoBehaviour {
 			if (collideWithOther.hasCollide == false) {
 				collideWithOther.hasCollide = true;
 				handler.sum_score (1);
+				handler.airplanes_dodge++;
 			}
 			coinSound.Play ();
                 
@@ -33,6 +34,7 @@ public class Dodge : MonoBehaviour {
 			if (collideWithOther.hasCollide == false) {
 				collideWithOther.hasCollide = true;
 				handler.sum_score (2);
+				handler.airplanes_dodge++;
 			}
 			coinSound.Play ();
                 break;

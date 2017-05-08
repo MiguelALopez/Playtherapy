@@ -29,35 +29,9 @@ public class PlayerController : MonoBehaviour {
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
-		moveVertical = Mathf.Abs (moveVertical);
 		float vision = personaje.GetComponent<Transform> ().rotation.y;
 		//Aplicacion de fuerza
 		Move (moveHorizontal, moveVertical);
-	
-		/*Controla la rotacion del personaje para un desplasamieto realista*/
-		float orientacion = 0; 
-		float angulorotation = personaje.GetComponent<Transform> ().rotation.y;
-
-
-		//Movimieto Rotatorio a la derecha
-		if (moveHorizontal == 1) {
-			//Limites de la Rotacion
-			if (angulorotation < rotacion) {
-				orientacion = sensitiveRotate;
-			}
-		}
-
-		//Movimiento Rotatorio a la Izquierda
-		if(moveHorizontal == -1){
-			//Limites de la rotacion
-			if (angulorotation > -rotacion) {
-				orientacion = -sensitiveRotate;
-
-			}
-		}
-
-//Aplica la rotacion al personaje
-		personaje.GetComponent<Transform> ().Rotate (0.0f,orientacion,0.0f);
 
 // Ejecuta la Animacion de correr y detencion
 		if (moveHorizontal == 0 && moveVertical == 0) {

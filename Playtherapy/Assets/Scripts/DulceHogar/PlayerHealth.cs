@@ -3,91 +3,106 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-
-public class PlayerHealth : MonoBehaviour
+namespace CompleteProject
 {
-    public int startingHealth = 100;
-    public int currentHealth;
-    public Slider healthSlider;
-    public Image damageImage;
-    public AudioClip deathClip;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
-
-    Animator anim;
-    AudioSource playerAudio;
-    PlayerController playerMovement;
-    //PlayerShooting playerShooting;
-    bool isDead;
-    bool damaged;
-
-
-    void Awake ()
+    public class PlayerHealth : MonoBehaviour
     {
-        anim = GetComponent <Animator> ();
-        playerAudio = GetComponent <AudioSource> ();
-        playerMovement = GetComponent <PlayerController> ();
-        //playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
-    }
+        public int startingHealth;
+        public int currentHealth;
+        public Slider healthSlider;
+        public Image damageImage;
+        public AudioClip deathClip;
+        public float flashSpeed = 5f;
+        public Color flashColour = new Color(0f, 0f, 1f, 0.1f);
 
 
-    void Update ()
-    {
-        if(damaged)
+        Animator anim;
+        AudioSource playerAudio;
+        PlayerController playerMovement;
+        //PlayerShooting playerShooting;
+        bool isDead;
+        bool damaged;
+        private StatusGame statusGame;
+        // Referacia Al objeto de status que es enviado a todas las escenas.
+
+
+        void Awake()
         {
-            damageImage.color = flashColour;
+            //Objeto Indestrutible de Status
+            statusGame = GameObject.Find("StatusGame").GetComponent<StatusGame>();
+            this.startingHealth = (int)statusGame.healthPlayer; // Salud Global del Player
+
+            anim = GetComponent <Animator>();
+            playerAudio = GetComponent <AudioSource>();
+            playerMovement = GetComponent <PlayerController>();
+            //playerShooting = GetComponentInChildren <PlayerShooting> ();
+            currentHealth = startingHealth;
+            healthSlider.value = startingHealth;
         }
-        else
+
+
+        void Update()
         {
-            damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            if (damaged)
+            {
+                damageImage.color = flashColour;
+            }
+            else
+            {
+                damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            }
+            damaged = false;
         }
-        damaged = false;
-    }
 
 
-    public void TakeDamage (int amount)
-    {
-        damaged = true;
-
-        currentHealth -= amount;
-
-        healthSlider.value = currentHealth;
-
-        playerAudio.Play ();
-
-        if(currentHealth <= 0 && !isDead)
+        public void TakeDamage(int amount)
         {
-            Death ();
+            damaged = true;
+
+            currentHealth -= amount;
+            statusGame.healthPlayer -= amount; //Asignacion global del Juego
+            healthSlider.value = statusGame.healthPlayer;
+            NGUIDebug.Log("Slider Health:  " + healthSlider.value);
+
+
+            playerAudio.Play();
+
+            if (currentHealth <= 0 && !isDead)
+            {
+                Death();
+            }
         }
-    }
-	public void BonusDamage (int amount)
-	{
-		damaged = true;
-		currentHealth += amount;
-		healthSlider.value = currentHealth;
-	}
+
+        public void BonusDamage(int amount)
+        {
+            damaged = true;
+            currentHealth += amount;
+            healthSlider.value = currentHealth;
 
 
-    void Death ()
-    {
-        isDead = true;
-
-        //playerShooting.DisableEffects ();
-
-        //anim.SetTrigger ("Die");
-
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
-
-        playerMovement.enabled = false;
-        //playerShooting.enabled = false;
-    }
+        }
 
 
-    public void RestartLevel ()
-    {
-		SceneManager.LoadScene ("Urban");
+        public void Death()
+        {
+            isDead = true;
+
+            //playerShooting.DisableEffects ();
+
+            //anim.SetTrigger ("Die");
+
+            playerAudio.clip = deathClip;
+            playerAudio.Play();
+
+            playerMovement.enabled = false;
+            //playerShooting.enabled = false;
+        }
+
+
+        public void RestartLevel()
+        {
+            SceneManager.LoadScene("Urban");
+        }
     }
 }

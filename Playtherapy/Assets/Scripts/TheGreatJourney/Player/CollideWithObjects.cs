@@ -38,10 +38,6 @@ public class CollideWithObjects : MonoBehaviour {
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FindObjectOfType<CameraShake>().StartShake(testProperties);
-        }
     }
     void makeTransparent()
     {
@@ -119,12 +115,13 @@ public class CollideWithObjects : MonoBehaviour {
                 }
                 break;                
             case "Coins":
-                
+				handler.rubies_caught++;
 				coinMultipleSound.Play();
                 emmiterCoin.transform.position = other.transform.position;
                 emmiterCoin.GetComponent<ParticleSystem>().Play(true);
                 Destroy(other.gameObject);
                 handler.sum_score(5);
+
                 break;
 
             default:

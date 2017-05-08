@@ -16,12 +16,12 @@ public class Kick : MonoBehaviour
     public Transform leftFoot;
     public Transform rightFoot;
 
-    public float firstFlexionAngle;
-    public float secondFlexionAngle;
-    public float thirdFlexionAngle;
-    public float firstExtensionAngle;
-    public float secondExtensionAngle;
-    public float thirdExtensionAngle;
+    public float firstFrontAngle;
+    public float secondFrontAngle;
+    public float thirdFrontAngle;
+    public float firstBackAngle;
+    public float secondBackAngle;
+    public float thirdBackAngle;
 
     public bool kicking;
     public bool kicked;
@@ -44,8 +44,8 @@ public class Kick : MonoBehaviour
     private float kneeLeftAngle;
     private float kneeRightAngle;
 
-    private float legLeftOrientation;
-    private float legRightOrientation;
+    private Vector2 legLeftOrientation;
+    private Vector2 legRightOrientation;
 
     private Vector3 eulerRotationTemp;
     private Vector2 tempPosition;
@@ -82,8 +82,8 @@ public class Kick : MonoBehaviour
         hipRightAngle = 0f;
         kneeLeftAngle = 0f;
         kneeRightAngle = 0f;
-        legLeftOrientation = 0f;
-        legRightOrientation = 0f;
+        legLeftOrientation = new Vector2();
+        legRightOrientation = new Vector2();
 
         firstThreshold = false;
         secondThreshold = false;
@@ -96,6 +96,9 @@ public class Kick : MonoBehaviour
 
         leftVector = new Vector2(leftHip.position.x, Mathf.Abs(leftHip.position.z));
         rightVector = new Vector2(rightHip.position.x, Mathf.Abs(rightHip.position.z));
+
+        GameObject go = GameObject.Find("Porl KinectKinect");
+        skeleton = go.GetComponent<RUISSkeletonController>();
 	}
 	
 	// Update is called once per frame
@@ -103,96 +106,211 @@ public class Kick : MonoBehaviour
     {
         if (kicking && mdl.bodyMovements.bodyPointsCollection != null && GameManagerTiroLibre.gm.isPlaying && GameManagerTiroLibre.gm.targetReady)
         {
-            //Debug.Log("entra a kick update");
-            if (GameManagerTiroLibre.gm.leftLegActive)
+            switch (GameManagerTiroLibre.gm.currentMovement)
             {
-                //Debug.Log("entra a kick left");
-                setHipLeftAngle();
+                case GameManagerTiroLibre.LegMovements.FrontLeftLeg:
+                    {
+                        //Debug.Log("entra a front left leg");
+                        setHipLeftAngle();
 
-                if (hipLeftAngle > thirdFlexionAngle)
-                {
-                    thirdThreshold = true;
-                    if (!thirdOrientation)
-                    {
-                        setLegLeftOrientation();
-                        Debug.Log(legLeftOrientation);
-                        thirdOrientation = true;                        
-                    }
+                        if (hipLeftAngle > thirdFrontAngle)
+                        {
+                            thirdThreshold = true;
+                            if (!thirdOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                thirdOrientation = true;
+                            }
 
-                    if (hipLeftAngle > bestLeftHipFrontAngle)
-                        bestLeftHipFrontAngle = hipLeftAngle;
-                }
-                else if (hipLeftAngle > secondFlexionAngle)
-                {
-                    secondThreshold = true;
-                    if (!thirdOrientation && !secondOrientation)
-                    {
-                        setLegLeftOrientation();
-                        Debug.Log(legLeftOrientation);
-                        secondOrientation = true;
-                    }
+                            if (hipLeftAngle > bestLeftHipFrontAngle)
+                                bestLeftHipFrontAngle = hipLeftAngle;
+                        }
+                        else if (hipLeftAngle > secondFrontAngle)
+                        {
+                            secondThreshold = true;
+                            if (!thirdOrientation && !secondOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                secondOrientation = true;
+                            }
 
-                    if (hipLeftAngle > bestLeftHipFrontAngle)
-                        bestLeftHipFrontAngle = hipLeftAngle;
-                }
-                else if (hipLeftAngle > firstFlexionAngle)
-                {
-                    firstThreshold = true;
-                    if (!thirdOrientation && !secondOrientation && !firstOrientation)
-                    {
-                        setLegLeftOrientation();
-                        Debug.Log(legLeftOrientation);
-                        firstOrientation = true;
-                    }
+                            if (hipLeftAngle > bestLeftHipFrontAngle)
+                                bestLeftHipFrontAngle = hipLeftAngle;
+                        }
+                        else if (hipLeftAngle > firstFrontAngle)
+                        {
+                            firstThreshold = true;
+                            if (!thirdOrientation && !secondOrientation && !firstOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                firstOrientation = true;
+                            }
 
-                    if (hipLeftAngle > bestLeftHipFrontAngle)
-                        bestLeftHipFrontAngle = hipLeftAngle;
-                }
-                else if (thirdThreshold || secondThreshold || firstThreshold)
-                {
-                    KickBall();
-                }
-            }
-            else
-            {
-                //Debug.Log("entra a kick right");
-                setHipRightAngle();
+                            if (hipLeftAngle > bestLeftHipFrontAngle)
+                                bestLeftHipFrontAngle = hipLeftAngle;
+                        }
+                        else if (thirdThreshold || secondThreshold || firstThreshold)
+                        {
+                            KickBall();
+                        }
+                        break;
+                    }
+                case GameManagerTiroLibre.LegMovements.FrontRightLeg:
+                    {
+                        //Debug.Log("entra a front right leg");
+                        setHipRightAngle();
 
-                if (hipRightAngle > thirdFlexionAngle)
-                {
-                    thirdThreshold = true;
-                    if (!thirdOrientation)
-                    {
-                        setLegRightOrientation();
-                        Debug.Log(legRightOrientation);
-                        thirdOrientation = true;
+                        if (hipRightAngle > thirdFrontAngle)
+                        {
+                            thirdThreshold = true;
+                            if (!thirdOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                thirdOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipFrontAngle)
+                                bestRightHipFrontAngle = hipRightAngle;
+                        }
+                        else if (hipRightAngle > secondFrontAngle)
+                        {
+                            secondThreshold = true;
+                            if (!thirdOrientation && !secondOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                secondOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipFrontAngle)
+                                bestRightHipFrontAngle = hipRightAngle;
+                        }
+                        else if (hipRightAngle > firstFrontAngle)
+                        {
+                            firstThreshold = true;
+                            if (!thirdOrientation && !secondOrientation && !firstOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                firstOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipFrontAngle)
+                                bestRightHipFrontAngle = hipRightAngle;
+                        }
+                        else if (thirdThreshold || secondThreshold || firstThreshold)
+                        {
+                            KickBall();
+                        }
+                        break;
                     }
-                }
-                else if (hipRightAngle > secondFlexionAngle)
-                {
-                    secondThreshold = true;
-                    if (!thirdOrientation && !secondOrientation)
+                case GameManagerTiroLibre.LegMovements.BackLeftLeg:
                     {
-                        setLegRightOrientation();
-                        Debug.Log(legRightOrientation);
-                        secondOrientation = true;
+                        //Debug.Log("entra a back left leg");
+                        setHipLeftAngle();
+
+                        if (hipLeftAngle > thirdBackAngle)
+                        {
+                            thirdThreshold = true;
+                            if (!thirdOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                thirdOrientation = true;
+                            }
+
+                            if (hipLeftAngle > bestLeftHipBackAngle)
+                                bestLeftHipBackAngle = hipLeftAngle;
+                        }
+                        else if (hipLeftAngle > secondBackAngle)
+                        {
+                            secondThreshold = true;
+                            if (!thirdOrientation && !secondOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                secondOrientation = true;
+                            }
+
+                            if (hipLeftAngle > bestLeftHipBackAngle)
+                                bestLeftHipBackAngle = hipLeftAngle;
+                        }
+                        else if (hipLeftAngle > firstBackAngle)
+                        {
+                            firstThreshold = true;
+                            if (!thirdOrientation && !secondOrientation && !firstOrientation)
+                            {
+                                setLeftLegOrientation();
+                                Debug.Log(legLeftOrientation);
+                                firstOrientation = true;
+                            }
+
+                            if (hipLeftAngle > bestLeftHipBackAngle)
+                                bestLeftHipBackAngle = hipLeftAngle;
+                        }
+                        else if (thirdThreshold || secondThreshold || firstThreshold)
+                        {
+                            KickBall();
+                        }
+                        break;
                     }
-                }
-                else if (hipRightAngle > firstFlexionAngle)
-                {
-                    firstThreshold = true;
-                    if (!thirdOrientation && !secondOrientation && !firstOrientation)
+                case GameManagerTiroLibre.LegMovements.BackRightLeg:
                     {
-                        setLegRightOrientation();
-                        Debug.Log(legRightOrientation);
-                        firstOrientation = true;
+                        //Debug.Log("entra a back right leg");
+                        setHipRightAngle();
+
+                        if (hipRightAngle > thirdBackAngle)
+                        {
+                            thirdThreshold = true;
+                            if (!thirdOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                thirdOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipBackAngle)
+                                bestRightHipBackAngle = hipRightAngle;
+                        }
+                        else if (hipRightAngle > secondBackAngle)
+                        {
+                            secondThreshold = true;
+                            if (!thirdOrientation && !secondOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                secondOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipFrontAngle)
+                                bestRightHipFrontAngle = hipRightAngle;
+                        }
+                        else if (hipRightAngle > firstBackAngle)
+                        {
+                            firstThreshold = true;
+                            if (!thirdOrientation && !secondOrientation && !firstOrientation)
+                            {
+                                setRightLegOrientation();
+                                Debug.Log(legRightOrientation);
+                                firstOrientation = true;
+                            }
+
+                            if (hipRightAngle > bestRightHipBackAngle)
+                                bestRightHipBackAngle = hipRightAngle;
+                        }
+                        else if (thirdThreshold || secondThreshold || firstThreshold)
+                        {
+                            KickBall();
+                        }
+                        break;
                     }
-                }
-                else if (thirdThreshold || secondThreshold || firstThreshold)
-                {
-                    KickBall();
-                }
-            }       
+                default:
+                    break;
+            }      
         }
         else if (kicked)
         {
@@ -200,43 +318,58 @@ public class Kick : MonoBehaviour
             //Debug.Log(GameManagerChuta.gm.getCurrentTargets()[calculatedTarget].name);
         }
 
-        if (GameManagerTiroLibre.gm.leftLegActive)
+        switch (GameManagerTiroLibre.gm.currentMovement)
         {
-            if (hipLeftAngle > thirdFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else if (hipLeftAngle > secondFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else if (hipLeftAngle > firstFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
-            }
-        }
-        else
-        {
-            if (hipRightAngle > thirdFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else if (hipRightAngle > secondFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else if (hipRightAngle > firstFlexionAngle)
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
-            }
-            else
-            {
-                indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
-            }
+            case GameManagerTiroLibre.LegMovements.FrontLeftLeg:
+                {
+                    if (hipLeftAngle > thirdFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipLeftAngle > secondFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipLeftAngle > firstFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+                    else
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.FrontRightLeg:
+                {
+                    if (hipRightAngle > thirdFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipRightAngle > secondFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipRightAngle > firstFrontAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+                    else
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.BackLeftLeg:
+                {
+                    if (hipLeftAngle > thirdBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipLeftAngle > secondBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipLeftAngle > firstBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+                    else
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.BackRightLeg:
+                {
+                    if (hipRightAngle > thirdBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barRedTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipRightAngle > secondBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barYellowTransform.position, indicatorSpeed * Time.deltaTime);
+                    else if (hipRightAngle > firstBackAngle)
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, barGreenTransform.position, indicatorSpeed * Time.deltaTime);
+                    else
+                        indicatorTransform.position = Vector3.MoveTowards(indicatorTransform.position, indicatorInitialPosition, indicatorSpeed * Time.deltaTime);
+                    break;
+                }
+            default:
+                break;
         }
     }
 
@@ -254,7 +387,7 @@ public class Kick : MonoBehaviour
             Debug.Log("entra a target");
             TargetCollision();
         }
-        else if (other.gameObject.tag == "Wall")
+        else if (kicked && other.gameObject.tag == "Wall")
         {
             Debug.Log("entra a wall");
             WallCollision();
@@ -268,23 +401,82 @@ public class Kick : MonoBehaviour
         int pos1 = 0;
         int pos2 = 1;
 
-        if (GameManagerTiroLibre.gm.leftLegActive)
+        switch (GameManagerTiroLibre.gm.currentMovement)
         {
-            if (legLeftOrientation > (leftHip.position.x + 0.02f))
-                pos1 = 2;
-            else if (legLeftOrientation < (leftHip.position.x - 0.11f))
-                pos1 = 0;
-            else
-                pos1 = 1;
-        }
-        else
-        {
-            if (legRightOrientation > (rightHip.position.x + 0.11f))
-                pos1 = 2;
-            else if (legRightOrientation < (rightHip.position.x - 0.02f))
-                pos1 = 0;
-            else
-                pos1 = 1;
+            case GameManagerTiroLibre.LegMovements.FrontLeftLeg:
+                {
+                    if (legLeftOrientation.y > (leftHip.position.z + 0.3f))
+                    {
+                        if (legLeftOrientation.x > (leftHip.position.x + 0.02f))
+                            pos1 = 2;
+                        else if (legLeftOrientation.x < (leftHip.position.x - 0.11f))
+                            pos1 = 0;
+                        else
+                            pos1 = 1;
+                    }
+                    else
+                    {
+                        WallCollision();
+                        return;
+                    }
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.FrontRightLeg:
+                {
+                    if (legRightOrientation.y > (rightHip.position.z + 0.3f))
+                    {
+                        if (legRightOrientation.x > (rightHip.position.x + 0.11f))
+                            pos1 = 2;
+                        else if (legRightOrientation.x < (rightHip.position.x - 0.02f))
+                            pos1 = 0;
+                        else
+                            pos1 = 1;
+                    }
+                    else
+                    {
+                        WallCollision();
+                        return;
+                    }
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.BackLeftLeg:
+                {
+                    if (legLeftOrientation.y < (leftHip.position.z - 0.05f))
+                    {
+                        if (legLeftOrientation.x > (leftHip.position.x + 0.01f))
+                            pos1 = 0;
+                        else if (legLeftOrientation.x < (leftHip.position.x - 0.07f))
+                            pos1 = 2;
+                        else
+                            pos1 = 1;
+                    }
+                    else
+                    {
+                        WallCollision();
+                        return;
+                    }
+                    break;
+                }
+            case GameManagerTiroLibre.LegMovements.BackRightLeg:
+                {
+                    if (legRightOrientation.y < (rightHip.position.z - 0.05f))
+                    {
+                        if (legRightOrientation.x > (rightHip.position.x + 0.07f))
+                            pos1 = 0;
+                        else if (legRightOrientation.x < (rightHip.position.x - 0.01f))
+                            pos1 = 2;
+                        else
+                            pos1 = 1;
+                    }
+                    else
+                    {
+                        WallCollision();
+                        return;
+                    }
+                    break;
+                }
+            default:
+                break;
         }
 
         if (thirdThreshold)
@@ -295,8 +487,8 @@ public class Kick : MonoBehaviour
             pos2 = 0;
 
         calculatedTarget = pos1 + pos2;
-        calculatedTargetPosition = GameManagerTiroLibre.gm.getCurrentTargetPosition(calculatedTarget);
-        Debug.Log(calculatedTarget);
+        calculatedTargetPosition = GameManagerTiroLibre.gm.getTargetPosition(calculatedTarget);
+        Debug.Log("target: " + calculatedTarget);
                 
         kicked = true;
         hitSound.Play();
@@ -307,6 +499,7 @@ public class Kick : MonoBehaviour
     {
         kicked = false;
         ball.transform.position = ballInitialPosition;
+        //ball.transform.position = GameManagerTiroLibre.gm.currentBallStartPosition;
         hipLeftAngle = 0f;
         hipRightAngle = 0f;
         firstThreshold = false;
@@ -315,13 +508,15 @@ public class Kick : MonoBehaviour
         firstOrientation = false;
         secondOrientation = false;
         thirdOrientation = false;
-        kicking = true;
+        GameManagerTiroLibre.gm.NextMovement();
+        kicking = true;        
     }
 
     public void WallCollision()
     {
         kicked = false;
         ball.transform.position = ballInitialPosition;
+        //ball.transform.position = GameManagerTiroLibre.gm.currentBallStartPosition;
         hipLeftAngle = 0f;
         hipRightAngle = 0f;
         firstThreshold = false;
@@ -334,41 +529,13 @@ public class Kick : MonoBehaviour
     }
 
     public void setHipLeftAngle()
-    {
-        /*
-        tempFloat = (float)mdl.bodyMovements.hipLeftExtMovement();
-
-        if (tempFloat < 60)
-        {
-            if (lastHipLeftAngle < tempFloat)
-                hipLeftAngle = tempFloat;
-
-            lastHipLeftAngle = tempFloat;
-        }
-        else
-        {
-            hipLeftAngle = 0f;
-        }
-        */
-        
+    {        
         hipLeftAngle = (float)mdl.bodyMovements.hipLeftExtMovement();
         //setLegLeftOrientation();
     }
 
     public void setHipRightAngle()
     {
-        /*
-        tempFloat = (float)mdl.bodyMovements.hipRigthExtMovement();
-
-        if (tempFloat < 60)
-        {
-            if (lastHipRightAngle < tempFloat)
-                hipRightAngle = tempFloat;
-
-            lastHipRightAngle = tempFloat;
-        }
-        */
-
         hipRightAngle = (float)mdl.bodyMovements.hipRigthExtMovement();
         //setLegRightOrientation();
     }
@@ -383,40 +550,18 @@ public class Kick : MonoBehaviour
         tempFloat = (float)mdl.bodyMovements.kneeRigthMovement();
     }
 
-    public void setLegLeftOrientation()
+    public void setLeftLegOrientation()
     {
-        //eulerRotationTemp = skeleton.skeletonManager.skeletons[skeleton.bodyTrackingDeviceID, skeleton.playerId].leftKnee.rotation.eulerAngles;
-
-        //kneeLeftOritation = Quaternion.Angle(Quaternion.Euler(0, eulerRotationTemp.y, 0), Quaternion.identity);
-        //kneeLeftOritation = eulerRotationTemp.y;
-        /*
-        tempPosition.x = leftFoot.position.x;
-        tempPosition.y = Mathf.Abs(leftFoot.position.z);
-
-        legLeftOrientation = Vector2.Angle(leftVector, tempPosition);
-
-        if (tempPosition.x < leftVector.x)
-            legLeftOrientation *= -1;
-            */
-        legLeftOrientation = leftFoot.position.x;
+        legLeftOrientation.x = leftFoot.position.x;
+        legLeftOrientation.y = leftFoot.position.z;
+        Debug.Log(legLeftOrientation.y + " --- " + leftHip.position.z);
     }
 
-    public void setLegRightOrientation()
+    public void setRightLegOrientation()
     {
-        //eulerRotationTemp = skeleton.skeletonManager.skeletons[skeleton.bodyTrackingDeviceID, skeleton.playerId].rightKnee.rotation.eulerAngles;
-
-        //kneeRightOritation = Quaternion.Angle(Quaternion.Euler(0, eulerRotationTemp.y, 0), Quaternion.identity);
-        //kneeRightOritation = eulerRotationTemp.y;
-        /*
-        tempPosition.x = rightFoot.position.x;
-        tempPosition.y = Mathf.Abs(rightFoot.position.z);
-
-        legRightOritation = Vector2.Angle(rightVector, tempPosition);
-
-        if (tempPosition.x < rightVector.x)
-            legRightOritation *= -1;
-            */
-        legRightOrientation = rightFoot.position.x;
+        legRightOrientation.x = rightFoot.position.x;
+        legRightOrientation.y = rightFoot.position.z;
+        Debug.Log(legRightOrientation.y + " --- " + rightHip.position.z);
     }
 
     public float BestLeftHipFrontAngle
@@ -468,6 +613,19 @@ public class Kick : MonoBehaviour
         set
         {
             bestRightHipBackAngle = value;
+        }
+    }
+
+    public Vector3 CalculatedTargetPosition
+    {
+        get
+        {
+            return calculatedTargetPosition;
+        }
+
+        set
+        {
+            calculatedTargetPosition = value;
         }
     }
 }

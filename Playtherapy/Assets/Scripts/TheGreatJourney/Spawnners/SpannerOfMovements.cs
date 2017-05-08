@@ -14,7 +14,6 @@ public class SpannerOfMovements : MonoBehaviour {
 	// Use this for initialization
 	public float distanceFromCenter =15;
 	List<SideData> repeticiones_lados;
-	bool usingTwoSides = false;
 	float timer =0;
 	void Start () {
 		PlanesParentArray = GameObject.Find ("PlanesArray");
@@ -26,12 +25,7 @@ public class SpannerOfMovements : MonoBehaviour {
 		timer = 0;
 		repeticiones_lados = new List<SideData>();
 		if (HoldParametersGreatJourney.use_time==false) {
-
-
-
-			usingTwoSides = HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_IZQ_DER;
 			FillRepetitions ();
-
 		}
 		SecondsPerPlane = HoldParametersGreatJourney.select_descanso;
 
@@ -39,20 +33,43 @@ public class SpannerOfMovements : MonoBehaviour {
 	}
 	void FillRepetitions()
 	{
-		if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_IZQ_DER) {
 
+		repeticiones_lados = new List<SideData> ();
+		switch (HoldParametersGreatJourney.lados_involucrados) {
+		case HoldParametersGreatJourney.LADO_TODOS:
 			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
 				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_DERECHO));
 			}
 			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
 				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_IZQUIERDO));
 			}
-				
-		} else 
-		{
 			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
-				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.lados_involucrados));
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_ABAJO));
 			}
+			break;
+		case HoldParametersGreatJourney.LADO_IZQ_DER:
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_DERECHO));
+			}
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_IZQUIERDO));
+			}
+			break;
+		case HoldParametersGreatJourney.LADO_DERECHO:
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_DERECHO));
+			}
+			break;
+		case HoldParametersGreatJourney.LADO_IZQUIERDO:
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_IZQUIERDO));
+			}
+			break;
+		case HoldParametersGreatJourney.LADO_ABAJO:
+			for (int i = 0; i < HoldParametersGreatJourney.select_jugabilidad; i++) {
+				repeticiones_lados.Add (new SideData(HoldParametersGreatJourney.LADO_ABAJO));
+			}
+			break;
 		}
 	}
 
@@ -98,7 +115,52 @@ public class SpannerOfMovements : MonoBehaviour {
 
 
 		if (HoldParametersGreatJourney.use_time == true) {
+
+			desideWhichSideSend (time);
+
+		} else {
 			
+
+			if (HoldParametersGreatJourney.repeticiones_restantes>0) 
+			{
+				SideData movement = pullRepetition (); 
+				HoldParametersGreatJourney.repeticiones_restantes--;
+				switch (movement.side) {
+				case  HoldParametersGreatJourney.LADO_DERECHO:
+					sendMoveToRight (time);
+					break;
+				case  HoldParametersGreatJourney.LADO_IZQUIERDO:
+					sendMoveToLeft(time);
+					break;
+				case  HoldParametersGreatJourney.LADO_ABAJO:
+					sendMoveDown (time);
+					break;
+
+				default:
+					break;
+				}
+			}
+
+		}
+
+
+
+
+	}
+	public void desideWhichSideSend(int time)
+	{
+		switch (HoldParametersGreatJourney.lados_involucrados) {
+
+		case HoldParametersGreatJourney.LADO_IZQUIERDO:
+			sendMoveToLeft (time);
+			break;
+		case HoldParametersGreatJourney.LADO_DERECHO:
+			sendMoveToRight (time);
+			break;
+		case HoldParametersGreatJourney.LADO_ABAJO:
+			sendMoveDown (time);
+			break;
+		case HoldParametersGreatJourney.LADO_IZQ_DER:
 			if (Mathf.Floor (Random.Range (0, 2)) > 1) 
 			{
 				sendMoveToLeft(time);
@@ -107,21 +169,118 @@ public class SpannerOfMovements : MonoBehaviour {
 			{
 				sendMoveToRight(time);
 			}	
-
-
-		} else {
-			HoldParametersGreatJourney.repeticiones_restantes--;
-
-			if (HoldParametersGreatJourney.repeticiones_restantes>0) {
-				SideData movement = pullRepetition (); 
-
-				if (movement.side == HoldParametersGreatJourney.LADO_DERECHO) {
-					sendMoveToRight (time);
-				} else {
-					sendMoveToLeft(time);
-				}
+			break;
+		case HoldParametersGreatJourney.LADO_TODOS:
+			switch (Mathf.FloorToInt (Random.Range (0, 3))) {
+			case 0:
+				sendMoveToLeft (time);
+				break;
+			case 1:
+				sendMoveToRight (time);
+				break;
+			case 2:
+				sendMoveDown (time);
+				break;
+			default:
+				break;
 			}
+			break;
 
+		}
+
+	}
+	/// <summary>
+	/// Sends the move down.
+	/// The planes gone to be send for upper the player to avoid
+	/// </summary>
+	/// <param name="time">Time.</param>
+	/// <param name="speed">Speed.</param>
+	public void sendMoveDown(int time= 1, float speed=5)
+	{
+		switch (time) {
+		case 0:
+			createSmallPlane (new Vector3 (-9, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (0, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 0), speed);
+			createGem (new Vector3 (0, -5f, 15), speed);
+			break;
+		case 1:
+			createWarPlane (new Vector3 (-6, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (0, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 15), speed);
+
+			createGem (new Vector3 (0, -5f, 15), speed);
+			break;
+		case 2:
+			createSmallPlane (new Vector3 (-3, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (-1, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-6, -0.5f, 30), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 30), speed);
+			createGem (new Vector3 (0, -5f, 30), speed);
+			break;
+		case 3:
+			createSmallPlane (new Vector3 (-3, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-6, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 0), speed);
+
+			createSmallPlane (new Vector3 (3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (6, -0.5f, 30), speed);
+			createSmallPlane (new Vector3 (9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-6, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 45), speed);
+			createGem (new Vector3 (0, -5f, 45), speed);
+			break;
+		case 4:
+			createWarPlane (new Vector3 (-6, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-6, -0.5f, 30), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 30), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (-6, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (6, -0.5f, 75), speed);
+			createGem (new Vector3 (0, -5f, 45), speed);
+			break;
+		case 5:
+			createWarPlane (new Vector3 (-9, -5f, 0), speed);
+			createWarPlane (new Vector3 (9, -5f, 0), speed);
+			createSmallPlane (new Vector3 (3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (6, -5f, 30), speed);
+			createSmallPlane (new Vector3 (-6, -5f, 30), speed);
+			createWarPlane (new Vector3 (-9, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (9, -0.5f, 45), speed);
+			createGem (new Vector3 (0, -5f, 45), speed);
+			createSmallPlane (new Vector3 (6, -0.5f, 60), speed);
+			createSmallPlane (new Vector3 (-6, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 75), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 90), speed);
+			createGem (new Vector3 (0, -5f, 60), speed);
+			break;
+		case 6:
+			createWarPlane (new Vector3 (-9, -5f, 0), speed);
+			createWarPlane (new Vector3 (9, -5f, 0), speed);
+			createWarPlane (new Vector3 (-9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (9, -0.5f, 15), speed);
+			createWarPlane (new Vector3 (-9, -5f, 30), speed);
+			createWarPlane (new Vector3 (9, -5f, 30), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (-9, -5f, 60), speed);
+			createWarPlane (new Vector3 (9, -5f, 60), speed);
+			createWarPlane (new Vector3 (-9, -5f, 90), speed);
+			createWarPlane (new Vector3 (9, -5f, 90), speed);
+			createWarPlane (new Vector3 (0, -0.5f, 105), speed);
+			createGem (new Vector3 (0, -5f, 60), speed);
+			break;
+
+		default:
+			break;
 		}
 
 
@@ -152,11 +311,11 @@ public class SpannerOfMovements : MonoBehaviour {
 			createGem (new Vector3 (9, -0.5f, 15), speed);
 			break;
 		case 2:
-			createSmallPlane (new Vector3 (-3, -0.5f, 15), speed);
-			createSmallPlane (new Vector3 (-9, -0.5f, 15), speed);
-			createWarPlane (new Vector3 (-1, -0.5f, 30), speed);
-			createSmallPlane (new Vector3 (-3, -0.5f, 45), speed);
-			createGem (new Vector3 (9, -0.5f, 45), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 0), speed);
+			createSmallPlane (new Vector3 (-9, -0.5f, 0), speed);
+			createWarPlane (new Vector3 (-1, -0.5f, 15), speed);
+			createSmallPlane (new Vector3 (-3, -0.5f, 30), speed);
+			createGem (new Vector3 (9, -0.5f, 30), speed);
 			break;
 		case 3:
 			createSmallPlane (new Vector3 (-6, -0.5f, 0), speed);
@@ -171,10 +330,10 @@ public class SpannerOfMovements : MonoBehaviour {
 		case 4:
 			createWarPlane (new Vector3 (-6, -0.5f, 0), speed);
 			createWarPlane (new Vector3 (-4, -0.5f, 15), speed);
-			createWarPlane (new Vector3 (-2, -0.5f, 30), speed);
-			createWarPlane (new Vector3 (-0, -0.5f, 45), speed);
-			createWarPlane (new Vector3 (2, -0.5f, 60), speed);
-			createWarPlane (new Vector3 (2, -0.5f, 75), speed);
+			createWarPlane (new Vector3 (-1, -0.5f, 30), speed);
+			//createWarPlane (new Vector3 (-0, -0.5f, 45), speed);
+			createWarPlane (new Vector3 (1, -0.5f, 60), speed);
+			createWarPlane (new Vector3 (1, -0.5f, 75), speed);
 			createGem (new Vector3 (9, -0.5f, 60), speed);
 			break;
 		case 5:

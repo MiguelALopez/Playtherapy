@@ -88,7 +88,7 @@ namespace MovementDetectionLibrary
  
 
             bodyMovements.setBodyPointsCollection(bodyPointsCollection);
-            this.testCollectionMovement();
+            //this.testCollectionMovement();
             //infoText.text = ("Angle " + bodyMovements.headFrontalFleAngle());
         }
 

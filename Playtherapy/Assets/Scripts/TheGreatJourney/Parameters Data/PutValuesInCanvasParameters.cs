@@ -10,8 +10,11 @@ public class PutValuesInCanvasParameters : MonoBehaviour {
 	Text txt_jugabilidad;
 	Slider slider_jugabilidad;
 
-	Slider angulo_dificultad;
-	Text txt_nivel;
+	Slider angulo_dificultad_min;
+	Text txt_nivel_min;
+
+	Slider angulo_dificultad_max;
+	Text txt_nivel_max;
 
 	Slider sostener_movimiento;
 	Text txt_sostener;
@@ -21,12 +24,13 @@ public class PutValuesInCanvasParameters : MonoBehaviour {
 	GameObject timerUI;
 
 	Dropdown lados_utilizar;
-
+	Dropdown movimientos_posibles;
 
 	// Use this for initialization
 	void Start () {
 		timerUI = GameObject.Find ("timerUI");
 		jugabilidad = GameObject.Find ("DropdownJugabilidad").GetComponent<Dropdown>();
+		movimientos_posibles = GameObject.Find ("DropdownMovimientos").GetComponent<Dropdown>();
 		txt_jugabilidad = GameObject.Find ("txt_jugabilidad").GetComponent<Text> ();
 		slider_jugabilidad = GameObject.Find ("SliderJugabilidad").GetComponent<Slider>();
 
@@ -47,12 +51,17 @@ public class PutValuesInCanvasParameters : MonoBehaviour {
 		}
 
 
-		angulo_dificultad = GameObject.Find ("SliderNivel").GetComponent<Slider>();
-		txt_nivel = GameObject.Find ("txt_nivel").GetComponent<Text> ();;
+		angulo_dificultad_min = GameObject.Find ("SliderNivelMin").GetComponent<Slider>();
+		txt_nivel_min = GameObject.Find ("txt_nivel_min").GetComponent<Text> ();
 
+		angulo_dificultad_max = GameObject.Find ("SliderNivelMax").GetComponent<Slider>();
+		txt_nivel_max = GameObject.Find ("txt_nivel_max").GetComponent<Text> ();
 
-		angulo_dificultad.minValue = HoldParametersGreatJourney.min_angle;
-		angulo_dificultad.maxValue = HoldParametersGreatJourney.max_angle;
+		angulo_dificultad_min.minValue = HoldParametersGreatJourney.min_angle;
+		angulo_dificultad_min.maxValue = HoldParametersGreatJourney.max_angle-1;
+
+		angulo_dificultad_max.minValue = HoldParametersGreatJourney.min_angle+1;
+		angulo_dificultad_max.maxValue = HoldParametersGreatJourney.max_angle;
 
 		sostener_movimiento = GameObject.Find ("SliderSostener").GetComponent<Slider>();
 		txt_sostener = GameObject.Find ("txt_sostener").GetComponent<Text> ();;
@@ -77,6 +86,7 @@ public class PutValuesInCanvasParameters : MonoBehaviour {
 
 		HoldParametersGreatJourney.use_time = (jugabilidad.value==1);
 		HoldParametersGreatJourney.lados_involucrados = lados_utilizar.value;
+		HoldParametersGreatJourney.select_movimiento = movimientos_posibles.value;
 		if (HoldParametersGreatJourney.use_time == false) {
 			slider_jugabilidad.minValue = HoldParametersGreatJourney.min_repeticiones;
 			slider_jugabilidad.maxValue = HoldParametersGreatJourney.max_repeticiones;
@@ -134,8 +144,12 @@ public class PutValuesInCanvasParameters : MonoBehaviour {
 			txt_jugabilidad.text = minutos_s + ":"+ segundos_s+" min";
 		}
 
-		HoldParametersGreatJourney.select_angle = angulo_dificultad.value;
-		txt_nivel.text = "" + HoldParametersGreatJourney.select_angle+"º";
+		HoldParametersGreatJourney.select_angle_min = angulo_dificultad_min.value;
+		txt_nivel_min.text = "" + HoldParametersGreatJourney.select_angle_min+"º";
+	
+		angulo_dificultad_max.minValue = HoldParametersGreatJourney.select_angle_min+1;
+		HoldParametersGreatJourney.select_angle_max = angulo_dificultad_max.value;
+		txt_nivel_max.text = "" + HoldParametersGreatJourney.select_angle_max+"º";
 
 		HoldParametersGreatJourney.select_sostener = sostener_movimiento.value;
 		txt_sostener.text = "" + HoldParametersGreatJourney.select_sostener+" seg";

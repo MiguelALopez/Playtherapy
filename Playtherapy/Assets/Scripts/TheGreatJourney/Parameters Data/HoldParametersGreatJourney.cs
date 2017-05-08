@@ -11,16 +11,23 @@ public class HoldParametersGreatJourney{
 	public static float max_tiempo=30;
 
 	public static float min_angle=12;
-	public static float max_angle=50;
+	public static float max_angle=45;
 
 	public static float min_sostener=0;
 	public static float max_sostener=6;
 
 
-	public const int LADO_IZQUIERDO=1;
+	public const int LADO_TODOS=0;
+	public const int LADO_IZQ_DER=1;
 	public const int LADO_DERECHO=2;
-	public const int LADO_IZQ_DER=0;
-	public static int lados_involucrados = 0;
+	public const int LADO_IZQUIERDO=3;
+	public const int LADO_ABAJO=4;
+
+
+
+
+	public const int MOVIMIENTO_MIEMBROS_INFERIORES = 0;
+	public const int MOVIMIENTO_TRONCO = 1;
 
 
 	public static bool sostener_aleatorio=false;
@@ -32,9 +39,12 @@ public class HoldParametersGreatJourney{
 	public static int repeticiones_restantes;
 
 	public static float select_jugabilidad;
-	public static float select_angle;
+	public static float select_angle_min;
+	public static float select_angle_max;
 	public static float select_sostener;
 	public static float select_descanso;
+	public static int select_movimiento;
+	public static int lados_involucrados = 0;
 
 
 	public static double best_angle_left=0;

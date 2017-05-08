@@ -11,12 +11,6 @@ public class TiroLibreTargetBehaviour : MonoBehaviour
     public AudioSource hitSound;
     public ScoreFeedbackBehaviour scoreFeedback;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball")
@@ -27,7 +21,7 @@ public class TiroLibreTargetBehaviour : MonoBehaviour
             hitSound.Play();
             ShowHitParticles();
             ShowScoreFeedback();
-            GameManagerTiroLibre.gm.NextTarget();
+            //GameManagerTiroLibre.gm.NextMovement();
             //StartCoroutine(DelayedShow());
         }
     }

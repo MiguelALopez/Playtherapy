@@ -4,6 +4,8 @@ using UnityEngine;
 using Windows.Kinect;
 using MovementDetectionLibrary;
 using UnityEngine.UI;
+// for your own scripts make sure to add the following line:
+using DigitalRuby.Tween;
 public class PlaneController : MonoBehaviour {
 
     public float speedForward = 90;
@@ -21,13 +23,15 @@ public class PlaneController : MonoBehaviour {
     Dictionary<BodyParts, BodyPoint> bodyPointsCollection;
     KinectTwoAdapter adapter;
 
+	BodyPointPosition positionSpineBase_init;
 
     //parametros de angulos de la cadera
-	public double minAngle = HoldParametersGreatJourney.min_angle-2;
-	public double maxAngle = HoldParametersGreatJourney.select_angle;
+	double minAngle;
+	double maxAngle;
 
 	Text txt_prueba;
 	GameObject prueba;
+	Vector3 movement;
     // Use this for initialization
     void Start() {
         rig = GetComponent<Rigidbody>();
@@ -36,9 +40,24 @@ public class PlaneController : MonoBehaviour {
 		prueba.SetActive (false);
 		txt_prueba = prueba.GetComponent<Text>();
         connectWithSensor();
-		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward*Time.deltaTime);
+		this.gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, speedForward);
+		resetData ();
 
     }
+	public void resetData()
+	{
+		minAngle = HoldParametersGreatJourney.select_angle_min;
+		maxAngle = HoldParametersGreatJourney.select_angle_max;
+
+
+	}
+	public void resetPositionsSpineBase()
+	{
+		if (bodyPointsCollection!=null) {
+			positionSpineBase_init =bodyPointsCollection [BodyParts.SpineBase].getCurrentPosition ();
+		}
+
+	}
     void connectWithSensor()
     {
         adapter = gameObject.AddComponent<KinectTwoAdapter>();
@@ -57,7 +76,7 @@ public class PlaneController : MonoBehaviour {
 			{
 				bodyPointsCollection.Add(((BodyParts)i), new BodyPoint((BodyParts)i));
 			}
-
+			resetPositionsSpineBase ();
         }
     }
     MovementAxis moveWithKinect(double hAxis,double vAxis)
@@ -74,33 +93,106 @@ public class PlaneController : MonoBehaviour {
             }
             bodyMovements.setBodyPointsCollection(bodyPointsCollection);
 
-
+			double angleMovementX=0;
+			double angleMovementY=0;
             //transform.position += transform.forward * Time.deltaTime * speedForward;
+			switch (HoldParametersGreatJourney.select_movimiento)
+			{
+
+			case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
+				hAxis = 0;
 
 
-            double angleMovement;
-            angleMovement = bodyMovements.hipLeftAbMovement();
 
-			if (angleMovement >= minAngle) {
-				//print ("movio a la izquierda" + angleMovement);
-				hAxis = -(float)(angleMovement / (maxAngle + minAngle));
-			} else {
 
-				angleMovement = bodyMovements.hipRigthAbMovement();
-				if (angleMovement >= minAngle)
-				{
-					//print("movio a la derecha" + angleMovement);
-					hAxis = (float)(angleMovement / (maxAngle + minAngle));
+				angleMovementX = bodyMovements.hipLeftAbMovement();
+
+				if (angleMovementX >= minAngle) {
+					//print ("movio a la izquierda" + angleMovement);
+					hAxis = -(float)((angleMovementX-minAngle) / (maxAngle - minAngle));
+
+
 				}
-				// falta hacia abajo (probar)
+				else {
+					hAxis = 0;
+					angleMovementX = bodyMovements.hipRigthAbMovement();
+					if (angleMovementX >= minAngle) {
+						//print("movio a la derecha" + angleMovement);
+						hAxis = (float)((angleMovementX-minAngle) / (maxAngle - minAngle));
+					
+					}
+					// falta hacia abajo (probar)
+
+				}
+
+				if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) 
+				{
+					vAxis = 0;
+					// make a squat to move down;	
+					BodyPointPosition currentSpineBasePos = bodyPointsCollection [BodyParts.SpineBase].getCurrentPosition ();
+
+					if (currentSpineBasePos.y<positionSpineBase_init.y ) {
+						vAxis =- Mathf.Abs ((float)(positionSpineBase_init.y - currentSpineBasePos.y));
+
+
+					}
+
+				}
+
+
+				break;
+			case HoldParametersGreatJourney.MOVIMIENTO_TRONCO:
+
+
+
+				if (HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_TODOS || HoldParametersGreatJourney.lados_involucrados == HoldParametersGreatJourney.LADO_ABAJO) 
+				{
+					vAxis = 0;
+					// make a an anterior spine flexion to move down;
+					angleMovementY = bodyMovements.spineIncMovement ();
+					//print ("trunck angleY:"+angleMovementY);
+					//if (angleMovementY> minAngle && angleMovementY-minAngle>14) {
+					if (angleMovementY> (maxAngle-minAngle)*0.75) {
+						vAxis = -(float)((angleMovementY-minAngle) / (maxAngle - minAngle));
+
+					}
+				}
+
+				angleMovementX = bodyMovements.spineLatMovement();
+
+				if (Mathf.Abs((float)angleMovementX)> minAngle) {
+					print ("angleX:" + angleMovementX + " ,minAngle:" + minAngle);
+					float sign = -Mathf.Sign ((float)angleMovementX);
+					//print ("trunck angleX:"+angleMovementX);
+					hAxis = (float)(sign * (Mathf.Abs((float)(angleMovementX))-minAngle) / (maxAngle - minAngle));
+					if (Mathf.Abs((float)hAxis)>1) {
+						hAxis = sign * 1;
+					}
+				}
+
+
+
+			break;
+
+//			case HoldParametersGreatJourney.MOVI:
+//				angleMovementX = bodyMovements.spineIncMovement ();
+//				break;
+			default:
+				break;
+			}
+
+            
+            
+			txt_prueba.text = "angleX: " +angleMovementX+"º"+ " , angleY:"+angleMovementY+"º"+ ", VAxis:"+vAxis;
+           
+			switch (HoldParametersGreatJourney.select_movimiento) {
+			case HoldParametersGreatJourney.MOVIMIENTO_MIEMBROS_INFERIORES:
+				if (angleMovementX > HoldParametersGreatJourney.best_angle_left) {
+					HoldParametersGreatJourney.best_angle_left = angleMovementX;
+				}
+				break;
 
 			}
-			txt_prueba.text = "angle: " +angleMovement+"º";
-           
-
-			if (angleMovement>HoldParametersGreatJourney.best_angle_left) {
-				HoldParametersGreatJourney.best_angle_left = angleMovement;
-            }
 
 
         }
@@ -108,42 +200,49 @@ public class PlaneController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+		Quaternion newRotation;
 
-
+		bool can_move = true;
 		float vAxis = Input.GetAxis ("Vertical");
 		float hAxis = Input.GetAxis ("Horizontal");
         
         // de estar conectado el kinect vera el moviento y retornara lo que ha movido
         // de no ser asi pasara los valores como estan
-        MovementAxis movement_axis = moveWithKinect(hAxis,vAxis);
-        hAxis = (float)movement_axis.xAxis;
-        vAxis = (float)movement_axis.yAxis;
-        
-        Vector3 movement = new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
+		//comentar cuando se prueba sin kinect
 
-		if (transform.position.x+movement.x>distanceMovementX || transform.position.x+movement.x<-distanceMovementX) 
-		{
+		if (sensor != null) {
+			MovementAxis movement_axis = moveWithKinect (hAxis, vAxis);
+			hAxis = (float)movement_axis.xAxis;
+			vAxis = (float)movement_axis.yAxis;
+		}
+
+		//movement = new Vector3 (hAxis, vAxis, 0)*speed;
+		movement = new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
+		if (transform.position.x + movement.x > distanceMovementX || transform.position.x + movement.x < -distanceMovementX) {
 			hAxis = 0;
+			movement = new Vector3 (hAxis, vAxis, 0)*speed;
 
 		}
-		if (transform.position.y+movement.y>initialY+2 || transform.position.y+movement.y<5) 
-		{
+		if (transform.position.y + movement.y > initialY || transform.position.y + movement.y < 24) 
+		{		
 			vAxis = 0;
+			movement = new Vector3 (hAxis, vAxis, 0)*speed;
 
 		}
-		movement=new Vector3 (hAxis, vAxis, 0)*speed*Time.deltaTime;
 
-
-
-
-
+		//if (can_move) {
 		rig.MovePosition (transform.position + movement);
+		//}
 
-		
+		//rig.AddForce ( movement);
+		//rig.velo
+
+
         //esto es para controlar ña rotacion apenas se mueva el avion en cualquiera de las dos direcciones (X,y)
-        if (hAxis == 0 || vAxis == 0)
-        {
-            transform.Rotate(-vAxis * 5, 0, -hAxis * 5);
+        //if (hAxis == 0)
+		if (hAxis == 0 || vAxis == 0)
+		{
+            transform.Rotate(-vAxis * 0.5f, 0, -hAxis * 4);
 
         }
 
@@ -156,7 +255,7 @@ public class PlaneController : MonoBehaviour {
 			}
 		}
         
-        Quaternion newRotation = Quaternion.AngleAxis(0, Vector3.up);
+        newRotation = Quaternion.AngleAxis(0, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, .05f);
 
         
@@ -164,6 +263,7 @@ public class PlaneController : MonoBehaviour {
 
 		  
 	}
+
     class MovementAxis
     {
         public double xAxis;

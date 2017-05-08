@@ -7,12 +7,6 @@ public class TiroLibreWallBehaviour : MonoBehaviour
     public AudioSource hitSound;
     public ScoreFeedbackBehaviour scoreFeedback;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball")
@@ -20,6 +14,12 @@ public class TiroLibreWallBehaviour : MonoBehaviour
             hitSound.Play();
             ShowFeedback(other.transform.position);
             GameManagerTiroLibre.gm.BallHit(0);
+
+            if (GameManagerTiroLibre.gm.changeMovement)
+            {
+                GameManagerTiroLibre.gm.EnableTarget(GameManagerTiroLibre.gm.currentTarget, false);
+                GameManagerTiroLibre.gm.NextMovement();
+            }
         }
     }
 

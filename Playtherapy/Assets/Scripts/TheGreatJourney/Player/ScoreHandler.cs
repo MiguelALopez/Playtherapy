@@ -7,6 +7,8 @@ using DigitalRuby.Tween;
 public class ScoreHandler : MonoBehaviour {
 
 
+	public int rubies_caught;
+	public int airplanes_dodge;
     public int score_obtain;
     public int score_max;
     public Text txt_score;
@@ -21,6 +23,8 @@ public class ScoreHandler : MonoBehaviour {
     }
 	public void reset()
 	{
+		airplanes_dodge = 0;
+		rubies_caught = 0;
 		score_obtain = 0;
 		score_max = 0;
 	}
