@@ -12,7 +12,7 @@ public class Boundary
 /// Script used for controll the movements of the ship
 /// </summary>
 
-public class PlayerController : MonoBehaviour
+public class SpacePlayerController : MonoBehaviour
 {
     public float horizontalSpeed;                           // Velocity of the horizontal move
     public float tilt;                                      // Max rotation of the ship
