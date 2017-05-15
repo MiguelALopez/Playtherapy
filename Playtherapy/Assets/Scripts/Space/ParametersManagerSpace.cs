@@ -4,8 +4,11 @@ using UnityEngine.UI;
 [System.Serializable]
 public class DefaultParametersValues
 {
+    // Game with time values
     public float minTime = 1f;
     public float maxTime = 20f;
+    public float stepTime = 30f;
+
     public int minRepetitions = 5;
     public int maxRepetitions = 80;
 
@@ -37,7 +40,25 @@ public class ParametersManagerSpace : MonoBehaviour {
 
     public void StartGame()
     {
-        GameManagerSpace.gms.StartGame();
+        bool withTime = false;
+        float time = 0;
+        int repetitions = 0;
+        float spawnTime = sliderSpawnTime.value * parametersValues.stepSpawnTime;
+
+
+        if(dropdownGameType.value == 1)
+        {
+            withTime = true;
+            time = sliderGameType.value * parametersValues.stepTime;
+        }else
+        {
+            repetitions = (int)sliderGameType.value;
+        }
+        if (GameManagerSpace.gms)
+        {
+            GameManagerSpace.gms.StartGame();
+        }
+        
     }
 
     public void OnGameTypeChanged()
