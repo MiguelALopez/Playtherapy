@@ -12,17 +12,12 @@ public class GameManagerSpace : MonoBehaviour {
     // Panels used in the scene
     public GameObject mainPanel;
     public GameObject parametrersPanel;
-    public GameObject gameOverPanel;
+    public GameObject resultsPanel;
 
-    public GameObject timerPanel;
-    public GameObject repetitionsPanel;
-
-
-    
     //public int currentScene;                            // 
-    //public int level;                                   //
+    public int level;                                   //
 
-    private Text scoreText;
+
 
     // Used for states of the game
     private bool playing;                               // Is the player playing
@@ -35,15 +30,24 @@ public class GameManagerSpace : MonoBehaviour {
     private float currentTime;
     public Slider sliderCurrentTime;
     public Text currentTimeText;
+    public GameObject timerPanel;
 
     // Repetitions
     private int totalRepetitions;
     private int actualRepetition;
-    public Text tepetitionsText;
+    public Text repetitionsText;
+    public GameObject repetitionsPanel;
 
+    private int score;                                  // Current score in the game
+    public Text scoreText;                              // 
 
-
-    private int score;                                 // Current score in the game 
+    public Text resultsScoreText;
+    public Text resultsBestScoreText;
+    public Sprite starOn;
+    public Sprite starOff;
+    public Image star1;
+    public Image star2;
+    public Image star3;
 
     public enum PlayState
     {
@@ -63,7 +67,7 @@ public class GameManagerSpace : MonoBehaviour {
         currentTime = totalTime;
         timeMillis = 1000f;
 
-        scoreText = mainPanel.transform.FindChildByRecursive("Score Text").GetComponent<Text>();
+        //scoreText = mainPanel.transform.FindChildByRecursive("Score Text").GetComponent<Text>();
         //mainPanel.transform.FindChildByRecursive("Text").
 
         playing = false;
@@ -81,8 +85,35 @@ public class GameManagerSpace : MonoBehaviour {
         {
             if (!gameOver)
             {
+                if (withTime)
+                {
+                    currentTime -= Time.deltaTime;
 
+                    if(currentTime >= 0)
+                    {
+                        timeMillis -= Time.deltaTime * 1000f;
+                        if(timeMillis < 0)
+                        {
+                            timeMillis = 1000f;
+                        }
+                        currentTimeText.text = (((int)currentTime) / 60).ToString("00") + ":"
+                            + (((int)currentTime) % 60).ToString("00") + ":"
+                            + ((int)(timeMillis * 60 / 1000)).ToString("00");
+                        sliderCurrentTime.value = currentTime * 100 / totalTime;
+                    }else
+                    {
+                        playing = false;
+                        gameOver = true;
+                        currentTimeText.text = "00:00:00";
+                    }
+                }else
+                {
+                    totalTime += Time.deltaTime;
+                }
             }
+        }else if (IsGameOver())
+        {
+            EndGame();
         }
 		
 	}
@@ -99,6 +130,53 @@ public class GameManagerSpace : MonoBehaviour {
     {
         score += points;
         scoreText.text = score.ToString();
+    }
+
+    public void EndGame()
+    {
+        mainPanel.SetActive(false);
+    }
+
+    public void SaveAndShowResults()
+    {
+        TherapySessionObject objTherapy = TherapySessionObject.tso;
+
+        if (objTherapy != null)
+        {
+            objTherapy.fillLastSession(score, totalRepetitions, (int)totalTime, level.ToString());
+            objTherapy.saveLastGameSession();
+        }
+
+        //totalRepetitions = 10;
+        int finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
+        resultsScoreText.text = "Desempeño: " + finalScore + "%";
+
+        if (objTherapy != null)
+            resultsBestScoreText.text = "Mejor: " + objTherapy.getGameRecord() + "%";
+
+        if (finalScore <= 60)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Muy bien!";
+            star1.sprite = starOn;
+            star2.sprite = starOff;
+            star3.sprite = starOff;
+        }
+        else if (finalScore <= 90)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Grandioso!";
+            star1.sprite = starOn;
+            star2.sprite = starOn;
+            star3.sprite = starOff;
+        }
+        else if (finalScore <= 100)
+        {
+            //resultMessage.GetComponent<TextMesh>().text = "¡Increíble!";
+            star1.sprite = starOn;
+            star2.sprite = starOn;
+            star3.sprite = starOn;
+        }
+
+        resultsPanel.SetActive(true);
     }
 
 
