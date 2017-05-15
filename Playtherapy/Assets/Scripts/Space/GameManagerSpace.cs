@@ -118,10 +118,10 @@ public class GameManagerSpace : MonoBehaviour {
 		
 	}
 
-    public void StartGame()
+    public void StartGame(bool withTime)
     {
         playing = true;
-
+        this.withTime = withTime;
 
         parametrersPanel.SetActive(false);
     }

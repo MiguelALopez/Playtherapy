@@ -18,7 +18,7 @@ public class ImpactEffect : MonoBehaviour {
         if(other.gameObject.tag == "Shield")
         {
             forceField.SetActive(true);
-            Instantiate(shieldParticle, transform.position, Quaternion.identity);
+            //Instantiate(shieldParticle, transform.position, Quaternion.identity);
         }
     }
 }
