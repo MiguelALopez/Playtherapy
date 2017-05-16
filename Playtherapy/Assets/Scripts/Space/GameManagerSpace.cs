@@ -17,8 +17,6 @@ public class GameManagerSpace : MonoBehaviour {
     //public int currentScene;                            // 
     public int level;                                   //
 
-
-
     // Used for states of the game
     private bool playing;                               // Is the player playing
     private bool gameOver;                              // If the game is over
@@ -34,7 +32,7 @@ public class GameManagerSpace : MonoBehaviour {
 
     // Repetitions
     private int totalRepetitions;
-    private int actualRepetition;
+    private int remainingRepetitions;
     public Text repetitionsText;
     public GameObject repetitionsPanel;
 
@@ -48,6 +46,9 @@ public class GameManagerSpace : MonoBehaviour {
     public Image star1;
     public Image star2;
     public Image star3;
+
+    // Parameters
+    private float spawnTime;
 
     public enum PlayState
     {
@@ -118,12 +119,30 @@ public class GameManagerSpace : MonoBehaviour {
 		
 	}
 
-    public void StartGame(bool withTime)
+    public void StartGame(bool withTime, float time, int repetitions, float spawnTime)
     {
-        playing = true;
         this.withTime = withTime;
 
+        if (withTime)
+        {
+            repetitionsPanel.SetActive(false);
+            timerPanel.SetActive(true);
+        }else
+        {
+            timerPanel.SetActive(false);
+            repetitionsPanel.SetActive(true);
+        }
+
+        totalTime = time;
+        currentTime = totalTime;
+        totalRepetitions = repetitions;
+        remainingRepetitions = totalRepetitions;
+        repetitionsText.text = remainingRepetitions.ToString();
+        this.spawnTime = spawnTime;
+
+        mainPanel.SetActive(true);
         parametrersPanel.SetActive(false);
+        playing = true;
     }
 
     public void UpdateScore(int points)

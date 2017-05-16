@@ -56,7 +56,7 @@ public class ParametersManagerSpace : MonoBehaviour {
         }
         if (GameManagerSpace.gms)
         {
-            GameManagerSpace.gms.StartGame(withTime);
+            GameManagerSpace.gms.StartGame(withTime, time, repetitions, spawnTime);
         }
         
     }
