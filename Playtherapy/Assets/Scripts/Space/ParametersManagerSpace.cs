@@ -23,6 +23,17 @@ public class ParametersManagerSpace : MonoBehaviour {
     public Slider sliderGameType;
     public Text labelGameType;
 
+    public Toggle toggleGrab;
+
+    public Toggle toggleFlexionExtension;
+    public InputField inputFlexion;
+    public InputField inputExtension;
+
+    public Toggle togglePronation;    
+
+    public Toggle toggleBothHands;
+    public Dropdown dropdownRudder;
+
     public Slider sliderSpawnTime;
     public Text labelSpawnTime;
 
@@ -45,6 +56,11 @@ public class ParametersManagerSpace : MonoBehaviour {
         int repetitions = 0;
         float spawnTime = sliderSpawnTime.value * parametersValues.stepSpawnTime;
 
+        bool withGrab = toggleGrab.isOn;
+        bool withFlexionExtension = toggleFlexionExtension.isOn;
+        bool withPronation = togglePronation.isOn;
+        bool withBothHands = toggleBothHands.isOn;
+        bool isRightHand = false;
 
         if(dropdownGameType.value == 1)
         {
@@ -54,9 +70,12 @@ public class ParametersManagerSpace : MonoBehaviour {
         {
             repetitions = (int)sliderGameType.value;
         }
+
         if (GameManagerSpace.gms)
         {
-            GameManagerSpace.gms.StartGame(withTime, time, repetitions, spawnTime);
+            GameManagerSpace.gms.StartGame(withTime, time, repetitions, spawnTime, withGrab, withFlexionExtension,
+                withPronation, withBothHands, float.Parse(inputFlexion.text), float.Parse(inputExtension.text),
+                isRightHand);
         }
         
     }

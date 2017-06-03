@@ -119,7 +119,9 @@ public class GameManagerSpace : MonoBehaviour {
 		
 	}
 
-    public void StartGame(bool withTime, float time, int repetitions, float spawnTime)
+    public void StartGame(bool withTime, float time, int repetitions, float spawnTime, bool withGrab,
+        bool withFlexionExtension, bool withPronation, bool withBothHands, float flexion, float extension,
+        bool rightHand)
     {
         this.withTime = withTime;
 
@@ -149,11 +151,32 @@ public class GameManagerSpace : MonoBehaviour {
     {
         score += points;
         scoreText.text = score.ToString();
+
+        if (withTime)
+        {
+            totalRepetitions++;
+        }else
+        {
+            UpdateRepetition(1);
+        }
+    }
+
+    public void UpdateRepetition(int repetitionsDone)
+    {
+        remainingRepetitions -= repetitionsDone;
+        repetitionsText.text = remainingRepetitions.ToString();
+
+        if(remainingRepetitions <= 0)
+        {
+            playing = false;
+            gameOver = true;
+        }
     }
 
     public void EndGame()
     {
         mainPanel.SetActive(false);
+        SaveAndShowResults();
     }
 
     public void SaveAndShowResults()
@@ -167,6 +190,7 @@ public class GameManagerSpace : MonoBehaviour {
         }
 
         //totalRepetitions = 10;
+        Debug.Log(totalRepetitions);
         int finalScore = (int)(((float)score / totalRepetitions) * 100.0f);
         resultsScoreText.text = "Desempeño: " + finalScore + "%";
 

@@ -66,4 +66,12 @@ public class AsteroidBehavior : MonoBehaviour {
             secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
         }
     }
+
+    public void DestoyAll()
+    {
+        foreach(GameObject obj in meteors)
+        {
+            obj.SetActive(false);
+        }
+    }
 }
