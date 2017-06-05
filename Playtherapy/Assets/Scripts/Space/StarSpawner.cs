@@ -19,6 +19,8 @@ public class StarSpawner : MonoBehaviour {
 
     private bool invested;
 
+    private bool destroyed;
+
 	// Use this for initialization
 	void Start () {
         stars = GameObject.FindGameObjectsWithTag("Coins");
@@ -37,6 +39,8 @@ public class StarSpawner : MonoBehaviour {
         currentStarSpawn = Random.Range(0, 10) / 10;
 
         invested = false;
+
+        invested = false;
     }
 	
 	// Update is called once per frame
@@ -45,7 +49,17 @@ public class StarSpawner : MonoBehaviour {
         {
             SendStars();
         }
-	}
+
+        if (GameManagerSpace.gms.IsPlaying() && destroyed)
+        {
+            destroyed = false;
+        }
+
+        if (GameManagerSpace.gms.IsGameOver() && !destroyed)
+        {
+            DestroyAll();
+        }
+    }
 
     public void SendStars()
     {
@@ -77,15 +91,19 @@ public class StarSpawner : MonoBehaviour {
                         invested = false;
                     }
                 }
-
-                
-                
-
             }
         }
         else
         {
             currentStar = 0;
+        }
+    }
+
+    public void DestroyAll()
+    {
+        foreach(GameObject obj in stars)
+        {
+            obj.GetComponent<StarDestroy>().ResetObject();
         }
     }
 }

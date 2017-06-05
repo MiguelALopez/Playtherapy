@@ -20,7 +20,7 @@ public class BulletBehavior : MonoBehaviour {
 
     private float nextFire;
 
-    
+    private bool destroyed;
 
 	// Use this for initialization
 	void Start () {
@@ -43,8 +43,22 @@ public class BulletBehavior : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
 
         nextFire = Time.time + fireRate;
+        destroyed = false;
 	}
-	
+
+    private void Update()
+    {
+        if (GameManagerSpace.gms.IsPlaying() && destroyed)
+        {
+            destroyed = false;
+        }
+        if (GameManagerSpace.gms.IsGameOver() && !destroyed)
+        {
+            DestroyAll();
+            destroyed = true;
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -78,6 +92,14 @@ public class BulletBehavior : MonoBehaviour {
                     currentBullet = 0;
                 }
             }
+        }
+    }
+
+    public void DestroyAll()
+    {
+        foreach(GameObject obj in bullets)
+        {
+            obj.GetComponent<BulletDestroy>().ResetObject();
         }
     }
 }

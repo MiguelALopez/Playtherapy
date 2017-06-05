@@ -22,7 +22,7 @@ public class StarDestroy : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             ResetObject();
-            GameManagerSpace.gms.UpdateScore(10);
+            GameManagerSpace.gms.UpdateScore(1);
         }
         if(other.gameObject.tag == "Wall")
         {

@@ -18,6 +18,8 @@ public class AsteroidBehavior : MonoBehaviour {
     private float secondsBetweenSpawning;
     private int meteorCount;
 
+    private bool destroyed;
+
     // Use this for initialization
     void Start () {
         meteors = GameObject.FindGameObjectsWithTag("Enemy");
@@ -33,7 +35,7 @@ public class AsteroidBehavior : MonoBehaviour {
         savedTime = Time.time;
         secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
 
-        
+        destroyed = false;
     }
 	
 	// Update is called once per frame
@@ -41,6 +43,14 @@ public class AsteroidBehavior : MonoBehaviour {
         if (GameManagerSpace.gms.IsPlaying() && GameManagerSpace.gms.GetState() == GameManagerSpace.PlayState.ASTEROIDS)
         {
             Spawn();
+        }
+        if(GameManagerSpace.gms.IsPlaying() && destroyed)
+        {
+            destroyed = false;
+        }
+        if(GameManagerSpace.gms.IsGameOver() && !destroyed)
+        {
+            DestroyAll();
         }
     }
 
@@ -67,11 +77,11 @@ public class AsteroidBehavior : MonoBehaviour {
         }
     }
 
-    public void DestoyAll()
+    public void DestroyAll()
     {
         foreach(GameObject obj in meteors)
         {
-            obj.SetActive(false);
+            obj.GetComponent<AsteroidDestroy>().ResetObject();
         }
     }
 }

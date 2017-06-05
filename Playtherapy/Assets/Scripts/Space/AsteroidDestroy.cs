@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidDestroy : MonoBehaviour {
 
     private Rigidbody m_rigidbody;
+    public AudioSource explosionSound;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,7 @@ public class AsteroidDestroy : MonoBehaviour {
             other.gameObject.tag == "Wall" || 
             other.gameObject.tag == "Ball")
         {
+            explosionSound.Play();
             //GameManagerSpace.gms.UpdateScore(1);
             ResetObject();
         }

@@ -15,6 +15,8 @@ public class ShieldSpawner : MonoBehaviour {
     private float savedTime;
     private float secondsBetweenSpawning;
 
+    private bool destroyed;
+
     // Use this for initialization
     void Start () {
         shield.SetActive(false);
@@ -22,6 +24,8 @@ public class ShieldSpawner : MonoBehaviour {
 
         savedTime = Time.time;
         secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
+
+        destroyed = false;
     }
 	
 	// Update is called once per frame
@@ -29,6 +33,16 @@ public class ShieldSpawner : MonoBehaviour {
         if (GameManagerSpace.gms.IsPlaying() && GameManagerSpace.gms.GetState() == GameManagerSpace.PlayState.ASTEROIDS)
         {
             Spawn();
+        }
+
+        if(GameManagerSpace.gms.IsPlaying() && destroyed)
+        {
+            destroyed = false;
+        }
+
+        if(GameManagerSpace.gms.IsGameOver() && !destroyed)
+        {
+            DestroyAll();
         }
 	}
 
@@ -47,5 +61,10 @@ public class ShieldSpawner : MonoBehaviour {
             savedTime = Time.time;
             secondsBetweenSpawning = Random.Range(minSecondsBetweenSpawning, maxSecondsBetweenSpawning);
         }
+    }
+
+    public void DestroyAll()
+    {
+        shield.GetComponent<ShieldDestroy>().ResetObject();
     }
 }
