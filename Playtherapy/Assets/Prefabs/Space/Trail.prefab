@@ -83,13 +83,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1591691198269142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d44a238286f6904198ab78e914c229d, type: 3}
+  m_Script: {fileID: 11500000, guid: d585228a4f5d0064780942ecc3b570b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   effectAngle: 20
   effectWidth: 2
   effectDistance: 32
   force: 140
+  m_Cols: []
+  m_Sphere: {fileID: 0}
 --- !u!114 &114923038881620266
 MonoBehaviour:
   m_ObjectHideFlags: 1

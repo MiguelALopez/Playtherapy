@@ -8,7 +8,7 @@ public class DroidBehavior : MonoBehaviour {
     public float horizontalSpeed = 10f;                     // Velocity of the horizontal move
     public float tilt = 5f;                                 // Max rotation of the droid
     public float rotateSpeed = 5f;                          // Velocity of the rotation
-    public float timeBetweenMove = 6f;                      //
+    public float timeBetweenMove = 2f;                      //
     public float timeBetweenFire = 2f;                      //
     private float savedTime;
     private float movementTime;
@@ -37,7 +37,6 @@ public class DroidBehavior : MonoBehaviour {
                 if(Time.time - savedTime >= timeBetweenMove + movementTime)
                 {
                     ResetMovement();
-                    HorizontalMove(0);
                 }
             }
             CalculateRotation();
@@ -85,8 +84,21 @@ public class DroidBehavior : MonoBehaviour {
     public void ResetMovement()
     {
         savedTime = Time.time;
-        movementTime = Random.Range(1, 2);
-        randomMove = Random.Range(-1, 2);
+        movementTime = Random.Range(0f, 1f);
+        randomMove = Random.Range(-1f, 1f);
+        //if (randomMove == 0)
+        //{
+        //    randomMove = Random.Range(-1, 2);
+        //}else if(randomMove == -1)
+        //{
+        //    randomMove = 1;
+        //}
+        //else
+        //{
+        //    randomMove = -1;
+        //}
+
         Debug.Log("Reset move " + randomMove);
+        HorizontalMove(0);
     }
 }
