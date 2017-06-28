@@ -51,6 +51,7 @@ public class AsteroidBehavior : MonoBehaviour {
         if(GameManagerSpace.gms.IsGameOver() && !destroyed)
         {
             DestroyAll();
+            destroyed = true;
         }
     }
 

@@ -14,8 +14,8 @@ public class Boundary
 
 public class SpacePlayerController : MonoBehaviour
 {
-    public float horizontalSpeed;                           // Velocity of the horizontal move
-    public float tilt;                                      // Max rotation of the ship
+    public float horizontalSpeed = 10f;                     // Velocity of the horizontal move
+    public float tilt = 5f;                                 // Max rotation of the ship
     public float rotateSpeed = 5f;                          // Velocity of the rotation
 
     public Boundary boundary;                               // Boundaries of the ship movement
@@ -24,10 +24,13 @@ public class SpacePlayerController : MonoBehaviour
     private Rigidbody m_rigidbody;                          // Rigidbody of the Ship
     private float moveHorizontal;                           // Amount of horizontal movement
 
+    private bool destroyed;
+
 
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        destroyed = false;
     }
 
     void FixedUpdate()
@@ -43,6 +46,17 @@ public class SpacePlayerController : MonoBehaviour
                 BulletBehavior.bbh.Fire();
             }
         }
+
+        if(GameManagerSpace.gms.IsPlaying() && destroyed)
+        {
+            destroyed = false;
+        }
+
+        if(GameManagerSpace.gms.IsGameOver() && !destroyed)
+        {
+            ResetObject();
+            destroyed = true;
+        }
     }
 
     /// <summary>
@@ -51,6 +65,7 @@ public class SpacePlayerController : MonoBehaviour
     public void HorizontalMove()
     {
         moveHorizontal = Input.GetAxis("Horizontal");
+        Debug.Log(moveHorizontal);
         m_rigidbody.velocity = new Vector3(moveHorizontal * horizontalSpeed, 0.0f, m_rigidbody.velocity.z);
     }
 
@@ -75,5 +90,12 @@ public class SpacePlayerController : MonoBehaviour
             m_rigidbody.position.y,
             m_rigidbody.position.z
             );
+    }
+
+    public void ResetObject()
+    {
+        m_rigidbody.velocity = new Vector3(0f, 0f, 0f);
+        m_rigidbody.angularVelocity = new Vector3(0f, 0f, 0f);
+        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
     }
 }

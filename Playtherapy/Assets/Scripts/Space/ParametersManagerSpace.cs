@@ -62,7 +62,7 @@ public class ParametersManagerSpace : MonoBehaviour {
         bool withBothHands = toggleBothHands.isOn;
         bool isRightHand = false;
 
-        if(dropdownGameType.value == 1)
+        if(dropdownGameType.value == 0)
         {
             withTime = true;
             time = sliderGameType.value * parametersValues.stepTime;

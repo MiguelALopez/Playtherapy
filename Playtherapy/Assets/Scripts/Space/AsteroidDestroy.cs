@@ -16,7 +16,8 @@ public class AsteroidDestroy : MonoBehaviour {
     {
         if(other.gameObject.tag == "Player" || 
             other.gameObject.tag == "Wall" || 
-            other.gameObject.tag == "Ball")
+            other.gameObject.tag == "Ball" ||
+            other.gameObject.name == "ForceField")
         {
             explosionSound.Play();
             //GameManagerSpace.gms.UpdateScore(1);

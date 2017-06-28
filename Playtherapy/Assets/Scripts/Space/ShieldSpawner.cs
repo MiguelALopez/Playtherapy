@@ -43,6 +43,7 @@ public class ShieldSpawner : MonoBehaviour {
         if(GameManagerSpace.gms.IsGameOver() && !destroyed)
         {
             DestroyAll();
+            destroyed = true;
         }
 	}
 

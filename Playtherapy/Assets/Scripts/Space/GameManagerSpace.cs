@@ -48,6 +48,8 @@ public class GameManagerSpace : MonoBehaviour {
     public Image star2;
     public Image star3;
 
+    public Animator shipAnimator;
+
     // Parameters
     private float spawnTime;
 
@@ -238,6 +240,13 @@ public class GameManagerSpace : MonoBehaviour {
     public void EndGame()
     {
         mainPanel.SetActive(false);
+        StartCoroutine(EndGameAnimator());
+    }
+
+    private IEnumerator EndGameAnimator()
+    {
+        shipAnimator.Play("ShipFinal");
+        yield return new WaitForSeconds(8f);
         SaveAndShowResults();
     }
 
