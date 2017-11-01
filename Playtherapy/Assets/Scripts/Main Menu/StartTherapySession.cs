@@ -16,8 +16,9 @@ public class StartTherapySession : MonoBehaviour
     public TherapySessionObject tso;
 
     // used for transition between menus
-    public GameObject canvasOld;
-    public GameObject canvasNew;
+    public GameObject loginCanvas;
+    public GameObject loginMenu;
+    public GameObject minigamesMenuCanvas;
 
     private List<Minigame> minigames = null;
 
@@ -28,8 +29,10 @@ public class StartTherapySession : MonoBehaviour
 
         minigames.Add(new Minigame("16", "Sushi Samurai", "tirar pura katana"));
         minigames.Add(new Minigame("17", "Atrapalo", "tirar puro tiki"));
-        //minigames.Add(new Minigame("3", "Duro contra el Muro", "tirar pura katana"));
-        //minigames.Add(new Minigame("4", "Ponchado", "tirar pura katana"));
+        minigames.Add(new Minigame("18", "Dulce Hogar", "tirar pura katana"));
+        minigames.Add(new Minigame("19", "El Gran Viaje", "tirar pura katana"));
+        minigames.Add(new Minigame("20", "Tiro Libre", "tirar pura katana"));
+        minigames.Add(new Minigame("21", "Rieles", "tirar pura katana"));
     }
 
     public void StartTherapy()
@@ -85,8 +88,10 @@ public class StartTherapySession : MonoBehaviour
                 m.GetComponent<LoadGameScene>().Minigame = minigame;
             }
 
-            canvasOld.SetActive(false);
-            canvasNew.SetActive(true);           
+            loginMenu.SetActive(false);
+            minigamesMenuCanvas.SetActive(true);
+            loginCanvas.SetActive(false);
+            loginCanvas.SetActive(true);           
         }
     }
 }

@@ -42,6 +42,43 @@ public class TherapySessionDAO
         return exito;
     }
 
+    public static bool insertObservations(string therapyId, string observations)
+    {
+        bool success = false;
+
+        if (DBConnection.dbconn != null)
+        {
+            NpgsqlCommand dbcmd = DBConnection.dbconn.CreateCommand();
+
+            Debug.Log("Writing observations to therapy record: " + therapyId);
+
+            try
+            {
+                string sql = string.Format("UPDATE start_therapysession SET description = {0} WHERE id = {1};", observations, therapyId);
+
+                dbcmd.CommandText = sql;
+                dbcmd.ExecuteNonQuery();
+
+                //Debug.Log("");
+                success = true;
+            }
+            catch (NpgsqlException ex)
+            {
+                Debug.Log(ex.Message);
+            }
+
+            // clean up
+            dbcmd.Dispose();
+            dbcmd = null;
+        }
+        else
+        {
+            Debug.Log("Database connection not established");
+        }
+
+        return success;
+    }
+
 	public static int GetLastTherapyId(string id_patient)
 	{
 		if (DBConnection.dbconn != null)

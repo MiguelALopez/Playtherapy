@@ -22,10 +22,10 @@ public class ChangeBackground : MonoBehaviour
             canvasNew.SetActive(true);
         }
 
-        GameManagerMainMenu.gm.currentBackground.SetActive(false);
+        //GameManagerMainMenu.gm.currentBackground.SetActive(false);
 
-        GameObject go = GameManagerMainMenu.gm.findBackground(name);
-        GameManagerMainMenu.gm.currentBackground = go;
-        GameManagerMainMenu.gm.currentBackground.SetActive(true);
+        //GameObject go = GameManagerMainMenu.gm.findBackground(name);
+        //GameManagerMainMenu.gm.currentBackground = go;
+        //GameManagerMainMenu.gm.currentBackground.SetActive(true);
     }
 }

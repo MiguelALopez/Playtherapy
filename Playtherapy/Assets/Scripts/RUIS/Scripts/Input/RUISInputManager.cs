@@ -68,6 +68,10 @@ public class RUISInputManager : MonoBehaviour
 
     public bool jumpGestureEnabled = false;
 
+    // playtherapy additions
+    private bool isFloorSet = false;
+    Kinect2SourceManager kinect2SourceManager;
+
     public void Awake()
     {
 		coordinateSystem = FindObjectOfType(typeof(RUISCoordinateSystem)) as RUISCoordinateSystem;
@@ -242,18 +246,27 @@ public class RUISInputManager : MonoBehaviour
 				enableKinect2 = false;
 		}
 
-		if((enableKinect && kinectFloorDetection) || (enableKinect2 && kinect2FloorDetection))
-			StartFloorDetection();
-		
-		//if (enablePSMove)
-  //      {
-  //          RUISPSMoveWand[] controllers = GetComponentsInChildren<RUISPSMoveWand>();
-  //          moveControllers = new RUISPSMoveWand[controllers.Length];
-  //          foreach (RUISPSMoveWand controller in controllers)
-  //          {
-  //              moveControllers[controller.controllerId] = controller;
-  //          }
-  //      }
+        if ((enableKinect && kinectFloorDetection) || (enableKinect2 && kinect2FloorDetection))
+        {
+            kinect2SourceManager = FindObjectOfType(typeof(Kinect2SourceManager)) as Kinect2SourceManager;
+            StartFloorDetection();
+        }
+
+        //if (enablePSMove)
+        //      {
+        //          RUISPSMoveWand[] controllers = GetComponentsInChildren<RUISPSMoveWand>();
+        //          moveControllers = new RUISPSMoveWand[controllers.Length];
+        //          foreach (RUISPSMoveWand controller in controllers)
+        //          {
+        //              moveControllers[controller.controllerId] = controller;
+        //          }
+        //      }
+    }
+
+    public bool IsReadyToDetectFloor()
+    {
+        return coordinateSystem != null && kinect2SourceManager != null && kinect2SourceManager.GetSensor() != null
+                && kinect2SourceManager.GetSensor().IsOpen && kinect2SourceManager.GetSensor().IsAvailable;
     }
 
     public void OnApplicationQuit()
@@ -299,11 +312,12 @@ public class RUISInputManager : MonoBehaviour
 
 		if(enableKinect2)
 			startDetection = true;
-		
-		if(startDetection)
-			StartCoroutine("attemptUpdatingFloorNormal");
-		else
-			Debug.LogError("Kinect is not enabled! You can enable it from RUIS InputManager.");
+
+        if (startDetection)
+            StartCoroutine("attemptUpdatingFloorNormal");
+            //attemptUpdatingFloorNormal();
+        else
+            Debug.LogError("Kinect is not enabled! You can enable it from RUIS InputManager.");
 	}
 
     public bool Import(string filename)
@@ -361,9 +375,9 @@ public class RUISInputManager : MonoBehaviour
 	
     private IEnumerator attemptUpdatingFloorNormal()
     {
-        yield return new WaitForSeconds(5.0f);
-        
-		if (!coordinateSystem)
+        yield return new WaitUntil(IsReadyToDetectFloor);
+
+        if (!coordinateSystem)
 	    {
 	        Debug.LogError("Could not find coordinate system!");
 	    }
@@ -441,17 +455,19 @@ public class RUISInputManager : MonoBehaviour
 
 	private void updateKinect2FloorData()
 	{
-		Kinect2SourceManager kinect2SourceManager = FindObjectOfType(typeof(Kinect2SourceManager)) as Kinect2SourceManager;
+		//Kinect2SourceManager kinect2SourceManager = FindObjectOfType(typeof(Kinect2SourceManager)) as Kinect2SourceManager;
 
 		bool canAccessKinect2 = false;
 
 		try
 		{
-			if(    coordinateSystem != null && kinect2SourceManager != null
-				&& kinect2SourceManager.GetSensor() != null && kinect2SourceManager.GetSensor().IsOpen && kinect2SourceManager.GetSensor().IsAvailable)
-				canAccessKinect2 = true;
+            if (coordinateSystem != null && kinect2SourceManager != null && kinect2SourceManager.GetSensor() != null
+                && kinect2SourceManager.GetSensor().IsOpen && kinect2SourceManager.GetSensor().IsAvailable)
+            {
+                canAccessKinect2 = true;
+            }
 		}
-		catch{}
+		catch{}        
 
 		if(canAccessKinect2)
 		{

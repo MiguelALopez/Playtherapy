@@ -17,12 +17,6 @@ public class GameManagerMainMenu : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public GameObject findBackground(string name)
     {
         GameObject r = null;

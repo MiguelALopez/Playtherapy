@@ -9,11 +9,10 @@ public class LoadGameScene : MonoBehaviour
 
     public void Load()
     {
-        string sceneName = this.gameObject.GetComponentInChildren<Text>().text;
+        string sceneName = gameObject.GetComponentInChildren<Text>().text;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         Debug.Log("Scene loaded");
 		createGameSession ();
-
     }
 
     public void createGameSession()

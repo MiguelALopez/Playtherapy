@@ -108,9 +108,9 @@ public class TargetBehaviorBall : MonoBehaviour
         }
         return ballColor;
     }
+
 	void putBallInBasket()
-	{
-		
+	{		
 		GameObject basket = GameObject.Find ("Basket");
 
 		int ballsAlive = GameManagerAtrapalo.gms.ballsAlive - 1;
@@ -127,6 +127,5 @@ public class TargetBehaviorBall : MonoBehaviour
 		this.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		this.GetComponent<Rigidbody> ().useGravity = true;
 		sSpawner.can_trow = true;
-
 	}
 }

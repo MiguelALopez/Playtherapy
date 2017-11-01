@@ -16,14 +16,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011550373350}
-  - 114: {fileID: 114000010763435704}
-  - 114: {fileID: 114000013285122980}
-  - 23: {fileID: 23000013430860794}
-  - 33: {fileID: 33000012046316370}
-  - 114: {fileID: 114000011619870322}
+  - component: {fileID: 4000011550373350}
+  - component: {fileID: 114000010763435704}
+  - component: {fileID: 114000013285122980}
+  - component: {fileID: 23000013430860794}
+  - component: {fileID: 33000012046316370}
+  - component: {fileID: 114000011619870322}
   m_Layer: 0
   m_Name: RUISCamera
   m_TagString: MainCamera
@@ -36,14 +36,14 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012362049298}
-  - 20: {fileID: 20000010119834152}
-  - 124: {fileID: 124000013669753060}
-  - 92: {fileID: 92000014107785206}
-  - 114: {fileID: 114000010578269874}
-  - 114: {fileID: 114000013981407418}
+  - component: {fileID: 4000012362049298}
+  - component: {fileID: 20000010119834152}
+  - component: {fileID: 124000013669753060}
+  - component: {fileID: 92000014107785206}
+  - component: {fileID: 114000010578269874}
+  - component: {fileID: 114000013981407418}
   m_Layer: 0
   m_Name: CenterCamera
   m_TagString: MainCamera
@@ -56,11 +56,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011857850176}
-  - 81: {fileID: 81000011326248666}
-  - 114: {fileID: 114000010199070378}
+  - component: {fileID: 4000011857850176}
+  - component: {fileID: 81000011326248666}
+  - component: {fileID: 114000010199070378}
   m_Layer: 0
   m_Name: Camera (ears)
   m_TagString: Untagged
@@ -73,11 +73,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011126346170}
-  - 20: {fileID: 20000012619570448}
-  - 114: {fileID: 114000010901565964}
+  - component: {fileID: 4000011126346170}
+  - component: {fileID: 20000012619570448}
+  - component: {fileID: 114000010901565964}
   m_Layer: 0
   m_Name: LeftCamera
   m_TagString: Untagged
@@ -90,11 +90,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011869904052}
-  - 20: {fileID: 20000012015202004}
-  - 114: {fileID: 114000012669558104}
+  - component: {fileID: 4000011869904052}
+  - component: {fileID: 20000012015202004}
+  - component: {fileID: 114000012669558104}
   m_Layer: 0
   m_Name: RightCamera
   m_TagString: Untagged
@@ -111,10 +111,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011550373350}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011550373350
 Transform:
   m_ObjectHideFlags: 1
@@ -124,13 +124,13 @@ Transform:
   m_LocalRotation: {x: 0.1305262, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 3.453589, z: -19}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012362049298}
   - {fileID: 4000011126346170}
   - {fileID: 4000011869904052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011857850176
 Transform:
   m_ObjectHideFlags: 1
@@ -140,10 +140,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012362049298}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011869904052
 Transform:
   m_ObjectHideFlags: 1
@@ -153,10 +153,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011550373350}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012362049298
 Transform:
   m_ObjectHideFlags: 1
@@ -166,11 +166,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011857850176}
   m_Father: {fileID: 4000011550373350}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000010119834152
 Camera:
   m_ObjectHideFlags: 1
@@ -287,7 +287,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -295,7 +297,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

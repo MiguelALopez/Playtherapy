@@ -12,6 +12,7 @@ public class RotateBasketAnimation : MonoBehaviour {
 	public int status;
 	public float timer;
 	public float totalTime = 10;
+    public float speed = 1;
 
 
 	// Use this for initialization
@@ -28,7 +29,7 @@ public class RotateBasketAnimation : MonoBehaviour {
 	public void orbitAround()
 	{
 //		cam.transform.RotateAround (basket.transform.position, Vector3.up, 50 * Time.deltaTime);
-		cam.transform.RotateAround (basket.transform.position, Vector3.up, 5.5f * timer/totalTime);
+		cam.transform.RotateAround (basket.transform.position, Vector3.up, speed * timer/totalTime * Time.deltaTime);
 	}
 	public void startAnimation()
 	{
